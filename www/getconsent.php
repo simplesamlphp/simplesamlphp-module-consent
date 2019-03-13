@@ -250,7 +250,7 @@ function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, $n
                 $hiddenId = \SimpleSAML\Utils\Random::generateID();
                 $str .= '<td><span class="attrvalue hidden" id="hidden_'.$hiddenId.'">';
             } else {
-                $hiddenId = null;
+                $hiddenId = '';
                 $str .= '<td><span class="attrvalue">';
             }
 
