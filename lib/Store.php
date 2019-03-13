@@ -146,6 +146,11 @@ abstract class Store
         );
 
         unset($config[0]);
-        return new $className($config);
+        /**
+         * @psalm-suppress InvalidStringClass
+         * @var \SimpleSAML\Module\consent\Store $retval
+         */
+        $retval = new $className($config);
+        return $retval;
     }
 }

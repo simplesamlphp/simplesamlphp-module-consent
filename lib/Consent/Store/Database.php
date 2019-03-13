@@ -204,7 +204,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      * @param string $destinationId A string which identifies the destination.
      * @param string $attributeSet  A hash which identifies the attributes.
      *
-     * @return void|true True if consent is deleted.
+     * @return bool True if consent is deleted, false otherwise.
      */
     public function saveConsent($userId, $destinationId, $attributeSet)
     {
@@ -221,13 +221,13 @@ class Database extends \SimpleSAML\Module\consent\Store
         );
 
         if ($st === false) {
-            return;
+            return false;
         }
 
         if ($st->rowCount() > 0) {
             // Consent has already been stored in the database
             \SimpleSAML\Logger::debug('consent:Database - Updated old consent.');
-            return;
+            return false;
         }
 
         // Add new consent
@@ -350,7 +350,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      * @param string $statement  The statement which should be executed.
      * @param array  $parameters Parameters for the statement.
      *
-     * @return \PDOStatement|bool  The statement, or false if execution failed.
+     * @return \PDOStatement|false  The statement, or false if execution failed.
      */
     private function execute($statement, $parameters)
     {

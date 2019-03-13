@@ -31,7 +31,9 @@ if (!array_key_exists('StateId', $_REQUEST)) {
 $id = $_REQUEST['StateId'];
 $state = \SimpleSAML\Auth\State::loadState($id, 'consent:request');
 
-if (array_key_exists('core:SP', $state)) {
+if (is_null($state)) {
+    throw new \SimpleSAML\Error\NoState;
+} elseif (array_key_exists('core:SP', $state)) {
     $spentityid = $state['core:SP'];
 } elseif (array_key_exists('saml:sp:State', $state)) {
     $spentityid = $state['saml:sp:State']['core:SP'];
@@ -209,7 +211,7 @@ $t->show();
  *
  * @return string HTML representation of the attributes
  */
-function present_attributes($t, $attributes, $nameParent)
+function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, $nameParent)
 {
     $translator = $t->getTranslator();
 
@@ -248,6 +250,7 @@ function present_attributes($t, $attributes, $nameParent)
                 $hiddenId = \SimpleSAML\Utils\Random::generateID();
                 $str .= '<td><span class="attrvalue hidden" id="hidden_'.$hiddenId.'">';
             } else {
+                $hiddenId = null;
                 $str .= '<td><span class="attrvalue">';
             }
 
@@ -287,6 +290,6 @@ function present_attributes($t, $attributes, $nameParent)
             $str .= '</td></tr>';
         }       // end else: not child table
     }   // end foreach
-    $str .= isset($attributes) ? '</table>' : '';
+    $str .= '</table>';
     return $str;
 }
