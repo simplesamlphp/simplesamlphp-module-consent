@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\consent;
 
+use Webmozart\Assert\Assert;
+
 /**
  * Base class for consent storage handlers.
  *
@@ -21,7 +23,7 @@ abstract class Store
      */
     protected function __construct(&$config)
     {
-        assert(is_array($config));
+        Assert::isArray($config);
     }
 
 
@@ -144,6 +146,11 @@ abstract class Store
         );
 
         unset($config[0]);
-        return new $className($config);
+        /**
+         * @psalm-suppress InvalidStringClass
+         * @var \SimpleSAML\Module\consent\Store $retval
+         */
+        $retval = new $className($config);
+        return $retval;
     }
 }

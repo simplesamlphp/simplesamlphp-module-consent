@@ -14,4 +14,4 @@ $state['Responder'] = ['\SimpleSAML\Module\consent\Logout', 'postLogout'];
 
 $idp = \SimpleSAML\IdP::getByState($state);
 $idp->handleLogoutRequest($state, null);
-assert(false);
+throw new \Exception('Should never happen');

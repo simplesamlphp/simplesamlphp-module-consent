@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template form for giving consent.
  *
@@ -9,9 +10,12 @@
  *
  * @package SimpleSAMLphp
  */
-assert(is_string($this->data['yesTarget']));
-assert(is_string($this->data['noTarget']));
-assert($this->data['sppp'] === false || is_string($this->data['sppp']));
+
+use Webmozart\Assert\Assert;
+
+Assert::string($this->data['yesTarget']);
+Assert::string($this->data['noTarget']);
+Assert::true($this->data['sppp'] === false || is_string($this->data['sppp']));
 
 // Parse parameters
 $dstName = $this->data['dstName'];
