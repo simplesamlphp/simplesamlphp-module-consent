@@ -14,11 +14,15 @@ use SimpleSAML\Module\consent\Auth\Process\Consent;
 
 class ConsentTest extends TestCase
 {
+    /**
+     * @return void
+     */
     public function setUp()
     {
         $this->config = Configuration::loadFromArray(['module.enable' => ['consent' => true]], '[ARRAY]', 'simplesaml');
         Configuration::setPreLoadedConfig($this->config, 'config.php');
     }
+
 
     /**
      * Helper function to run the filter with a given configuration.
@@ -37,6 +41,8 @@ class ConsentTest extends TestCase
 
     /**
      * Test for the private checkDisable() method.
+     *
+     * @return void
      */
     public function testCheckDisable()
     {
@@ -123,6 +129,10 @@ class ConsentTest extends TestCase
         $this->assertEquals($request, $result);
     }
 
+
+    /**
+     * @return void
+     */
     public function testAttributeHashIsConsistentWhenOrderOfValuesChange()
     {
         $attributes1 = [
@@ -140,6 +150,10 @@ class ConsentTest extends TestCase
         $this->assertEquals($attributeHash1, $attributeHash2, "Hash is not the same when the order of values changes");
     }
 
+
+    /**
+     * @return void
+     */
     public function testAttributeHashIsConsistentWhenOrderOfAttributesChange()
     {
         $attributes1 = [
@@ -161,6 +175,10 @@ class ConsentTest extends TestCase
         );
     }
 
+
+    /**
+     * @return void
+     */
     public function testAttributeHashIsConsistentWithoutValuesWhenOrderOfAttributesChange()
     {
         $attributes1 = [
@@ -182,6 +200,10 @@ class ConsentTest extends TestCase
         );
     }
 
+
+    /**
+     * @return void
+     */
     public function testConstructorSetsInstancePrivateVars()
     {
         $reflection = new \ReflectionClass(Consent::class);
