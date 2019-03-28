@@ -128,8 +128,8 @@ $t->data['attributes'] = $attributes;
 $t->data['checked'] = $state['consent:checked'];
 $t->data['stateId'] = $id;
 
-$srcName = htmlspecialchars(is_array($srcName) ? $translator->t($srcName) : $srcName);
-$dstName = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dstName);
+$srcName = htmlspecialchars(is_array($srcName) ? $translator->getPreferredTranslation($srcName) : $srcName);
+$dstName = htmlspecialchars(is_array($dstName) ? $translator->getPreferredTranslation($dstName) : $dstName);
 
 $t->data['consent_attributes_header'] = $translator->t(
     '{consent:consent:consent_attributes_header}',
