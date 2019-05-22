@@ -282,7 +282,7 @@ function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, $n
                 $str .= '... ';
                 $str .= '<a class="consent_showattributelink" href="javascript:SimpleSAML_show(\'hidden_'.$hiddenId;
                 $str .= '\'); SimpleSAML_hide(\'visible_'.$hiddenId.'\');">';
-                $str .= $t->t('{consent:consent:show_attribute}');
+                $str .= $translator->t('{consent:consent:show_attribute}');
                 $str .= '</a>';
                 $str .= '</div>';
             }

@@ -362,6 +362,7 @@ class Database extends \SimpleSAML\Module\consent\Store
             return false;
         }
 
+        /** @var \PDOStatement|false $st */
         $st = $db->prepare($statement);
         if ($st === false) {
             \SimpleSAML\Logger::error(
