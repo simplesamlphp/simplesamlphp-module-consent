@@ -2,8 +2,6 @@
 
 namespace SimpleSAML\Module\consent\Consent\Store;
 
-use Webmozart\Assert\Assert;
-
 /**
  * Store consent in database.
  *
@@ -168,9 +166,9 @@ class Database extends \SimpleSAML\Module\consent\Store
      */
     public function hasConsent($userId, $destinationId, $attributeSet)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-        Assert::string($attributeSet);
+        assert(is_string($userId));
+        assert(is_string($destinationId));
+        assert(is_string($attributeSet));
 
         $st = $this->execute(
             'UPDATE '.$this->table.' '.
@@ -208,9 +206,9 @@ class Database extends \SimpleSAML\Module\consent\Store
      */
     public function saveConsent($userId, $destinationId, $attributeSet)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-        Assert::string($attributeSet);
+        assert(is_string($userId));
+        assert(is_string($destinationId));
+        assert(is_string($attributeSet));
 
         // Check for old consent (with different attribute set)
         $st = $this->execute(
@@ -256,8 +254,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      */
     public function deleteConsent($userId, $destinationId)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
+        assert(is_string($userId));
+        assert(is_string($destinationId));
 
         $st = $this->execute(
             'DELETE FROM '.$this->table.' WHERE hashed_user_id = ? AND service_id = ?;',
@@ -287,7 +285,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      */
     public function deleteAllConsents($userId)
     {
-        Assert::string($userId);
+        assert(is_string($userId));
 
         $st = $this->execute(
             'DELETE FROM '.$this->table.' WHERE hashed_user_id = ?',
@@ -319,7 +317,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      */
     public function getConsents($userId)
     {
-        Assert::string($userId);
+        assert(is_string($userId));
 
         $ret = [];
 
@@ -354,8 +352,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      */
     private function execute($statement, $parameters)
     {
-        Assert::string($statement);
-        Assert::isArray($parameters);
+        assert(is_string($statement));
+        assert(is_array($parameters));
 
         $db = $this->getDB();
         if ($db === false) {
@@ -480,8 +478,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      */
     private static function formatError($error)
     {
-        Assert::isArray($error);
-        Assert::greaterThanEq(count($error), 3);
+        assert(is_array($error));
+        assert(count($error) >= 3);
 
         return $error[0].' - '.$error[2].' ('.$error[1].')';
     }

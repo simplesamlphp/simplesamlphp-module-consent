@@ -15,7 +15,6 @@ use SimpleSAML\Logger;
 use SimpleSAML\Module;
 use SimpleSAML\Stats;
 use SimpleSAML\Utils;
-use Webmozart\Assert\Assert;
 
 class Consent extends \SimpleSAML\Auth\ProcessingFilter
 {
@@ -81,7 +80,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      */
     public function __construct($config, $reserved)
     {
-        Assert::isArray($config);
+        assert(is_array($config));
         parent::__construct($config, $reserved);
 
         if (array_key_exists('includeValues', $config)) {
@@ -234,13 +233,13 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      */
     public function process(&$state)
     {
-        Assert::isArray($state);
-        Assert::keyExists($state, 'UserID');
-        Assert::keyExists($state, 'Destination');
-        Assert::keyExists($state['Destination'], 'entityid');
-        Assert::keyExists($state['Destination'], 'metadata-set');
-        Assert::keyExists($state['Source'], 'entityid');
-        Assert::keyExists($state['Source'], 'metadata-set');
+        assert(is_array($state));
+        assert(array_key_exists('UserID', $state));
+        assert(array_key_exists('Destination', $state));
+        assert(array_key_exists('entityid', $state['Destination']));
+        assert(array_key_exists('metadata-set', $state['Destination']));
+        assert(array_key_exists('entityid', $state['Source']));
+        assert(array_key_exists('metadata-set', $state['Source']));
 
         $spEntityId = $state['Destination']['entityid'];
         $idpEntityId = $state['Source']['entityid'];

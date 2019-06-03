@@ -2,8 +2,6 @@
 
 namespace SimpleSAML\Module\consent;
 
-use Webmozart\Assert\Assert;
-
 /**
  * Base class for consent storage handlers.
  *
@@ -23,7 +21,7 @@ abstract class Store
      */
     protected function __construct(&$config)
     {
-        Assert::isArray($config);
+        assert(is_array($config));
     }
 
 
