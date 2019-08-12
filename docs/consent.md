@@ -175,15 +175,14 @@ External options
 
 The following options can be set in other places in SimpleSAMLphp:
 
-`privacypolicy`
+`PrivacyStatementURL`
 :   This is an absolute URL for where a user can find a privacy policy for the SP.
-    If set, this will be shown on the consent page. %SPENTITYID% in the URL 
-    will be replaced with the entityID of the service provider.
+    If set, this will be shown on the consent page.
 
     This option can be set in 
     [SP-remote metadata](./simplesamlphp-reference-sp-remote) and in 
-    [IdP-hosted metadata](./simplesamlphp-reference-idp-hosted). The entry in 
-    the SP-remote metadata overrides the option in the IdP-hosted metadata.
+    [IdP-hosted metadata](./simplesamlphp-reference-idp-hosted) using the MDUI-extension.
+    The entry in the SP-remote metadata overrides the option in the IdP-hosted metadata.
 
 `consent.disable`
 :   Disable consent for a set of services. See section `Disabling consent`.
