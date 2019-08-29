@@ -160,9 +160,9 @@ $t->data['srcName'] = $srcName;
 $t->data['dstName'] = $dstName;
 
 // Fetch privacypolicy
-if (array_key_exists('PrivacyStatementURL', $state['Destination']['UIInfo']) && (!empty($state['Destination']['UIInfo']['PrivacyStatementURL']))) {
+if (array_key_exists('UIInfo', $state['Destination']) && array_key_exists('PrivacyStatementURL', $state['Destination']['UIInfo']) && (!empty($state['Destination']['UIInfo']['PrivacyStatementURL']))) {
     $privacypolicy = reset($state['Destination']['UIInfo']['PrivacyStatementURL']);
-} elseif (array_key_exists('PrivacyStatementURL', $state['Source']['UIInfo']) && (!empty($state['Source']['UIInfo']['PrivacyStatementURL']))) {
+} elseif (array_key_exists('UIInfo', $state['Source']) && array_key_exists('PrivacyStatementURL', $state['Source']['UIInfo']) && (!empty($state['Source']['UIInfo']['PrivacyStatementURL']))) {
     $privacypolicy = reset($state['Source']['UIInfo']['PrivacyStatementURL']);
 } else {
     $privacypolicy = false;
