@@ -44,7 +44,7 @@ class ConsentTest extends TestCase
      *
      * @return void
      */
-    public function testCheckDisable(): void
+    public function testCheckDisable()
     {
         // test consent disable regex with match
         $config = [];
@@ -133,7 +133,7 @@ class ConsentTest extends TestCase
     /**
      * @return void
      */
-    public function testAttributeHashIsConsistentWhenOrderOfValuesChange(): void
+    public function testAttributeHashIsConsistentWhenOrderOfValuesChange()
     {
         $attributes1 = [
             'attribute1' => ['val1', 'val2'],
@@ -154,7 +154,7 @@ class ConsentTest extends TestCase
     /**
      * @return void
      */
-    public function testAttributeHashIsConsistentWhenOrderOfAttributesChange(): void
+    public function testAttributeHashIsConsistentWhenOrderOfAttributesChange()
     {
         $attributes1 = [
             'attribute2' => ['val1', 'val2'],
@@ -179,7 +179,7 @@ class ConsentTest extends TestCase
     /**
      * @return void
      */
-    public function testAttributeHashIsConsistentWithoutValuesWhenOrderOfAttributesChange(): void
+    public function testAttributeHashIsConsistentWithoutValuesWhenOrderOfAttributesChange()
     {
         $attributes1 = [
             'attribute2' => ['val1', 'val2'],
@@ -204,7 +204,7 @@ class ConsentTest extends TestCase
     /**
      * @return void
      */
-    public function testConstructorSetsInstancePrivateVars(): void
+    public function testConstructorSetsInstancePrivateVars()
     {
         $reflection = new \ReflectionClass(Consent::class);
 
