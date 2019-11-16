@@ -1,10 +1,4 @@
 <?php
-/**
- * Test for the consent:Consent authproc filter.
- *
- * @author Vincent Rioux <vrioux@ctech.ca>
- * @package SimpleSAMLphp
- */
 
 namespace SimpleSAML\Test\Module\consent\Auth\Process;
 
@@ -12,6 +6,12 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\consent\Auth\Process\Consent;
 
+/**
+ * Test for the consent:Consent authproc filter.
+ *
+ * @author Vincent Rioux <vrioux@ctech.ca>
+ * @package SimpleSAMLphp
+ */
 class ConsentTest extends TestCase
 {
     /**
@@ -44,7 +44,7 @@ class ConsentTest extends TestCase
      *
      * @return void
      */
-    public function testCheckDisable()
+    public function testCheckDisable(): void
     {
         // test consent disable regex with match
         $config = [];
@@ -92,11 +92,11 @@ class ConsentTest extends TestCase
                     [], // invalid consent option array should be ignored
                     1234, // bad option
                     [''], // no type
-                    ['type'=>'invalid'], // invalid consent option type should be ignored
-                    ['type'=>'regex'], // regex consent option without pattern should be ignored
-                    ['type'=>'regex', 'pattern'=>'/.*\.valid.regex\.that\.does\.not\.match.*/i'],
+                    ['type' => 'invalid'], // invalid consent option type should be ignored
+                    ['type' => 'regex'], // regex consent option without pattern should be ignored
+                    ['type' => 'regex', 'pattern' => '/.*\.valid.regex\.that\.does\.not\.match.*/i'],
                     // accept any SP that has an entityid that contains the string ".example.org"
-                    ['type'=>'regex', 'pattern'=>'/.*\.example\.org\/.*/i'],
+                    ['type' => 'regex', 'pattern' => '/.*\.example\.org\/.*/i'],
                 ],
                 'SingleSignOnService' => [
                     [
@@ -133,7 +133,7 @@ class ConsentTest extends TestCase
     /**
      * @return void
      */
-    public function testAttributeHashIsConsistentWhenOrderOfValuesChange()
+    public function testAttributeHashIsConsistentWhenOrderOfValuesChange(): void
     {
         $attributes1 = [
             'attribute1' => ['val1', 'val2'],
@@ -154,7 +154,7 @@ class ConsentTest extends TestCase
     /**
      * @return void
      */
-    public function testAttributeHashIsConsistentWhenOrderOfAttributesChange()
+    public function testAttributeHashIsConsistentWhenOrderOfAttributesChange(): void
     {
         $attributes1 = [
             'attribute2' => ['val1', 'val2'],
@@ -179,7 +179,7 @@ class ConsentTest extends TestCase
     /**
      * @return void
      */
-    public function testAttributeHashIsConsistentWithoutValuesWhenOrderOfAttributesChange()
+    public function testAttributeHashIsConsistentWithoutValuesWhenOrderOfAttributesChange(): void
     {
         $attributes1 = [
             'attribute2' => ['val1', 'val2'],
@@ -204,7 +204,7 @@ class ConsentTest extends TestCase
     /**
      * @return void
      */
-    public function testConstructorSetsInstancePrivateVars()
+    public function testConstructorSetsInstancePrivateVars(): void
     {
         $reflection = new \ReflectionClass(Consent::class);
 

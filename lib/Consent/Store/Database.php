@@ -169,8 +169,8 @@ class Database extends \SimpleSAML\Module\consent\Store
     public function hasConsent(string $userId, string $destinationId, string $attributeSet)
     {
         $st = $this->execute(
-            'UPDATE '.$this->table.' '.
-            'SET usage_date = '.$this->dateTime.' '.
+            'UPDATE ' . $this->table . ' ' .
+            'SET usage_date = ' . $this->dateTime . ' ' .
             'WHERE hashed_user_id = ? AND service_id = ? AND attribute = ?',
             [$userId, $destinationId, $attributeSet]
         );
@@ -206,8 +206,8 @@ class Database extends \SimpleSAML\Module\consent\Store
     {
         // Check for old consent (with different attribute set)
         $st = $this->execute(
-            'UPDATE '.$this->table.' '.
-            'SET consent_date = '.$this->dateTime.', usage_date = '.$this->dateTime.', attribute = ? '.
+            'UPDATE ' . $this->table . ' ' .
+            'SET consent_date = ' . $this->dateTime . ', usage_date = ' . $this->dateTime . ', attribute = ? ' .
             'WHERE hashed_user_id = ? AND service_id = ?',
             [$attributeSet, $userId, $destinationId]
         );
@@ -224,8 +224,8 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         // Add new consent
         $st = $this->execute(
-            'INSERT INTO '.$this->table.' ('.'consent_date, usage_date, hashed_user_id, service_id, attribute'.
-            ') '.'VALUES ('.$this->dateTime.', '.$this->dateTime.', ?, ?, ?)',
+            'INSERT INTO ' . $this->table . ' (' . 'consent_date, usage_date, hashed_user_id, service_id, attribute' .
+            ') ' . 'VALUES (' . $this->dateTime . ', ' . $this->dateTime . ', ?, ?, ?)',
             [$userId, $destinationId, $attributeSet]
         );
 
@@ -249,7 +249,7 @@ class Database extends \SimpleSAML\Module\consent\Store
     public function deleteConsent(string $userId, string $destinationId)
     {
         $st = $this->execute(
-            'DELETE FROM '.$this->table.' WHERE hashed_user_id = ? AND service_id = ?;',
+            'DELETE FROM ' . $this->table . ' WHERE hashed_user_id = ? AND service_id = ?;',
             [$userId, $destinationId]
         );
 
@@ -277,7 +277,7 @@ class Database extends \SimpleSAML\Module\consent\Store
     public function deleteAllConsents(string $userId)
     {
         $st = $this->execute(
-            'DELETE FROM '.$this->table.' WHERE hashed_user_id = ?',
+            'DELETE FROM ' . $this->table . ' WHERE hashed_user_id = ?',
             [$userId]
         );
 
@@ -286,7 +286,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         }
 
         if ($st->rowCount() > 0) {
-            \SimpleSAML\Logger::debug('consent:Database - Deleted ('.$st->rowCount().') consent(s).');
+            \SimpleSAML\Logger::debug('consent:Database - Deleted (' . $st->rowCount() . ') consent(s) . ');
             return $st->rowCount();
         }
 
@@ -309,7 +309,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         $ret = [];
 
         $st = $this->execute(
-            'SELECT service_id, attribute, consent_date, usage_date FROM '.$this->table.
+            'SELECT service_id, attribute, consent_date, usage_date FROM ' . $this->table .
             ' WHERE hashed_user_id = ?',
             [$userId]
         );
@@ -348,16 +348,16 @@ class Database extends \SimpleSAML\Module\consent\Store
         $st = $db->prepare($statement);
         if ($st === false) {
             \SimpleSAML\Logger::error(
-                'consent:Database - Error preparing statement \''.
-                $statement.'\': '.self::formatError($db->errorInfo())
+                'consent:Database - Error preparing statement \'' .
+                $statement . '\': ' . self::formatError($db->errorInfo())
             );
             return false;
         }
 
         if ($st->execute($parameters) !== true) {
             \SimpleSAML\Logger::error(
-                'consent:Database - Error executing statement \''.
-                $statement.'\': '.self::formatError($st->errorInfo())
+                'consent:Database - Error executing statement \'' .
+                $statement . '\': ' . self::formatError($st->errorInfo())
             );
             return false;
         }
@@ -381,7 +381,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         $ret = [];
 
         // Get total number of consents
-        $st = $this->execute('SELECT COUNT(*) AS no FROM '.$this->table, []);
+        $st = $this->execute('SELECT COUNT(*) AS no FROM ' . $this->table, []);
 
         if ($st === false) {
             return [];
@@ -393,8 +393,8 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         // Get total number of users that has given consent
         $st = $this->execute(
-            'SELECT COUNT(*) AS no '.
-            'FROM (SELECT DISTINCT hashed_user_id FROM '.$this->table.' ) AS foo',
+            'SELECT COUNT(*) AS no ' .
+            'FROM (SELECT DISTINCT hashed_user_id FROM ' . $this->table . ' ) AS foo',
             []
         );
 
@@ -408,7 +408,7 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         // Get total number of services that has been given consent to
         $st = $this->execute(
-            'SELECT COUNT(*) AS no FROM (SELECT DISTINCT service_id FROM '.$this->table.') AS foo',
+            'SELECT COUNT(*) AS no FROM (SELECT DISTINCT service_id FROM ' . $this->table . ') AS foo',
             []
         );
 
@@ -464,7 +464,7 @@ class Database extends \SimpleSAML\Module\consent\Store
     {
         Assert::greaterThanEq(count($error), 3);
 
-        return $error[0].' - '.$error[2].' ('.$error[1].')';
+        return $error[0] . ' - ' . $error[2] . ' (' . $error[1] . ')';
     }
 
 
@@ -476,7 +476,7 @@ class Database extends \SimpleSAML\Module\consent\Store
     public function selftest()
     {
         $st = $this->execute(
-            'SELECT * FROM '.$this->table.' WHERE hashed_user_id = ? AND service_id = ? AND attribute = ?',
+            'SELECT * FROM ' . $this->table . ' WHERE hashed_user_id = ? AND service_id = ? AND attribute = ?',
             ['test', 'test', 'test']
         );
 

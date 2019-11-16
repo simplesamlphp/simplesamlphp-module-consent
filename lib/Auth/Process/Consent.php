@@ -1,7 +1,5 @@
 <?php
 
-namespace SimpleSAML\Module\consent\Auth\Process;
-
 /**
  * Consent Authentication Processing filter
  *
@@ -10,6 +8,8 @@ namespace SimpleSAML\Module\consent\Auth\Process;
  *
  * @package SimpleSAMLphp
  */
+
+namespace SimpleSAML\Module\consent\Auth\Process;
 
 use SimpleSAML\Logger;
 use SimpleSAML\Module;
@@ -88,8 +88,8 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         if (array_key_exists('includeValues', $config)) {
             if (!is_bool($config['includeValues'])) {
                 throw new \SimpleSAML\Error\Exception(
-                    'Consent: includeValues must be boolean. '.
-                    var_export($config['includeValues'], true).' given.'
+                    'Consent: includeValues must be boolean. ' .
+                    var_export($config['includeValues'], true) . ' given.'
                 );
             }
             $this->includeValues = $config['includeValues'];
@@ -98,8 +98,8 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         if (array_key_exists('checked', $config)) {
             if (!is_bool($config['checked'])) {
                 throw new \SimpleSAML\Error\Exception(
-                    'Consent: checked must be boolean. '.
-                    var_export($config['checked'], true).' given.'
+                    'Consent: checked must be boolean. ' .
+                    var_export($config['checked'], true) . ' given.'
                 );
             }
             $this->checked = $config['checked'];
@@ -108,8 +108,8 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         if (array_key_exists('focus', $config)) {
             if (!in_array($config['focus'], ['yes', 'no'], true)) {
                 throw new \SimpleSAML\Error\Exception(
-                    'Consent: focus must be a string with values `yes` or `no`. '.
-                    var_export($config['focus'], true).' given.'
+                    'Consent: focus must be a string with values `yes` or `no`. ' .
+                    var_export($config['focus'], true) . ' given.'
                 );
             }
             $this->focus = $config['focus'];
@@ -118,8 +118,8 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         if (array_key_exists('hiddenAttributes', $config)) {
             if (!is_array($config['hiddenAttributes'])) {
                 throw new \SimpleSAML\Error\Exception(
-                    'Consent: hiddenAttributes must be an array. '.
-                    var_export($config['hiddenAttributes'], true).' given.'
+                    'Consent: hiddenAttributes must be an array. ' .
+                    var_export($config['hiddenAttributes'], true) . ' given.'
                 );
             }
             $this->hiddenAttributes = $config['hiddenAttributes'];
@@ -128,8 +128,8 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         if (array_key_exists('attributes.exclude', $config)) {
             if (!is_array($config['attributes.exclude'])) {
                 throw new \SimpleSAML\Error\Exception(
-                    'Consent: attributes.exclude must be an array. '.
-                    var_export($config['attributes.exclude'], true).' given.'
+                    'Consent: attributes.exclude must be an array. ' .
+                    var_export($config['attributes.exclude'], true) . ' given.'
                 );
             }
             $this->noconsentattributes = $config['attributes.exclude'];
@@ -137,8 +137,8 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
             Logger::warning("The 'noconsentattributes' option has been deprecated in favour of 'attributes.exclude'.");
             if (!is_array($config['noconsentattributes'])) {
                 throw new \SimpleSAML\Error\Exception(
-                    'Consent: noconsentattributes must be an array. '.
-                    var_export($config['noconsentattributes'], true).' given.'
+                    'Consent: noconsentattributes must be an array. ' .
+                    var_export($config['noconsentattributes'], true) . ' given.'
                 );
             }
             $this->noconsentattributes = $config['noconsentattributes'];
@@ -149,7 +149,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
                 $this->store = \SimpleSAML\Module\consent\Store::parseStoreConfig($config['store']);
             } catch (\Exception $e) {
                 Logger::error(
-                    'Consent: Could not create consent storage: '.
+                    'Consent: Could not create consent storage: ' .
                     $e->getMessage()
                 );
             }
@@ -216,7 +216,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
             // Base case : no match
             return false;
         } else {
-            return (boolean) $option;
+            return (bool) $option;
         }
     }
 
@@ -264,24 +264,26 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         $statsData = ['spEntityID' => $spEntityId];
 
         // Do not use consent if disabled
-        if (isset($state['Source']['consent.disable']) &&
+        if (
+            isset($state['Source']['consent.disable']) &&
             self::checkDisable($state['Source']['consent.disable'], $spEntityId)
         ) {
-            Logger::debug('Consent: Consent disabled for entity '.$spEntityId.' with IdP '.$idpEntityId);
+            Logger::debug('Consent: Consent disabled for entity ' . $spEntityId . ' with IdP ' . $idpEntityId);
             Stats::log('consent:disabled', $statsData);
             return;
         }
-        if (isset($state['Destination']['consent.disable']) &&
+        if (
+            isset($state['Destination']['consent.disable']) &&
             self::checkDisable($state['Destination']['consent.disable'], $idpEntityId)
         ) {
-            Logger::debug('Consent: Consent disabled for entity '.$spEntityId.' with IdP '.$idpEntityId);
+            Logger::debug('Consent: Consent disabled for entity ' . $spEntityId . ' with IdP ' . $idpEntityId);
             Stats::log('consent:disabled', $statsData);
             return;
         }
 
         if ($this->store !== null) {
-            $source = $state['Source']['metadata-set'].'|'.$idpEntityId;
-            $destination = $state['Destination']['metadata-set'].'|'.$spEntityId;
+            $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
+            $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
             $attributes = $state['Attributes'];
 
             // Remove attributes that do not require consent
@@ -291,17 +293,16 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
                 }
             }
 
-            Logger::debug('Consent: userid: '.$state['UserID']);
-            Logger::debug('Consent: source: '.$source);
-            Logger::debug('Consent: destination: '.$destination);
+            Logger::debug('Consent: userid: ' . $state['UserID']);
+            Logger::debug('Consent: source: ' . $source);
+            Logger::debug('Consent: destination: ' . $destination);
 
             $userId = self::getHashedUserID($state['UserID'], $source);
             $targetedId = self::getTargetedID($state['UserID'], $source, $destination);
             $attributeSet = self::getAttributeHash($attributes, $this->includeValues);
 
             Logger::debug(
-                'Consent: hasConsent() ['.$userId.'|'.$targetedId.'|'.
-                $attributeSet.']'
+                'Consent: hasConsent() [' . $userId . '|' . $targetedId . '|' . $attributeSet . ']'
             );
 
             try {
@@ -320,7 +321,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
                 $state['consent:store.destination'] = $targetedId;
                 $state['consent:store.attributeSet'] = $attributeSet;
             } catch (\Exception $e) {
-                Logger::error('Consent: Error reading from storage: '.$e->getMessage());
+                Logger::error('Consent: Error reading from storage: ' . $e->getMessage());
                 Logger::stats('Consent failed');
                 Stats::log('consent:failed', $statsData);
             }
@@ -361,7 +362,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      */
     public static function getHashedUserID($userid, $source)
     {
-        return hash('sha1', $userid.'|'.Utils\Config::getSecretSalt().'|'.$source);
+        return hash('sha1', $userid . '|' . Utils\Config::getSecretSalt() . '|' . $source);
     }
 
 
@@ -376,7 +377,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      */
     public static function getTargetedID($userid, $source, $destination)
     {
-        return hash('sha1', $userid.'|'.Utils\Config::getSecretSalt().'|'.$source.'|'.$destination);
+        return hash('sha1', $userid . '|' . Utils\Config::getSecretSalt() . '|' . $source . '|' . $destination);
     }
 
 

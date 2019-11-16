@@ -107,7 +107,7 @@ abstract class Store
      *
      * @return array Array of all destination ids the user has given consent for.
      */
-    abstract public function getConsents($userId);
+    abstract public function getConsents(string $userId);
 
 
     /**
@@ -129,7 +129,7 @@ abstract class Store
         }
 
         if (!is_array($config)) {
-            throw new \Exception('Invalid configuration for consent store option: '.var_export($config, true));
+            throw new \Exception('Invalid configuration for consent store option: ' . var_export($config, true));
         }
 
         if (!array_key_exists(0, $config)) {
