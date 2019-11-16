@@ -81,6 +81,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      */
     public function __construct($config, $reserved)
     {
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::isArray($config);
         parent::__construct($config, $reserved);
 
@@ -234,6 +235,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      */
     public function process(&$state)
     {
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::isArray($state);
         Assert::keyExists($state, 'UserID');
         Assert::keyExists($state, 'Destination');

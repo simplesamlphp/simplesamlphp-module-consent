@@ -2,8 +2,6 @@
 
 namespace SimpleSAML\Module\consent;
 
-use Webmozart\Assert\Assert;
-
 /**
  * Base class for consent storage handlers.
  *
@@ -23,7 +21,6 @@ abstract class Store
      */
     protected function __construct(&$config)
     {
-        Assert::isArray($config);
     }
 
 
@@ -40,7 +37,7 @@ abstract class Store
      * @return bool True if the user has given consent earlier, false if not
      *              (or on error).
      */
-    abstract public function hasConsent($userId, $destinationId, $attributeSet);
+    abstract public function hasConsent(string $userId, string $destinationId, string $attributeSet);
 
 
     /**
@@ -55,7 +52,7 @@ abstract class Store
      *
      * @return bool True if consent is succesfully saved otherwise false.
      */
-    abstract public function saveConsent($userId, $destinationId, $attributeSet);
+    abstract public function saveConsent(string $userId, string $destinationId, string $attributeSet);
 
 
     /**
@@ -68,7 +65,7 @@ abstract class Store
      *
      * @return mixed Should be the number of consent deleted.
      */
-    abstract public function deleteConsent($userId, $destinationId);
+    abstract public function deleteConsent(string $userId, string $destinationId);
 
 
     /**
@@ -82,7 +79,7 @@ abstract class Store
      *
      * @throws \Exception
      */
-    public function deleteAllConsents($userId)
+    public function deleteAllConsents(string $userId)
     {
         throw new \Exception('Not implemented: deleteAllConsents()');
     }

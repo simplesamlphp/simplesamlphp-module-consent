@@ -38,12 +38,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return bool True if the user has given consent earlier, false if not (or on error).
      */
-    public function hasConsent($userId, $destinationId, $attributeSet)
+    public function hasConsent(string $userId, string $destinationId, string $attributeSet)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-        Assert::string($attributeSet);
-
         $cookieName = self::getCookieName($userId, $destinationId);
 
         $data = $userId.':'.$attributeSet.':'.$destinationId;
@@ -93,12 +89,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return bool
      */
-    public function saveConsent($userId, $destinationId, $attributeSet)
+    public function saveConsent(string $userId, string $destinationId, string $attributeSet)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-        Assert::string($attributeSet);
-
         $name = self::getCookieName($userId, $destinationId);
         $value = $userId.':'.$attributeSet.':'.$destinationId;
 
@@ -119,11 +111,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return void
      */
-    public function deleteConsent($userId, $destinationId)
+    public function deleteConsent(string $userId, string $destinationId)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-
         $name = self::getCookieName($userId, $destinationId);
         $this->setConsentCookie($name, null);
     }
@@ -139,10 +128,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      * @throws \Exception This method always throws an exception indicating that it is not possible to delete all given
      * consents with this handler.
      */
-    public function deleteAllConsents($userId)
+    public function deleteAllConsents(string $userId)
     {
-        Assert::string($userId);
-
         throw new \Exception(
             'The cookie consent handler does not support delete of all consents...'
         );
@@ -158,10 +145,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return array Array of all destination ids the user has given consent for.
      */
-    public function getConsents($userId)
+    public function getConsents(string $userId)
     {
-        Assert::string($userId);
-
         $ret = [];
 
         $cookieNameStart = '\SimpleSAML\Module\consent:';
@@ -206,10 +191,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return string The signed data.
      */
-    private static function sign($data)
+    private static function sign(string $data)
     {
-        Assert::string($data);
-
         $secretSalt = \SimpleSAML\Utils\Config::getSecretSalt();
 
         return sha1($secretSalt.$data.$secretSalt).':'.$data;
@@ -225,10 +208,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return string|false The data, or false if the signature is invalid.
      */
-    private static function verify($signedData)
+    private static function verify(string $signedData)
     {
-        Assert::string($signedData);
-
         $data = explode(':', $signedData, 2);
         if (count($data) !== 2) {
             \SimpleSAML\Logger::warning('Consent cookie: Missing signature.');
@@ -256,11 +237,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return string The cookie name
      */
-    private static function getCookieName($userId, $destinationId)
+    private static function getCookieName(string $userId, string $destinationId)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-
         return '\SimpleSAML\Module\consent:'.sha1($userId.':'.$destinationId);
     }
 
@@ -273,11 +251,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return bool
      */
-    private function setConsentCookie($name, $value)
+    private function setConsentCookie(string $name, $value)
     {
-        Assert::string($name);
-        Assert::nullOrString($value);
-
         $globalConfig = \SimpleSAML\Configuration::getInstance();
         $params = [
             'lifetime' => 7776000, // (90*24*60*60)

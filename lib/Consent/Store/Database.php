@@ -166,12 +166,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      * @return bool True if the user has given consent earlier, false if not
      *              (or on error).
      */
-    public function hasConsent($userId, $destinationId, $attributeSet)
+    public function hasConsent(string $userId, string $destinationId, string $attributeSet)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-        Assert::string($attributeSet);
-
         $st = $this->execute(
             'UPDATE '.$this->table.' '.
             'SET usage_date = '.$this->dateTime.' '.
@@ -206,12 +202,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return bool True if consent is deleted, false otherwise.
      */
-    public function saveConsent($userId, $destinationId, $attributeSet)
+    public function saveConsent(string $userId, string $destinationId, string $attributeSet)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-        Assert::string($attributeSet);
-
         // Check for old consent (with different attribute set)
         $st = $this->execute(
             'UPDATE '.$this->table.' '.
@@ -254,11 +246,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return int Number of consents deleted
      */
-    public function deleteConsent($userId, $destinationId)
+    public function deleteConsent(string $userId, string $destinationId)
     {
-        Assert::string($userId);
-        Assert::string($destinationId);
-
         $st = $this->execute(
             'DELETE FROM '.$this->table.' WHERE hashed_user_id = ? AND service_id = ?;',
             [$userId, $destinationId]
@@ -285,10 +274,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return int Number of consents deleted
      */
-    public function deleteAllConsents($userId)
+    public function deleteAllConsents(string $userId)
     {
-        Assert::string($userId);
-
         $st = $this->execute(
             'DELETE FROM '.$this->table.' WHERE hashed_user_id = ?',
             [$userId]
@@ -317,10 +304,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return array Array of all destination ids the user has given consent for.
      */
-    public function getConsents($userId)
+    public function getConsents(string $userId)
     {
-        Assert::string($userId);
-
         $ret = [];
 
         $st = $this->execute(
@@ -352,11 +337,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return \PDOStatement|false  The statement, or false if execution failed.
      */
-    private function execute($statement, $parameters)
+    private function execute(string $statement, array $parameters)
     {
-        Assert::string($statement);
-        Assert::isArray($parameters);
-
         $db = $this->getDB();
         if ($db === false) {
             return false;
@@ -478,9 +460,8 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return string Error text.
      */
-    private static function formatError($error)
+    private static function formatError(array $error)
     {
-        Assert::isArray($error);
         Assert::greaterThanEq(count($error), 3);
 
         return $error[0].' - '.$error[2].' ('.$error[1].')';

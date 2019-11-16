@@ -1,1 +1,0 @@
-../simplesamlphp/simplesamlphp-test-framework/bin/check-syntax-xml.sh
