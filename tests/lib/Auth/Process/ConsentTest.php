@@ -1,10 +1,4 @@
 <?php
-/**
- * Test for the consent:Consent authproc filter.
- *
- * @author Vincent Rioux <vrioux@ctech.ca>
- * @package SimpleSAMLphp
- */
 
 namespace SimpleSAML\Test\Module\consent\Auth\Process;
 
@@ -12,6 +6,12 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Configuration;
 use SimpleSAML\Module\consent\Auth\Process\Consent;
 
+/**
+ * Test for the consent:Consent authproc filter.
+ *
+ * @author Vincent Rioux <vrioux@ctech.ca>
+ * @package SimpleSAMLphp
+ */
 class ConsentTest extends TestCase
 {
     /**
@@ -92,11 +92,11 @@ class ConsentTest extends TestCase
                     [], // invalid consent option array should be ignored
                     1234, // bad option
                     [''], // no type
-                    ['type'=>'invalid'], // invalid consent option type should be ignored
-                    ['type'=>'regex'], // regex consent option without pattern should be ignored
-                    ['type'=>'regex', 'pattern'=>'/.*\.valid.regex\.that\.does\.not\.match.*/i'],
+                    ['type' => 'invalid'], // invalid consent option type should be ignored
+                    ['type' => 'regex'], // regex consent option without pattern should be ignored
+                    ['type' => 'regex', 'pattern' => '/.*\.valid.regex\.that\.does\.not\.match.*/i'],
                     // accept any SP that has an entityid that contains the string ".example.org"
-                    ['type'=>'regex', 'pattern'=>'/.*\.example\.org\/.*/i'],
+                    ['type' => 'regex', 'pattern' => '/.*\.example\.org\/.*/i'],
                 ],
                 'SingleSignOnService' => [
                     [

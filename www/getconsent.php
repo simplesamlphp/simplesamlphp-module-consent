@@ -1,4 +1,7 @@
 <?php
+
+session_cache_limiter('nocache');
+
 /**
  * Consent script
  *
@@ -16,7 +19,6 @@
  *
  * so this is just to make sure.
  */
-session_cache_limiter('nocache');
 
 $globalConfig = \SimpleSAML\Configuration::getInstance();
 
@@ -32,7 +34,7 @@ $id = $_REQUEST['StateId'];
 $state = \SimpleSAML\Auth\State::loadState($id, 'consent:request');
 
 if (is_null($state)) {
-    throw new \SimpleSAML\Error\NoState;
+    throw new \SimpleSAML\Error\NoState();
 } elseif (array_key_exists('core:SP', $state)) {
     $spentityid = $state['core:SP'];
 } elseif (array_key_exists('saml:sp:State', $state)) {
@@ -58,7 +60,8 @@ if (array_key_exists('yes', $_REQUEST)) {
     }
     \SimpleSAML\Stats::log('consent:accept', $statsInfo);
 
-    if (array_key_exists('consent:store', $state)
+    if (
+        array_key_exists('consent:store', $state)
         && array_key_exists('saveconsent', $_REQUEST)
         && $_REQUEST['saveconsent'] === '1'
     ) {
@@ -69,12 +72,12 @@ if (array_key_exists('yes', $_REQUEST)) {
         $attributeSet = $state['consent:store.attributeSet'];
 
         \SimpleSAML\Logger::debug(
-            'Consent - saveConsent() : ['.$userId.'|'.$targetedId.'|'.$attributeSet.']'
+            'Consent - saveConsent() : [' . $userId . '|' . $targetedId . '|' . $attributeSet . ']'
         );
         try {
             $store->saveConsent($userId, $targetedId, $attributeSet);
         } catch (\Exception $e) {
-            \SimpleSAML\Logger::error('Consent: Error writing to storage: '.$e->getMessage());
+            \SimpleSAML\Logger::error('Consent: Error writing to storage: ' . $e->getMessage());
         }
     }
 
@@ -160,9 +163,17 @@ $t->data['srcName'] = $srcName;
 $t->data['dstName'] = $dstName;
 
 // Fetch privacypolicy
-if (array_key_exists('UIInfo', $state['Destination']) && array_key_exists('PrivacyStatementURL', $state['Destination']['UIInfo']) && (!empty($state['Destination']['UIInfo']['PrivacyStatementURL']))) {
+if (
+    array_key_exists('UIInfo', $state['Destination']) &&
+    array_key_exists('PrivacyStatementURL', $state['Destination']['UIInfo']) &&
+    (!empty($state['Destination']['UIInfo']['PrivacyStatementURL']))
+) {
     $privacypolicy = reset($state['Destination']['UIInfo']['PrivacyStatementURL']);
-} elseif (array_key_exists('UIInfo', $state['Source']) && array_key_exists('PrivacyStatementURL', $state['Source']['UIInfo']) && (!empty($state['Source']['UIInfo']['PrivacyStatementURL']))) {
+} elseif (
+    array_key_exists('UIInfo', $state['Source']) &&
+    array_key_exists('PrivacyStatementURL', $state['Source']['UIInfo']) &&
+    (!empty($state['Source']['UIInfo']['PrivacyStatementURL']))
+) {
     $privacypolicy = reset($state['Source']['UIInfo']['PrivacyStatementURL']);
 } else {
     $privacypolicy = false;
@@ -217,38 +228,38 @@ function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, $n
 
     $alternate = ['odd', 'even'];
     $i = 0;
-    $summary = 'summary="'.$translator->t('{consent:consent:table_summary}').'"';
+    $summary = 'summary="' . $translator->t('{consent:consent:table_summary}') . '"';
 
     if (strlen($nameParent) > 0) {
-        $parentStr = strtolower($nameParent).'_';
-        $str = '<table class="attributes" '.$summary.'>';
+        $parentStr = strtolower($nameParent) . '_';
+        $str = '<table class="attributes" ' . $summary . '>';
     } else {
         $parentStr = '';
-        $str = '<table id="table_with_attributes" class="attributes" '.$summary.'>';
-        $str .= "\n".'<caption>'.$translator->t('{consent:consent:table_caption}').'</caption>';
+        $str = '<table id="table_with_attributes" class="attributes" ' . $summary . '>';
+        $str .= "\n" . '<caption>' . $translator->t('{consent:consent:table_caption}') . '</caption>';
     }
 
     foreach ($attributes as $name => $value) {
         $nameraw = $name;
-        $name = $translator->getAttributeTranslation($parentStr.$nameraw);
+        $name = $translator->getAttributeTranslation($parentStr . $nameraw);
 
         if (preg_match('/^child_/', $nameraw)) {
             // insert child table
             $parentName = preg_replace('/^child_/', '', $nameraw);
             foreach ($value as $child) {
-                $str .= "\n".'<tr class="odd"><td class="td_odd">'.
-                    present_attributes($t, $child, $parentName).'</td></tr>';
+                $str .= "\n" . '<tr class="odd"><td class="td_odd">' .
+                    present_attributes($t, $child, $parentName) . '</td></tr>';
             }
         } else {
             // insert values directly
 
-            $str .= "\n".'<tr class="'.$alternate[($i++ % 2)].
-                '"><td><span class="attrname">'.htmlspecialchars($name).'</span></td>';
+            $str .= "\n" . '<tr class="' . $alternate[($i++ % 2)] .
+                '"><td><span class="attrname">' . htmlspecialchars($name) . '</span></td>';
 
             $isHidden = in_array($nameraw, $t->data['hiddenAttributes'], true);
             if ($isHidden) {
                 $hiddenId = \SimpleSAML\Utils\Random::generateID();
-                $str .= '<td><span class="attrvalue hidden" id="hidden_'.$hiddenId.'">';
+                $str .= '<td><span class="attrvalue hidden" id="hidden_' . $hiddenId . '">';
             } else {
                 $hiddenId = '';
                 $str .= '<td><span class="attrvalue">';
@@ -259,18 +270,18 @@ function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, $n
                 $str .= '<ul>';
                 foreach ($value as $listitem) {
                     if ($nameraw === 'jpegPhoto') {
-                        $str .= '<li><img src="data:image/jpeg;base64,'.
-                            htmlspecialchars($listitem).'" alt="User photo" /></li>';
+                        $str .= '<li><img src="data:image/jpeg;base64,' .
+                            htmlspecialchars($listitem) . '" alt="User photo" /></li>';
                     } else {
-                        $str .= '<li>'.htmlspecialchars($listitem).'</li>';
+                        $str .= '<li>' . htmlspecialchars($listitem) . '</li>';
                     }
                 }
                 $str .= '</ul>';
             } elseif (isset($value[0])) {
                 // we hawe only one value
                 if ($nameraw === 'jpegPhoto') {
-                    $str .= '<img src="data:image/jpeg;base64,'.
-                        htmlspecialchars($value[0]).'" alt="User photo" />';
+                    $str .= '<img src="data:image/jpeg;base64,' .
+                        htmlspecialchars($value[0]) . '" alt="User photo" />';
                 } else {
                     $str .= htmlspecialchars($value[0]);
                 }
@@ -278,10 +289,10 @@ function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, $n
             $str .= '</span>';
 
             if ($isHidden) {
-                $str .= '<div class="attrvalue consent_showattribute" id="visible_'.$hiddenId.'">';
+                $str .= '<div class="attrvalue consent_showattribute" id="visible_' . $hiddenId . '">';
                 $str .= '... ';
-                $str .= '<a class="consent_showattributelink" href="javascript:SimpleSAML_show(\'hidden_'.$hiddenId;
-                $str .= '\'); SimpleSAML_hide(\'visible_'.$hiddenId.'\');">';
+                $str .= '<a class="consent_showattributelink" href="javascript:SimpleSAML_show(\'hidden_' . $hiddenId;
+                $str .= '\'); SimpleSAML_hide(\'visible_' . $hiddenId . '\');">';
                 $str .= $translator->t('{consent:consent:show_attribute}');
                 $str .= '</a>';
                 $str .= '</div>';
