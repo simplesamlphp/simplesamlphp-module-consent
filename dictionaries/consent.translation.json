@@ -35,7 +35,8 @@
         "af": "Ja, gaan voort",
         "el": "\u0391\u03c0\u03bf\u03b4\u03bf\u03c7\u03ae",
         "zu": "Yebo, qhubeka",
-        "xh": "Ewe, qhubeka"
+        "xh": "Ewe, qhubeka",
+        "st": "E, tswela pele"
     },
     "no": {
         "no": "Nei, avbryt",
@@ -73,7 +74,8 @@
         "af": "Nee, kanselleer",
         "el": "\u0391\u03c0\u03cc\u03c1\u03c1\u03b9\u03c8\u03b7",
         "xh": "Hayi, rhoxisa",
-        "zu": "Cha, khansela"
+        "zu": "Cha, khansela",
+        "st": "Tjhe, hlakola"
     },
     "remember": {
         "no": "Godta ogs\u00e5 for fremtiden",
@@ -111,7 +113,8 @@
         "af": "Onthou",
         "el": "\u039d\u03b1 \u03b8\u03c5\u03bc\u03ac\u03c3\u03b1\u03b9 \u03c4\u03b7\u03bd \u03b5\u03c0\u03b9\u03bb\u03bf\u03b3\u03ae \u03bc\u03bf\u03c5",
         "zu": "Khumbula",
-        "xh": "Khumbula"
+        "xh": "Khumbula",
+        "st": "Hopola"
     },
     "consent_accept": {
         "no": "For \u00e5 fullf\u00f8re innloggingen m\u00e5 du godta at opplysningene nedenfor sendes til SPNAME.",
@@ -149,7 +152,8 @@
         "af": "SPNAME vereis dat die inligting hieronder oorgedra word.",
         "el": "\u0395\u03ac\u03bd \u03c0\u03c1\u03bf\u03c7\u03c9\u03c1\u03ae\u03c3\u03b5\u03c4\u03b5\u002c \u03c4\u03b1 \u03c3\u03c4\u03bf\u03b9\u03c7\u03b5\u03af\u03b1 \u03c0\u03bf\u03c5 \u03b1\u03ba\u03bf\u03bb\u03bf\u03c5\u03b8\u03bf\u03cd\u03bd \u03b8\u03b1 \u03b4\u03b9\u03b1\u03bc\u03bf\u03b9\u03c1\u03b1\u03c3\u03c4\u03bf\u03cd\u03bd \u03bc\u03b5 \u03c4\u03b7\u03bd \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1 <b>SPNAME<\/b>. \u03a3\u03c5\u03bc\u03c6\u03c9\u03bd\u03b5\u03af\u03c4\u03b5 \u03bc\u03b5 \u03c4\u03b7\u03bd \u03b1\u03c0\u03b5\u03bb\u03b5\u03c5\u03b8\u03ad\u03c1\u03c9\u03c3\u03b7 \u03c4\u03c9\u03bd \u03c3\u03c4\u03bf\u03b9\u03c7\u03b5\u03af\u03c9\u03bd \u03b1\u03c5\u03c4\u03ce\u03bd \u03c3\u03c4\u03b7\u03bd \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1 \u03ba\u03ac\u03b8\u03b5 \u03c6\u03bf\u03c1\u03ac \u03c0\u03bf\u03c5 \u03b5\u03c0\u03b9\u03b8\u03c5\u03bc\u03b5\u03af\u03c4\u03b5 \u03c0\u03c1\u03cc\u03c3\u03b2\u03b1\u03c3\u03b7 \u03c3\u03b5 \u03b1\u03c5\u03c4\u03ae\u003b",
         "xh": "I-SPNAME idinga ukuba inkcazelo engezantsi idluliselwe.",
-        "zu": "I-SPNAME idinga ukuthi ulwazi olungezansi ludluliswe."
+        "zu": "I-SPNAME idinga ukuthi ulwazi olungezansi ludluliswe.",
+        "st": "SPNAME e hloka hore tlhahisoleseding e ka tlase mona e fetiswe."
     },
     "login": {
         "no": "innlogging",
@@ -187,7 +191,8 @@
         "af": "meld aan",
         "el": "\u0395\u03af\u03c3\u03bf\u03b4\u03bf\u03c2",
         "xh": "ngena",
-        "zu": "ngena"
+        "zu": "ngena",
+        "st": "keno"
     },
     "service_providers_for": {
         "no": "Tjenesteleverand\u00f8r for",
@@ -225,7 +230,8 @@
         "af": "Diens Verskaffers vir",
         "el": "\u03a0\u03ac\u03c1\u03bf\u03c7\u03bf\u03b9 \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03b9\u03ce\u03bd \u03b3\u03b9\u03b1",
         "zu": "Abahlinzeki Besevisi bokuthi",
-        "xh": "Umboneleli enkonzo we-"
+        "xh": "Umboneleli enkonzo we-",
+        "st": "Bafani ba Tshebeletso bakeng sa"
     },
     "service_provider_header": {
         "no": "Tjenesteleverand\u00f8r",
@@ -263,7 +269,8 @@
         "af": "Diens Verskaffer",
         "el": "\u03a0\u03ac\u03c1\u03bf\u03c7\u03bf\u03c2 \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1\u03c2",
         "zu": "Umhlinzeki Wesevisi",
-        "xh": "Umboneleli Wenkonzo"
+        "xh": "Umboneleli Wenkonzo",
+        "st": "Mofani wa Tshebeletso"
     },
     "status_header": {
         "no": "Samtykke-status",
@@ -301,7 +308,8 @@
         "af": "Toestemming status",
         "el": "\u039a\u03b1\u03c4\u03ac\u03c3\u03c4\u03b1\u03c3\u03b7 \u03c3\u03c5\u03b3\u03ba\u03b1\u03c4\u03ac\u03b8\u03b5\u03c3\u03b7\u03c2",
         "zu": "Isimo semvume",
-        "xh": "Ubume bemvume"
+        "xh": "Ubume bemvume",
+        "st": "Boemo ba tumelo"
     },
     "show_hide_attributes": {
         "no": "Vis\/skjul opplysninger",
@@ -339,7 +347,8 @@
         "af": "vertoon\/verberg eienskappe",
         "el": "\u03b5\u03bc\u03c6\u03ac\u03bd\u03b9\u03c3\u03b7\/\u03b1\u03c0\u03cc\u03ba\u03c1\u03c5\u03c8\u03b7 \u03c3\u03c4\u03bf\u03b9\u03c7\u03b5\u03af\u03c9\u03bd",
         "xh": "bonisa/fihla iimpawu",
-        "zu": "bonisa/fihla izici"
+        "zu": "bonisa/fihla izici",
+        "st": "bontsha/pata makgabane"
     },
     "consent_privacypolicy": {
         "no": "Personvern for tjenesten",
@@ -376,7 +385,8 @@
         "af": "Privaatheidsbeleid vir die diens",
         "el": "\u03a0\u03bf\u03bb\u03b9\u03c4\u03b9\u03ba\u03ae \u03c0\u03c1\u03bf\u03c3\u03c4\u03b1\u03c3\u03af\u03b1\u03c2 \u03b1\u03c0\u03bf\u03c1\u03c1\u03ae\u03c4\u03bf\u03c5 \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1\u03c2",
         "zu": "Inqubomgomo yobumfihlo yesevisi",
-        "xh": "Ipolisi yokugcinwa kwemfihlelo yenkonzo"
+        "xh": "Ipolisi yokugcinwa kwemfihlelo yenkonzo",
+        "st": "Leano la sephiri bakeng sa tshebeletso"
     },
     "noconsent_title": {
         "no": "Ikke akseptert overf\u00f8ring av informasjon",
@@ -413,7 +423,8 @@
         "af": "Geen toestemming is gegee nie",
         "el": "\u039c\u03b7 \u03b1\u03c0\u03bf\u03b4\u03bf\u03c7\u03ae \u03c3\u03c5\u03b3\u03ba\u03b1\u03c4\u03ac\u03b8\u03b5\u03c3\u03b7\u03c2",
         "zu": "Ayikho imvume enikeziwe",
-        "xh": "Akukho mvume inikelweyo"
+        "xh": "Akukho mvume inikelweyo",
+        "st": "Ha ho tumello e fanweng"
     },
     "noconsent_text": {
         "no": "Du har ikke akseptert \u00e5 overlevere opplysninger til SPNAME.",
@@ -450,7 +461,8 @@
         "af": "Jy het nie toestemming gegee vir die oordrag van jou eienskappe na SPNAME nie.",
         "el": "\u0394\u03b5\u03bd \u03ad\u03c7\u03b5\u03c4\u03b5 \u03b4\u03ce\u03c3\u03b5\u03b9 \u03c3\u03c5\u03b3\u03ba\u03b1\u03c4\u03ac\u03b8\u03b5\u03c3\u03b7 \u03b3\u03b9\u03b1 \u03c4\u03bf\u03bd \u03b4\u03b9\u03b1\u03bc\u03bf\u03b9\u03c1\u03b1\u03c3\u03bc\u03cc \u03c0\u03c1\u03bf\u03c3\u03c9\u03c0\u03b9\u03ba\u03ce\u03bd \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd \u03bc\u03b5 \u03c4\u03b7\u03bd \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1 SPNAME",
         "xh": "Awuyinikelanga imvume yokudluliselwa iimpawu zakho kwi-SPNAME.",
-        "zu": "Awuzange uyinikeze imvume yokudlulisa izici zakho ku-SPNAME."
+        "zu": "Awuzange uyinikeze imvume yokudlulisa izici zakho ku-SPNAME.",
+        "st": "Ha o a fana ka tumello bakeng sa ho fetisetsa makgabane a hao ho SPNAME."
     },
     "noconsent_return": {
         "no": "G\u00e5 tilbake til samtykkesiden",
@@ -487,7 +499,8 @@
         "af": "Keer terug na die toestemmingsbladsy",
         "el": "\u0395\u03c0\u03b9\u03c3\u03c4\u03c1\u03bf\u03c6\u03ae \u03c3\u03c4\u03b7 \u03c3\u03b5\u03bb\u03af\u03b4\u03b1 \u03b4\u03ae\u03bb\u03c9\u03c3\u03b7\u03c2 \u03c3\u03c5\u03b3\u03ba\u03b1\u03c4\u03ac\u03b8\u03b5\u03c3\u03b7\u03c2",
         "xh": "Buyela kwikhasi lemvume",
-        "zu": "Buyela ekhasini lemvume"
+        "zu": "Buyela ekhasini lemvume",
+        "st": "Kgutlela leqepheng la tumello"
     },
     "consent_header": {
         "no": "Samtykke om overf\u00f8ring av personinformasjon",
@@ -524,7 +537,8 @@
         "af": "Toestemming mbt. die vrystelling van persoonlike informasie",
         "el": "\u0394\u03ae\u03bb\u03c9\u03c3\u03b7 \u03c3\u03c5\u03b3\u03ba\u03b1\u03c4\u03ac\u03b8\u03b5\u03c3\u03b7\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03bf\u03bd \u03b4\u03b9\u03b1\u03bc\u03bf\u03b9\u03c1\u03b1\u03c3\u03bc\u03cc \u03c0\u03c1\u03bf\u03c3\u03c9\u03c0\u03b9\u03ba\u03ce\u03bd \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd",
         "xh": "Imvume malunga nokukhutshwa kwenkcazelo yobuqu",
-        "zu": "Imvume mayelana nokukhulula ulwazi lomuntu siqu"
+        "zu": "Imvume mayelana nokukhulula ulwazi lomuntu siqu",
+        "st": "Tumello e mabapi le tlhahisoleseding ya botho"
     },
     "consent_attributes_header": {
         "no": "Opplysninger som vil bli sendt til SPNAME",
@@ -560,7 +574,8 @@
         "af": "Informasie wat gestuur sal word na SPNAME",
         "el": "\u03a0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03c0\u03bf\u03c5 \u03b8\u03b1 \u03b4\u03b9\u03b1\u03bc\u03bf\u03b9\u03c1\u03b1\u03c3\u03c4\u03bf\u03cd\u03bd \u03bc\u03b5 \u03c4\u03b7\u03bd \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1 SPNAME",
         "xh": "Inkcazelo eza kuthunyelwa ku-SPNAME",
-        "zu": "Ulwazi oluzothunyelwa ku-SPNAME"
+        "zu": "Ulwazi oluzothunyelwa ku-SPNAME",
+        "st": "Tlhahisoleseding e tla romelwa ho SPNAME"
     },
     "show_attributes": {
         "no": "Vis opplysninger",
@@ -596,7 +611,8 @@
         "eu": "Erakutsi atributuak",
         "af": "Vertoon eienskappe",
         "zu": "Bonisa okuqukethwe",
-        "xh": "Bonisa isiqulatho"
+        "xh": "Bonisa isiqulatho",
+        "st": "Bontsha makgabane"
     },
     "noconsent_goto_about": {
         "no": "G\u00e5 til informasjonsside om tjenesten",
@@ -633,7 +649,8 @@
         "af": "Gaan na die informasie bladsy vir die diens",
         "el": "\u0395\u03c0\u03b9\u03c0\u03bb\u03ad\u03bf\u03bd \u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03b7\u03bd \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1",
         "xh": "Yiya kwikhasi lenkcazelo ukuze ufumane inkonzo",
-        "zu": "Iya ekhasini lolwazi lesevisi"
+        "zu": "Iya ekhasini lolwazi lesevisi",
+        "st": "Eya leqepheng la tlhahisoleseding bakeng sa tshebeletso"
     },
     "consent_purpose": {
         "no": "Form\u00e5let med SPNAME er SPDESC",
@@ -669,7 +686,8 @@
         "af": "Die doel van SPNAME is SPDESC",
         "el": "\u03a0\u03b5\u03c1\u03b9\u03b3\u03c1\u03b1\u03c6\u03ae \u03cc\u03c0\u03c9\u03c2 \u03c0\u03b1\u03c1\u03ad\u03c7\u03b5\u03c4\u03b1\u03b9 \u03b1\u03c0\u03cc \u03c4\u03b7\u03bd \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1\u003a SPDESC",
         "zu": "Injongo ye-SPNAME yi-SPDESC",
-        "xh": "Injongo ye-SPNAME yi-SPDESC"
+        "xh": "Injongo ye-SPNAME yi-SPDESC",
+        "st": "Sepheo sa SPNAME ke SPDESC"
     },
     "table_caption": {
         "no": "Bruker innformasjon",
@@ -705,7 +723,8 @@
         "af": "Gebruiker informasie",
         "el": "\u03a0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7",
         "xh": "Inkcazelo yomsebenzisi",
-        "zu": "Ulwazi lomsebenzisi"
+        "zu": "Ulwazi lomsebenzisi",
+        "st": "Tlhahisoleseding ya mosebedisi"
     },
     "table_summary": {
         "no": "Her listes den innformasjonen om deg som blir send til den tjenesten du er i ferd med \u00e5 logge p\u00e5",
@@ -741,7 +760,8 @@
         "af": "Lys die informasie mbt. jou wat op die punt is om gestuur te word vir die diens waarby jy wil aanmeld.",
         "el": "\u0395\u03bc\u03c6\u03ac\u03bd\u03b9\u03c3\u03b7 \u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03b9\u03ce\u03bd \u03c0\u03bf\u03c5 \u03b8\u03b1 \u03b4\u03b9\u03b1\u03bc\u03bf\u03b9\u03c1\u03b1\u03c3\u03c4\u03bf\u03cd\u03bd \u03bc\u03b5 \u03c4\u03b7\u03bd \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1 \u03ba\u03b1\u03c4\u03ac \u03c4\u03b7\u03bd \u03c0\u03c1\u03cc\u03c3\u03b2\u03b1\u03c3\u03b7 \u03c3\u03b5 \u03b1\u03c5\u03c4\u03ae",
         "zu": "Enza uhlu olumayelana nolwazi lwakho oluzodluliselwa kusevisi ozongena kuyo",
-        "xh": "Dwelisa inkcazelo engawe eza kudluliselwa kwinkonzo oza kungena kuyo"
+        "xh": "Dwelisa inkcazelo engawe eza kudluliselwa kwinkonzo oza kungena kuyo",
+        "st": "Hlahlamisa tlhahisoleseding e mabapi le wena e haufi le ho fetisetswa tshebeletsong eo o tlo kena ho yona"
     },
     "show_attribute": {
         "no": "Vis innhold",
@@ -802,6 +822,7 @@
         "el": "\u0391\u03ba\u03cd\u03c1\u03c9\u03c3\u03b7 \u03b5\u03b9\u03c3\u03cc\u03b4\u03bf\u03c5 \u03c3\u03c4\u03b7\u03bd \u03c5\u03c0\u03b7\u03c1\u03b5\u03c3\u03af\u03b1 SPNAME",
         "xh": "Yeka ungeno kwi-SPNAME",
         "zu": "Yeka ukungena ku-SPNAME",
-        "sl": "Prekini prijavo na SPNAME"
+        "sl": "Prekini prijavo na SPNAME",
+        "st": "Kgaotsa keno ho SPNAME"
     }
 }
