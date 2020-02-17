@@ -19,7 +19,7 @@ abstract class Store
      *
      * @param array &$config The configuration for this storage handler.
      */
-    protected function __construct(&$config)
+    protected function __construct(array &$config)
     {
     }
 
@@ -37,7 +37,7 @@ abstract class Store
      * @return bool True if the user has given consent earlier, false if not
      *              (or on error).
      */
-    abstract public function hasConsent(string $userId, string $destinationId, string $attributeSet);
+    abstract public function hasConsent(string $userId, string $destinationId, string $attributeSet): bool;
 
 
     /**
@@ -52,7 +52,7 @@ abstract class Store
      *
      * @return bool True if consent is succesfully saved otherwise false.
      */
-    abstract public function saveConsent(string $userId, string $destinationId, string $attributeSet);
+    abstract public function saveConsent(string $userId, string $destinationId, string $attributeSet): bool;
 
 
     /**
@@ -107,7 +107,7 @@ abstract class Store
      *
      * @return array Array of all destination ids the user has given consent for.
      */
-    abstract public function getConsents(string $userId);
+    abstract public function getConsents(string $userId): array;
 
 
     /**
@@ -122,7 +122,7 @@ abstract class Store
      *
      * @throws \Exception if the configuration is invalid.
      */
-    public static function parseStoreConfig($config)
+    public static function parseStoreConfig($config): Store
     {
         if (is_string($config)) {
             $config = [$config];

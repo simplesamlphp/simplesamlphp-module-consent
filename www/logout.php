@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the handler for logout started from the consent page.
  *

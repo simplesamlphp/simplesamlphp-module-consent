@@ -79,10 +79,8 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      *
      * @throws \SimpleSAML\Error\Exception if the configuration is not valid.
      */
-    public function __construct($config, $reserved)
+    public function __construct(array $config, $reserved)
     {
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
-        Assert::isArray($config);
         parent::__construct($config, $reserved);
 
         if (array_key_exists('includeValues', $config)) {
@@ -172,7 +170,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      *
      * @return boolean True if disabled, false if not.
      */
-    private static function checkDisable($option, $entityId)
+    private static function checkDisable($option, string $entityId): bool
     {
         if (is_array($option)) {
             // Check if consent.disable array has one element that is an array
@@ -231,12 +229,10 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      *
      * @return void
      *
-     * @throws \SimpleSAML\Error\NoPassive if the request was passive and consent is needed.
+     * @throws \SimpleSAML\Module\saml\Error\NoPassive if the request was passive and consent is needed.
      */
-    public function process(&$state)
+    public function process(array &$state): void
     {
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
-        Assert::isArray($state);
         Assert::keyExists($state, 'UserID');
         Assert::keyExists($state, 'Destination');
         Assert::keyExists($state['Destination'], 'entityid');
@@ -360,7 +356,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      *
      * @return string SHA1 of the user id, source id and salt.
      */
-    public static function getHashedUserID($userid, $source)
+    public static function getHashedUserID(string $userid, string $source): string
     {
         return hash('sha1', $userid . '|' . Utils\Config::getSecretSalt() . '|' . $source);
     }
@@ -375,7 +371,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      *
      * @return string SHA1 of the user id, source id, destination id and salt.
      */
-    public static function getTargetedID($userid, $source, $destination)
+    public static function getTargetedID(string $userid, string $source, string $destination): string
     {
         return hash('sha1', $userid . '|' . Utils\Config::getSecretSalt() . '|' . $source . '|' . $destination);
     }
@@ -392,7 +388,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
      *
      * @return string SHA1 of the user id, source id, destination id and salt.
      */
-    public static function getAttributeHash($attributes, $includeValues = false)
+    public static function getAttributeHash(array $attributes, bool $includeValues = false): string
     {
         if ($includeValues) {
             foreach ($attributes as &$values) {

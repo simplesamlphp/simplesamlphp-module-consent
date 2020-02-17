@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\consent\Consent\Store;
 
+use SimpleSAML\Logger;
 use Webmozart\Assert\Assert;
 
 /**
@@ -77,7 +78,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @throws \Exception in case of a configuration error.
      */
-    public function __construct($config)
+    public function __construct(array $config)
     {
         parent::__construct($config);
 
@@ -140,7 +141,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return array The variables which should be serialized.
      */
-    public function __sleep()
+    public function __sleep(): array
     {
         return [
             'dsn',
@@ -166,7 +167,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      * @return bool True if the user has given consent earlier, false if not
      *              (or on error).
      */
-    public function hasConsent(string $userId, string $destinationId, string $attributeSet)
+    public function hasConsent(string $userId, string $destinationId, string $attributeSet): bool
     {
         $st = $this->execute(
             'UPDATE ' . $this->table . ' ' .
@@ -181,10 +182,10 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         $rowCount = $st->rowCount();
         if ($rowCount === 0) {
-            \SimpleSAML\Logger::debug('consent:Database - No consent found.');
+            Logger::debug('consent:Database - No consent found.');
             return false;
         } else {
-            \SimpleSAML\Logger::debug('consent:Database - Consent found.');
+            Logger::debug('consent:Database - Consent found.');
             return true;
         }
     }
@@ -202,7 +203,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return bool True if consent is deleted, false otherwise.
      */
-    public function saveConsent(string $userId, string $destinationId, string $attributeSet)
+    public function saveConsent(string $userId, string $destinationId, string $attributeSet): bool
     {
         // Check for old consent (with different attribute set)
         $st = $this->execute(
@@ -218,7 +219,7 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         if ($st->rowCount() > 0) {
             // Consent has already been stored in the database
-            \SimpleSAML\Logger::debug('consent:Database - Updated old consent.');
+            Logger::debug('consent:Database - Updated old consent.');
             return false;
         }
 
@@ -230,7 +231,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         );
 
         if ($st !== false) {
-            \SimpleSAML\Logger::debug('consent:Database - Saved new consent.');
+            Logger::debug('consent:Database - Saved new consent.');
         }
         return true;
     }
@@ -246,7 +247,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return int Number of consents deleted
      */
-    public function deleteConsent(string $userId, string $destinationId)
+    public function deleteConsent(string $userId, string $destinationId): int
     {
         $st = $this->execute(
             'DELETE FROM ' . $this->table . ' WHERE hashed_user_id = ? AND service_id = ?;',
@@ -258,11 +259,11 @@ class Database extends \SimpleSAML\Module\consent\Store
         }
 
         if ($st->rowCount() > 0) {
-            \SimpleSAML\Logger::debug('consent:Database - Deleted consent.');
+            Logger::debug('consent:Database - Deleted consent.');
             return $st->rowCount();
         }
 
-        \SimpleSAML\Logger::warning('consent:Database - Attempted to delete nonexistent consent');
+        Logger::warning('consent:Database - Attempted to delete nonexistent consent');
         return 0;
     }
 
@@ -274,7 +275,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return int Number of consents deleted
      */
-    public function deleteAllConsents(string $userId)
+    public function deleteAllConsents(string $userId): int
     {
         $st = $this->execute(
             'DELETE FROM ' . $this->table . ' WHERE hashed_user_id = ?',
@@ -286,11 +287,11 @@ class Database extends \SimpleSAML\Module\consent\Store
         }
 
         if ($st->rowCount() > 0) {
-            \SimpleSAML\Logger::debug('consent:Database - Deleted (' . $st->rowCount() . ') consent(s) . ');
+            Logger::debug('consent:Database - Deleted (' . $st->rowCount() . ') consent(s) . ');
             return $st->rowCount();
         }
 
-        \SimpleSAML\Logger::warning('consent:Database - Attempted to delete nonexistent consent');
+        Logger::warning('consent:Database - Attempted to delete nonexistent consent');
         return 0;
     }
 
@@ -304,7 +305,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return array Array of all destination ids the user has given consent for.
      */
-    public function getConsents(string $userId)
+    public function getConsents(string $userId): array
     {
         $ret = [];
 
@@ -344,10 +345,9 @@ class Database extends \SimpleSAML\Module\consent\Store
             return false;
         }
 
-        /** @var \PDOStatement|false $st */
         $st = $db->prepare($statement);
         if ($st === false) {
-            \SimpleSAML\Logger::error(
+            Logger::error(
                 'consent:Database - Error preparing statement \'' .
                 $statement . '\': ' . self::formatError($db->errorInfo())
             );
@@ -355,7 +355,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         }
 
         if ($st->execute($parameters) !== true) {
-            \SimpleSAML\Logger::error(
+            Logger::error(
                 'consent:Database - Error executing statement \'' .
                 $statement . '\': ' . self::formatError($st->errorInfo())
             );
@@ -376,7 +376,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return array Array containing the statistics
      */
-    public function getStatistics()
+    public function getStatistics(): array
     {
         $ret = [];
 
@@ -460,7 +460,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return string Error text.
      */
-    private static function formatError(array $error)
+    private static function formatError(array $error): string
     {
         Assert::greaterThanEq(count($error), 3);
 
@@ -473,7 +473,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @return boolean True if OK, false if not. Will throw an exception on connection errors.
      */
-    public function selftest()
+    public function selftest(): bool
     {
         $st = $this->execute(
             'SELECT * FROM ' . $this->table . ' WHERE hashed_user_id = ? AND service_id = ? AND attribute = ?',

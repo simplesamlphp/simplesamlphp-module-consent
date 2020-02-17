@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\consent\Consent\Store;
 
+use SimpleSAML\Logger;
 use Webmozart\Assert\Assert;
 
 /**
@@ -38,22 +39,22 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return bool True if the user has given consent earlier, false if not (or on error).
      */
-    public function hasConsent(string $userId, string $destinationId, string $attributeSet)
+    public function hasConsent(string $userId, string $destinationId, string $attributeSet): bool
     {
         $cookieName = self::getCookieName($userId, $destinationId);
 
         $data = $userId . ':' . $attributeSet . ':' . $destinationId;
 
-        \SimpleSAML\Logger::debug('Consent cookie - Get [' . $data . ']');
+        Logger::debug('Consent cookie - Get [' . $data . ']');
 
         if (!array_key_exists($cookieName, $_COOKIE)) {
-            \SimpleSAML\Logger::debug(
+            Logger::debug(
                 'Consent cookie - no cookie with name \'' . $cookieName . '\'.'
             );
             return false;
         }
         if (!is_string($_COOKIE[$cookieName])) {
-            \SimpleSAML\Logger::warning(
+            Logger::warning(
                 'Value of consent cookie wasn\'t a string. Was: ' .
                 var_export($_COOKIE[$cookieName], true)
             );
@@ -63,13 +64,13 @@ class Cookie extends \SimpleSAML\Module\consent\Store
         $data = self::sign($data);
 
         if ($_COOKIE[$cookieName] !== $data) {
-            \SimpleSAML\Logger::info(
+            Logger::info(
                 'Attribute set changed from the last time consent was given.'
             );
             return false;
         }
 
-        \SimpleSAML\Logger::debug(
+        Logger::debug(
             'Consent cookie - found cookie with correct name and value.'
         );
 
@@ -89,12 +90,12 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return bool
      */
-    public function saveConsent(string $userId, string $destinationId, string $attributeSet)
+    public function saveConsent(string $userId, string $destinationId, string $attributeSet): bool
     {
         $name = self::getCookieName($userId, $destinationId);
         $value = $userId . ':' . $attributeSet . ':' . $destinationId;
 
-        \SimpleSAML\Logger::debug('Consent cookie - Set [' . $value . ']');
+        Logger::debug('Consent cookie - Set [' . $value . ']');
 
         $value = self::sign($value);
         return $this->setConsentCookie($name, $value);
@@ -111,7 +112,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return void
      */
-    public function deleteConsent(string $userId, string $destinationId)
+    public function deleteConsent(string $userId, string $destinationId): void
     {
         $name = self::getCookieName($userId, $destinationId);
         $this->setConsentCookie($name, null);
@@ -128,7 +129,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      * @throws \Exception This method always throws an exception indicating that it is not possible to delete all given
      * consents with this handler.
      */
-    public function deleteAllConsents(string $userId)
+    public function deleteAllConsents(string $userId): void
     {
         throw new \Exception(
             'The cookie consent handler does not support delete of all consents...'
@@ -145,7 +146,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return array Array of all destination ids the user has given consent for.
      */
-    public function getConsents(string $userId)
+    public function getConsents(string $userId): array
     {
         $ret = [];
 
@@ -163,7 +164,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
 
             $tmp = explode(':', $value, 3);
             if (count($tmp) !== 3) {
-                \SimpleSAML\Logger::warning(
+                Logger::warning(
                     'Consent cookie with invalid value: ' . $value
                 );
                 continue;
@@ -191,7 +192,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return string The signed data.
      */
-    private static function sign(string $data)
+    private static function sign(string $data): string
     {
         $secretSalt = \SimpleSAML\Utils\Config::getSecretSalt();
 
@@ -212,14 +213,14 @@ class Cookie extends \SimpleSAML\Module\consent\Store
     {
         $data = explode(':', $signedData, 2);
         if (count($data) !== 2) {
-            \SimpleSAML\Logger::warning('Consent cookie: Missing signature.');
+            Logger::warning('Consent cookie: Missing signature.');
             return false;
         }
         $data = $data[1];
 
         $newSignedData = self::sign($data);
         if ($newSignedData !== $signedData) {
-            \SimpleSAML\Logger::warning('Consent cookie: Invalid signature.');
+            Logger::warning('Consent cookie: Invalid signature.');
             return false;
         }
 
@@ -237,7 +238,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return string The cookie name
      */
-    private static function getCookieName(string $userId, string $destinationId)
+    private static function getCookieName(string $userId, string $destinationId): string
     {
         return '\SimpleSAML\Module\consent:' . sha1($userId . ':' . $destinationId);
     }
@@ -251,7 +252,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @return bool
      */
-    private function setConsentCookie(string $name, $value)
+    private function setConsentCookie(string $name, ?string $value): bool
     {
         $globalConfig = \SimpleSAML\Configuration::getInstance();
         $params = [

@@ -13,6 +13,7 @@ if (!array_key_exists('StateId', $_REQUEST)) {
 }
 
 $id = $_REQUEST['StateId'];
+/** @psalm-var array $state */
 $state = \SimpleSAML\Auth\State::loadState($id, 'consent:request');
 
 $resumeFrom = \SimpleSAML\Module::getModuleURL(
@@ -48,7 +49,7 @@ if (array_key_exists('name', $state['Destination'])) {
 
 $globalConfig = \SimpleSAML\Configuration::getInstance();
 
-$t = new \SimpleSAML\XHTML\Template($globalConfig, 'consent:noconsent.php');
+$t = new \SimpleSAML\XHTML\Template($globalConfig, 'consent:noconsent.twig');
 $translator = $t->getTranslator();
 $t->data['dstMetadata'] = $state['Destination'];
 $t->data['resumeFrom'] = $resumeFrom;
@@ -60,4 +61,4 @@ $dstName = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dst
 $t->data['noconsent_text'] = $translator->t('{consent:consent:noconsent_text}', ['SPNAME' => $dstName]);
 $t->data['noconsent_abort'] = $translator->t('{consent:consent:abort}', ['SPNAME' => $dstName]);
 
-$t->show();
+$t->send();

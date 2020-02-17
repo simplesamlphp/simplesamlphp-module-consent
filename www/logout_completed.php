@@ -7,5 +7,5 @@
  */
 
 $globalConfig = \SimpleSAML\Configuration::getInstance();
-$t = new \SimpleSAML\XHTML\Template($globalConfig, 'consent:logout_completed.php');
-$t->show();
+$t = new \SimpleSAML\XHTML\Template($globalConfig, 'consent:logout_completed.twig');
+$t->send();

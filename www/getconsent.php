@@ -119,7 +119,7 @@ if (array_key_exists('name', $state['Destination'])) {
 }
 
 // Make, populate and layout consent form
-$t = new \SimpleSAML\XHTML\Template($globalConfig, 'consent:consentform.php');
+$t = new \SimpleSAML\XHTML\Template($globalConfig, 'consent:consentform.twig');
 $translator = $t->getTranslator();
 $t->data['srcMetadata'] = $state['Source'];
 $t->data['dstMetadata'] = $state['Destination'];
@@ -210,7 +210,7 @@ if (array_key_exists('consent:hiddenAttributes', $state)) {
 
 $t->data['attributes_html'] = present_attributes($t, $attributes, '');
 
-$t->show();
+$t->send();
 
 
 /**
@@ -222,7 +222,7 @@ $t->show();
  *
  * @return string HTML representation of the attributes
  */
-function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, $nameParent)
+function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, string $nameParent): string
 {
     $translator = $t->getTranslator();
 
