@@ -2,8 +2,10 @@
 
 namespace SimpleSAML\Module\consent\Consent\Store;
 
+use PDO;
+use Exception;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Logger;
-use Webmozart\Assert\Assert;
 
 /**
  * Store consent in database.
@@ -83,10 +85,10 @@ class Database extends \SimpleSAML\Module\consent\Store
         parent::__construct($config);
 
         if (!array_key_exists('dsn', $config)) {
-            throw new \Exception('consent:Database - Missing required option \'dsn\'.');
+            throw new Exception('consent:Database - Missing required option \'dsn\'.');
         }
         if (!is_string($config['dsn'])) {
-            throw new \Exception('consent:Database - \'dsn\' is supposed to be a string.');
+            throw new Exception('consent:Database - \'dsn\' is supposed to be a string.');
         }
 
         $this->dsn = $config['dsn'];
@@ -94,7 +96,7 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         if (array_key_exists('username', $config)) {
             if (!is_string($config['username'])) {
-                throw new \Exception('consent:Database - \'username\' is supposed to be a string.');
+                throw new Exception('consent:Database - \'username\' is supposed to be a string.');
             }
             $this->username = $config['username'];
         } else {
@@ -103,7 +105,7 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         if (array_key_exists('password', $config)) {
             if (!is_string($config['password'])) {
-                throw new \Exception('consent:Database - \'password\' is supposed to be a string.');
+                throw new Exception('consent:Database - \'password\' is supposed to be a string.');
             }
             $this->password = $config['password'];
         } else {
@@ -112,7 +114,7 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         if (array_key_exists('options', $config)) {
             if (!is_array($config['options'])) {
-                throw new \Exception('consent:Database - \'options\' is supposed to be an array.');
+                throw new Exception('consent:Database - \'options\' is supposed to be an array.');
             }
             $this->options = $config['options'];
         } else {
@@ -120,7 +122,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         }
         if (array_key_exists('table', $config)) {
             if (!is_string($config['table'])) {
-                throw new \Exception('consent:Database - \'table\' is supposed to be a string.');
+                throw new Exception('consent:Database - \'table\' is supposed to be a string.');
             }
             $this->table = $config['table'];
         } else {
@@ -129,7 +131,7 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         if (isset($config['timeout'])) {
             if (!is_int($config['timeout'])) {
-                throw new \Exception('consent:Database - \'timeout\' is supposed to be an integer.');
+                throw new Exception('consent:Database - \'timeout\' is supposed to be an integer.');
             }
             $this->timeout = $config['timeout'];
         }
@@ -319,7 +321,7 @@ class Database extends \SimpleSAML\Module\consent\Store
             return [];
         }
 
-        while ($row = $st->fetch(\PDO::FETCH_NUM)) {
+        while ($row = $st->fetch(PDO::FETCH_NUM)) {
             $ret[] = $row;
         }
 
@@ -387,7 +389,7 @@ class Database extends \SimpleSAML\Module\consent\Store
             return [];
         }
 
-        if ($row = $st->fetch(\PDO::FETCH_NUM)) {
+        if ($row = $st->fetch(PDO::FETCH_NUM)) {
             $ret['total'] = $row[0];
         }
 
@@ -402,7 +404,7 @@ class Database extends \SimpleSAML\Module\consent\Store
             return [];
         }
 
-        if ($row = $st->fetch(\PDO::FETCH_NUM)) {
+        if ($row = $st->fetch(PDO::FETCH_NUM)) {
             $ret['users'] = $row[0];
         }
 
@@ -416,7 +418,7 @@ class Database extends \SimpleSAML\Module\consent\Store
             return [];
         }
 
-        if ($row = $st->fetch(\PDO::FETCH_NUM)) {
+        if ($row = $st->fetch(PDO::FETCH_NUM)) {
             $ret['services'] = $row[0];
         }
 
@@ -437,7 +439,7 @@ class Database extends \SimpleSAML\Module\consent\Store
 
         $driver_options = [];
         if (isset($this->timeout)) {
-            $driver_options[\PDO::ATTR_TIMEOUT] = $this->timeout;
+            $driver_options[PDO::ATTR_TIMEOUT] = $this->timeout;
         }
         if (isset($this->options)) {
             $this->options = array_merge($driver_options, $this->options);
@@ -445,7 +447,7 @@ class Database extends \SimpleSAML\Module\consent\Store
             $this->options = $driver_options;
         }
 
-        $this->db = new \PDO($this->dsn, $this->username, $this->password, $this->options);
+        $this->db = new PDO($this->dsn, $this->username, $this->password, $this->options);
 
         return $this->db;
     }

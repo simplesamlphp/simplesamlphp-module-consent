@@ -11,13 +11,17 @@
 
 namespace SimpleSAML\Module\consent\Auth\Process;
 
+use Exception;
+use SAML2\Constants;
+use SimpleSAML\Assert\Assert;
+use SimpleSAML\Auth;
+use SimpleSAML\Error;
 use SimpleSAML\Logger;
 use SimpleSAML\Module;
 use SimpleSAML\Stats;
 use SimpleSAML\Utils;
-use Webmozart\Assert\Assert;
 
-class Consent extends \SimpleSAML\Auth\ProcessingFilter
+class Consent extends Auth\ProcessingFilter
 {
     /**
      * Button to receive focus
@@ -85,7 +89,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
 
         if (array_key_exists('includeValues', $config)) {
             if (!is_bool($config['includeValues'])) {
-                throw new \SimpleSAML\Error\Exception(
+                throw new Error\Exception(
                     'Consent: includeValues must be boolean. ' .
                     var_export($config['includeValues'], true) . ' given.'
                 );
@@ -95,7 +99,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
 
         if (array_key_exists('checked', $config)) {
             if (!is_bool($config['checked'])) {
-                throw new \SimpleSAML\Error\Exception(
+                throw new Error\Exception(
                     'Consent: checked must be boolean. ' .
                     var_export($config['checked'], true) . ' given.'
                 );
@@ -105,7 +109,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
 
         if (array_key_exists('focus', $config)) {
             if (!in_array($config['focus'], ['yes', 'no'], true)) {
-                throw new \SimpleSAML\Error\Exception(
+                throw new Error\Exception(
                     'Consent: focus must be a string with values `yes` or `no`. ' .
                     var_export($config['focus'], true) . ' given.'
                 );
@@ -115,7 +119,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
 
         if (array_key_exists('hiddenAttributes', $config)) {
             if (!is_array($config['hiddenAttributes'])) {
-                throw new \SimpleSAML\Error\Exception(
+                throw new Error\Exception(
                     'Consent: hiddenAttributes must be an array. ' .
                     var_export($config['hiddenAttributes'], true) . ' given.'
                 );
@@ -125,7 +129,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
 
         if (array_key_exists('attributes.exclude', $config)) {
             if (!is_array($config['attributes.exclude'])) {
-                throw new \SimpleSAML\Error\Exception(
+                throw new Error\Exception(
                     'Consent: attributes.exclude must be an array. ' .
                     var_export($config['attributes.exclude'], true) . ' given.'
                 );
@@ -134,7 +138,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         } elseif (array_key_exists('noconsentattributes', $config)) {
             Logger::warning("The 'noconsentattributes' option has been deprecated in favour of 'attributes.exclude'.");
             if (!is_array($config['noconsentattributes'])) {
-                throw new \SimpleSAML\Error\Exception(
+                throw new Error\Exception(
                     'Consent: noconsentattributes must be an array. ' .
                     var_export($config['noconsentattributes'], true) . ' given.'
                 );
@@ -145,7 +149,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         if (array_key_exists('store', $config)) {
             try {
                 $this->store = \SimpleSAML\Module\consent\Store::parseStoreConfig($config['store']);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Logger::error(
                     'Consent: Could not create consent storage: ' .
                     $e->getMessage()
@@ -155,7 +159,7 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
 
         if (array_key_exists('showNoConsentAboutService', $config)) {
             if (!is_bool($config['showNoConsentAboutService'])) {
-                throw new \SimpleSAML\Error\Exception('Consent: showNoConsentAboutService must be a boolean.');
+                throw new Error\Exception('Consent: showNoConsentAboutService must be a boolean.');
             }
             $this->showNoConsentAboutService = $config['showNoConsentAboutService'];
         }
@@ -336,13 +340,13 @@ class Consent extends \SimpleSAML\Auth\ProcessingFilter
         if (isset($state['isPassive']) && $state['isPassive'] === true) {
             Stats::log('consent:nopassive', $statsData);
             throw new Module\saml\Error\NoPassive(
-                \SAML2\Constants::STATUS_REQUESTER,
+                Constants::STATUS_REQUESTER,
                 'Unable to give consent on passive request.'
             );
         }
 
         // Save state and redirect
-        $id = \SimpleSAML\Auth\State::saveState($state, 'consent:request');
+        $id = Auth\State::saveState($state, 'consent:request');
         $url = Module::getModuleURL('consent/getconsent.php');
         Utils\HTTP::redirectTrustedURL($url, ['StateId' => $id]);
     }

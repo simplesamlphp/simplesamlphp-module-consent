@@ -2,8 +2,11 @@
 
 namespace SimpleSAML\Module\consent\Consent\Store;
 
+use Exception;
+use SimpleSAML\Configuration;
+use SimpleSAML\Error;
 use SimpleSAML\Logger;
-use Webmozart\Assert\Assert;
+use SimpleSAML\Utils;
 
 /**
  * Cookie storage for consent
@@ -131,7 +134,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      */
     public function deleteAllConsents(string $userId): void
     {
-        throw new \Exception(
+        throw new Exception(
             'The cookie consent handler does not support delete of all consents...'
         );
     }
@@ -194,7 +197,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      */
     private static function sign(string $data): string
     {
-        $secretSalt = \SimpleSAML\Utils\Config::getSecretSalt();
+        $secretSalt = Utils\Config::getSecretSalt();
 
         return sha1($secretSalt . $data . $secretSalt) . ':' . $data;
     }
@@ -254,18 +257,18 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      */
     private function setConsentCookie(string $name, ?string $value): bool
     {
-        $globalConfig = \SimpleSAML\Configuration::getInstance();
+        $globalConfig = Configuration::getInstance();
         $params = [
             'lifetime' => 7776000, // (90*24*60*60)
             'path' => ($globalConfig->getBasePath()),
             'httponly' => true,
-            'secure' => \SimpleSAML\Utils\HTTP::isHTTPS(),
+            'secure' => Utils\HTTP::isHTTPS(),
         ];
 
         try {
-            \SimpleSAML\Utils\HTTP::setCookie($name, $value, $params, false);
+            Utils\HTTP::setCookie($name, $value, $params, false);
             return true;
-        } catch (\SimpleSAML\Error\CannotSetCookie $e) {
+        } catch (Error\CannotSetCookie $e) {
             return false;
         }
     }
