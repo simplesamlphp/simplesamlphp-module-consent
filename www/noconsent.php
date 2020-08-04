@@ -55,10 +55,5 @@ $t->data['dstMetadata'] = $state['Destination'];
 $t->data['resumeFrom'] = $resumeFrom;
 $t->data['aboutService'] = $aboutService;
 $t->data['logoutLink'] = $logoutLink;
-
-$dstName = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dstName);
-
-$t->data['noconsent_text'] = $translator->t('{consent:consent:noconsent_text}', ['SPNAME' => $dstName]);
-$t->data['noconsent_abort'] = $translator->t('{consent:consent:abort}', ['SPNAME' => $dstName]);
-
+$t->data['dstName'] = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dstName);
 $t->send();

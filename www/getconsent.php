@@ -131,36 +131,17 @@ $t->data['attributes'] = $attributes;
 $t->data['checked'] = $state['consent:checked'];
 $t->data['stateId'] = $id;
 
-$srcName = htmlspecialchars(is_array($srcName) ? $translator->t($srcName) : $srcName);
-$dstName = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dstName);
-
-$t->data['consent_attributes_header'] = $translator->t(
-    '{consent:consent:consent_attributes_header}',
-    ['SPNAME' => $dstName, 'IDPNAME' => $srcName]
-);
-
-$t->data['consent_accept'] = $translator->t(
-    '{consent:consent:consent_accept}',
-    ['SPNAME' => $dstName, 'IDPNAME' => $srcName]
-);
+$t->data['srcName'] = htmlspecialchars(is_array($srcName) ? $translator->t($srcName) : $srcName);
+$t->data['dstName'] = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dstName);
 
 if (array_key_exists('descr_purpose', $state['Destination'])) {
-    $t->data['consent_purpose'] = $translator->t(
-        '{consent:consent:consent_purpose}',
-        [
-            'SPNAME' => $dstName,
-            'SPDESC' => $translator->getPreferredTranslation(
-                \SimpleSAML\Utils\Arrays::arrayize(
-                    $state['Destination']['descr_purpose'],
-                    'en'
-                )
-            ),
-        ]
+    $t->data['dstDesc'] = $translator->getPreferredTranslation(
+        \SimpleSAML\Utils\Arrays::arrayize(
+            $state['Destination']['descr_purpose'],
+            'en'
+        )
     );
 }
-
-$t->data['srcName'] = $srcName;
-$t->data['dstName'] = $dstName;
 
 // Fetch privacypolicy
 if (
@@ -228,7 +209,7 @@ function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, st
 
     $alternate = ['odd', 'even'];
     $i = 0;
-    $summary = 'summary="' . $translator->t('{consent:consent:table_summary}') . '"';
+    $summary = 'summary="' . $translator->t('List the information about you that is about to be transmitted to the service you are going to login to') . '"';
 
     if (strlen($nameParent) > 0) {
         $parentStr = strtolower($nameParent) . '_';
@@ -236,7 +217,7 @@ function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, st
     } else {
         $parentStr = '';
         $str = '<table id="table_with_attributes" class="attributes" ' . $summary . '>';
-        $str .= "\n" . '<caption>' . $translator->t('{consent:consent:table_caption}') . '</caption>';
+        $str .= "\n" . '<caption>' . $translator->t('User information') . '</caption>';
     }
 
     foreach ($attributes as $name => $value) {
@@ -293,7 +274,7 @@ function present_attributes(\SimpleSAML\XHTML\Template $t, array $attributes, st
                 $str .= '... ';
                 $str .= '<a class="consent_showattributelink" href="javascript:SimpleSAML_show(\'hidden_' . $hiddenId;
                 $str .= '\'); SimpleSAML_hide(\'visible_' . $hiddenId . '\');">';
-                $str .= $translator->t('{consent:consent:show_attribute}');
+                $str .= $translator->t('Show attributes');
                 $str .= '</a>';
                 $str .= '</div>';
             }

@@ -1,4 +1,4 @@
-{% set pagetitle = '{consent:consent:consent_header}'|trans %}
+{% set pagetitle = 'Consent about releasing personal information'|trans %}
 {% extends "base.twig" %}
 
 {% block preload %}
@@ -15,20 +15,20 @@
 <form id="consent_yes" action="{{ yesTarget }}">
     {% if usestorage is defined %}
     <input type="checkbox" name="saveconsent"{% if checked %} checked="checked"{% endif %} value="1" />
-    {{ '{consent:consent:remember}'|trans }}
+    {{ 'Remember'|trans }}
     {% endif %}
 
     <input type="hidden" name="StateId" value="{{ stateId }}" />
-    <button type="submit" name="yes" class="btn" id="yesbutton"{%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}>{{ '{consent:consent:yes}'|trans }}</button>
+    <button type="submit" name="yes" class="btn" id="yesbutton"{%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}>{{ 'Yes, continue}'|trans }}</button>
 </form>
 
 <form id="consent_no" action="{{ noTarget }}">
     <input type="hidden" name="StateId" value="{{ stateId }}" />
-    <button type="submit" class="btn" name="no" id="nobutton"{%- if autofocus is defined and autofocus == 'nobutton' %} autofocus{% endif -%}>{{ '{consent:consent:no}'|trans }}</button>
+    <button type="submit" class="btn" name="no" id="nobutton"{%- if autofocus is defined and autofocus == 'nobutton' %} autofocus{% endif -%}>{{ 'No, cancel'|trans }}</button>
 </form>
 
 {% if sppp != false %}
-<p>{{ '{consent:consent:consent_privacypolicy}'|trans }}
+<p>{{ 'Privacy policy for the service'|trans }}
     <a target='_blank' href='{{ sppp|escape('html') }} '>{{ dstName }}</a>
 </p>
 {% endif %}

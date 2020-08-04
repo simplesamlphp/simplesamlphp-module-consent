@@ -1,16 +1,16 @@
-{% set pagetitle = '{consent:consent:noconsent_title}'|trans %}
+{% set pagetitle = 'No consent given'|trans %}
 {% extends "base.twig" %}
 {% block content %}
     <h2>{{ header }}</h2>
-    <p>{{ noconsent_text }}</p>
+    <p>{{ 'You did not give consent for transfering your attributes to %SPNAME%.'|trans({'%SPNAME%': dstName}) }}</p>
 
     {% if resumeFrom %}
-    <p><a href="{{ resumeFrom }}">{{ '{consent:consent:noconsent_return}'|trans }}</a></p>
+    <p><a href="{{ resumeFrom }}">{{ 'Return to consent page'|trans }}</a></p>
     {% endif %}
 
     {% if aboutService %}
-    <p><a href="{{ aboutService }}">{{ '{consent:consent:noconsent_goto_about}'|trans }}</a></p>
+    <p><a href="{{ aboutService }}">{{ 'Go to information page for the service'|trans }}</a></p>
     {% endif %}
 
-    <p><a href="{{ logoutLink }}">{{ noconsent_abort }}</a></p>
+    <p><a href="{{ logoutLink }}">{{ 'Abort login to %SPNAME%'|trans({'%SPNAME%': dstName}) }}</a></p>
 {% endblock %}
