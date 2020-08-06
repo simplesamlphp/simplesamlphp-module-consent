@@ -20,7 +20,6 @@ use SimpleSAML\Logger;
 use SimpleSAML\Module;
 use SimpleSAML\Stats;
 use SimpleSAML\Utils;
-use SimpleSAML\Assert\Assert;
 
 class Consent extends Auth\ProcessingFilter
 {
