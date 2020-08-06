@@ -59,9 +59,9 @@ cookies as storage you need to set the `store` option to `consent:Cookie`.
 Example: 
 
 	90 => array(
-                'class'                => 'consent:Consent',
-                'identifyingAttribute' => 'uid',
-                'store'                => 'consent:Cookie', 
+            'class'                => 'consent:Consent',
+            'identifyingAttribute' => 'uid',
+            'store'                => 'consent:Cookie', 
 	),
 
 
