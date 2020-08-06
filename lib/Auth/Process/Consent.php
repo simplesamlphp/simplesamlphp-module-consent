@@ -72,6 +72,13 @@ class Consent extends Auth\ProcessingFilter
      */
     private $showNoConsentAboutService = true;
 
+    /**
+     * The name of the attribute that holds a unique identifier for the user
+     *
+     * @var string
+     */
+    private $identifyingAttribute;
+
 
     /**
      * Initialize consent filter.
@@ -163,6 +170,10 @@ class Consent extends Auth\ProcessingFilter
             }
             $this->showNoConsentAboutService = $config['showNoConsentAboutService'];
         }
+
+        Assert::keyExists($config, 'identifyingAttribute', "Missing mandatory 'identifyingAttribute' config setting.");
+        Assert::stringNotEmpty($config['identifyingAttribute'], "Consent: 'identifyingAttribute' must be a non-empty string.");
+        $this->identifyingAttribute = $config['identifyingAttribute'];
     }
 
 
@@ -237,7 +248,6 @@ class Consent extends Auth\ProcessingFilter
      */
     public function process(array &$state): void
     {
-        Assert::keyExists($state, 'UserID');
         Assert::keyExists($state, 'Destination');
         Assert::keyExists($state['Destination'], 'entityid');
         Assert::keyExists($state['Destination'], 'metadata-set');
@@ -285,6 +295,8 @@ class Consent extends Auth\ProcessingFilter
             $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
             $attributes = $state['Attributes'];
+            Assert::keyExists($attributes, $this->identifyingAttribute, "No attribute '%s' was found in the user's attributes.");
+            $userId = $attributes[$this->identifyingAttribute];
 
             // Remove attributes that do not require consent
             foreach ($attributes as $attrkey => $attrval) {
@@ -293,20 +305,20 @@ class Consent extends Auth\ProcessingFilter
                 }
             }
 
-            Logger::debug('Consent: userid: ' . $state['UserID']);
+            Logger::debug('Consent: userid: ' . $userId);
             Logger::debug('Consent: source: ' . $source);
             Logger::debug('Consent: destination: ' . $destination);
 
-            $userId = self::getHashedUserID($state['UserID'], $source);
-            $targetedId = self::getTargetedID($state['UserID'], $source, $destination);
+            $hashedUserId = self::getHashedUserID($userId, $source);
+            $targetedId = self::getTargetedID($userId, $source, $destination);
             $attributeSet = self::getAttributeHash($attributes, $this->includeValues);
 
             Logger::debug(
-                'Consent: hasConsent() [' . $userId . '|' . $targetedId . '|' . $attributeSet . ']'
+                'Consent: hasConsent() [' . $hashedUserId . '|' . $targetedId . '|' . $attributeSet . ']'
             );
 
             try {
-                if ($this->store->hasConsent($userId, $targetedId, $attributeSet)) {
+                if ($this->store->hasConsent($hashedUserId, $targetedId, $attributeSet)) {
                     // Consent already given
                     Logger::stats('consent found');
                     Stats::log('consent:found', $statsData);
@@ -317,7 +329,7 @@ class Consent extends Auth\ProcessingFilter
                 Stats::log('consent:notfound', $statsData);
 
                 $state['consent:store'] = $this->store;
-                $state['consent:store.userId'] = $userId;
+                $state['consent:store.userId'] = $hashedUserId;
                 $state['consent:store.destination'] = $targetedId;
                 $state['consent:store.attributeSet'] = $attributeSet;
             } catch (\Exception $e) {

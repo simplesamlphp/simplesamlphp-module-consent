@@ -22,9 +22,9 @@ In order to generate the privacy preserving hashes in the consent module, you
 need to name one attribute that is always available and that is unique to all 
 users. An example of such an attribute is eduPersonPrincipalName.
 
-In your `saml20-idp-hosted.php` add the name of the user ID attribute:
+In your authproc-configuration add the name of the user ID attribute:
 
-	'userid.attribute' => 'uid', 
+	'identifyingAttribute' => 'uid', 
 
 If the attribute defined above is not available for a user, an error message 
 will be shown, and the user will not be allowed through the filter. So make 
@@ -59,8 +59,9 @@ cookies as storage you need to set the `store` option to `consent:Cookie`.
 Example: 
 
 	90 => array(
-		'class' 	=> 'consent:Consent', 
-		'store' 	=> 'consent:Cookie', 
+            'class'                => 'consent:Consent',
+            'identifyingAttribute' => 'uid',
+            'store'                => 'consent:Cookie', 
 	),
 
 
@@ -105,6 +106,7 @@ Example config using PostgreSQL database:
 
     90 => array(
         'class'	=> 'consent:Consent', 
+        'identifyingAttribute' => 'uid',
         'store'	=> array(
             'consent:Database', 
             'dsn' => 'pgsql:host=sql.example.org;dbname=consent',
@@ -117,6 +119,7 @@ Example config using MySQL database:
 
     90 => array(
         'class'	=> 'consent:Consent', 
+        'identifyingAttribute' => 'uid',
         'store'	=> array(
             'consent:Database', 
             'dsn' => 'mysql:host=db.example.org;dbname=simplesaml',
