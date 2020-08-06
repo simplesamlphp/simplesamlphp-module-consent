@@ -20,6 +20,7 @@ use SimpleSAML\Logger;
 use SimpleSAML\Module;
 use SimpleSAML\Stats;
 use SimpleSAML\Utils;
+use SimpleSAML\Assert\Assert;
 
 class Consent extends Auth\ProcessingFilter
 {
@@ -71,6 +72,13 @@ class Consent extends Auth\ProcessingFilter
      * @var bool
      */
     private $showNoConsentAboutService = true;
+
+    /**
+     * The name of the attribute that holds a unique identifier for the user
+     *
+     * @var string
+     */
+    private $identifyingAttribute;
 
 
     /**
@@ -163,6 +171,10 @@ class Consent extends Auth\ProcessingFilter
             }
             $this->showNoConsentAboutService = $config['showNoConsentAboutService'];
         }
+
+        Assert::keyExists($config, 'identifyingAttribute', "Missing mandatory 'identifyingAttribute' config setting.");
+        Assert::stringNotEmpty($config['identifyingAttribute'], "Consent: 'identifyingAttribute' must be a non-empty string.");
+        $this->identifyingAttribute = $config['identifyingAttribute'];
     }
 
 
@@ -237,7 +249,6 @@ class Consent extends Auth\ProcessingFilter
      */
     public function process(array &$state): void
     {
-        Assert::keyExists($state, 'UserID');
         Assert::keyExists($state, 'Destination');
         Assert::keyExists($state['Destination'], 'entityid');
         Assert::keyExists($state['Destination'], 'metadata-set');
@@ -285,6 +296,7 @@ class Consent extends Auth\ProcessingFilter
             $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
             $attributes = $state['Attributes'];
+            Assert::keyExists($attributes, $this->identifyingAttribute, "No attribute '%s' was found in the user's attributes.");
 
             // Remove attributes that do not require consent
             foreach ($attributes as $attrkey => $attrval) {
@@ -293,12 +305,12 @@ class Consent extends Auth\ProcessingFilter
                 }
             }
 
-            Logger::debug('Consent: userid: ' . $state['UserID']);
+            Logger::debug('Consent: userid: ' . $attributes[$this->identifyingAttribute]);
             Logger::debug('Consent: source: ' . $source);
             Logger::debug('Consent: destination: ' . $destination);
 
-            $userId = self::getHashedUserID($state['UserID'], $source);
-            $targetedId = self::getTargetedID($state['UserID'], $source, $destination);
+            $userId = self::getHashedUserID($attributes[$this->identifyingAttribute], $source);
+            $targetedId = self::getTargetedID($userid, $source, $destination);
             $attributeSet = self::getAttributeHash($attributes, $this->includeValues);
 
             Logger::debug(
