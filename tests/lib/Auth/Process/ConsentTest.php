@@ -47,7 +47,7 @@ class ConsentTest extends TestCase
     public function testCheckDisable(): void
     {
         // test consent disable regex with match
-        $config = [];
+        $config = ['identifyingAttribute' => 'uid'];
 
         // test consent disable with match on specific SP entityid
         $request = [
@@ -74,7 +74,6 @@ class ConsentTest extends TestCase
                     'https://idp.example.org',
                 ],
             ],
-            'UserID' => 'jdoe',
             'Attributes' => [
                 'eduPersonPrincipalName' => ['jdoe@example.com'],
             ],
@@ -109,7 +108,6 @@ class ConsentTest extends TestCase
                 'entityid' => 'https://sp.example.org/my-sp', // sp contains the string ".example.org"
                 'metadata-set' => 'saml20-sp-remote',
             ],
-            'UserID' => 'jdoe',
             'Attributes' => [
                 'eduPersonPrincipalName' => ['jdoe@example.com'],
             ],
@@ -214,7 +212,8 @@ class ConsentTest extends TestCase
             'focus',
             'hiddenAttributes',
             'noconsentattributes',
-            'showNoConsentAboutService'
+            'showNoConsentAboutService',
+            'identifyingAttribute',
         ];
         foreach ($values as $v) {
             $instanceVars[$v] = $reflection->getProperty($v);
@@ -229,6 +228,7 @@ class ConsentTest extends TestCase
             'hiddenAttributes' => ['attribute1', 'attribute2'],
             'attributes.exclude' => ['attribute1', 'attribute2'],
             'showNoConsentAboutService' => false,
+            'identifyingAttribute' => 'uid',
         ];
 
         ob_start();
@@ -245,7 +245,7 @@ class ConsentTest extends TestCase
             $config['showNoConsentAboutService']
         );
 
-        $deprecated = $reflection->newInstance(['noconsentattributes' => $config['attributes.exclude']], null);
+        $deprecated = $reflection->newInstance(['noconsentattributes' => $config['attributes.exclude'], 'identifyingAttribute' => $config['identifyingAttribute']], null);
         $this->assertEquals($instanceVars['noconsentattributes']->getValue($deprecated), $config['attributes.exclude']);
     }
 }
