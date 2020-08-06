@@ -296,6 +296,7 @@ class Consent extends Auth\ProcessingFilter
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
             $attributes = $state['Attributes'];
             Assert::keyExists($attributes, $this->identifyingAttribute, "No attribute '%s' was found in the user's attributes.");
+            $userId = $attributes[$this->identifyingAttribute];
 
             // Remove attributes that do not require consent
             foreach ($attributes as $attrkey => $attrval) {
@@ -304,20 +305,20 @@ class Consent extends Auth\ProcessingFilter
                 }
             }
 
-            Logger::debug('Consent: userid: ' . $attributes[$this->identifyingAttribute]);
+            Logger::debug('Consent: userid: ' . $userId);
             Logger::debug('Consent: source: ' . $source);
             Logger::debug('Consent: destination: ' . $destination);
 
-            $userId = self::getHashedUserID($attributes[$this->identifyingAttribute], $source);
-            $targetedId = self::getTargetedID($userid, $source, $destination);
+            $hashedUserId = self::getHashedUserID($userId, $source);
+            $targetedId = self::getTargetedID($userId, $source, $destination);
             $attributeSet = self::getAttributeHash($attributes, $this->includeValues);
 
             Logger::debug(
-                'Consent: hasConsent() [' . $userId . '|' . $targetedId . '|' . $attributeSet . ']'
+                'Consent: hasConsent() [' . $hashedUserId . '|' . $targetedId . '|' . $attributeSet . ']'
             );
 
             try {
-                if ($this->store->hasConsent($userId, $targetedId, $attributeSet)) {
+                if ($this->store->hasConsent($hashedUserId, $targetedId, $attributeSet)) {
                     // Consent already given
                     Logger::stats('consent found');
                     Stats::log('consent:found', $statsData);
@@ -328,7 +329,7 @@ class Consent extends Auth\ProcessingFilter
                 Stats::log('consent:notfound', $statsData);
 
                 $state['consent:store'] = $this->store;
-                $state['consent:store.userId'] = $userId;
+                $state['consent:store.userId'] = $hashedUserId;
                 $state['consent:store.destination'] = $targetedId;
                 $state['consent:store.attributeSet'] = $attributeSet;
             } catch (\Exception $e) {
