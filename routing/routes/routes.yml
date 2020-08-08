@@ -1,11 +1,11 @@
 consent-getconsent:
-    path:       /getconsent/{StateId}
+    path:       /getconsent
     defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::getconsent' }
 consent-noconsent:
-    path:       /noconsent/{StateId}
+    path:       /noconsent
     defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::noconsent' }
 consent-logout:
-    path:       /logout/{StateId}
+    path:       /logout
     defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::logout' }
 consent-logoutcompleted:
     path:       /logoutcompleted
