@@ -220,8 +220,6 @@ class ConsentController
             $t->data['hiddenAttributes'] = [];
         }
 
-        $t->data['attributes_html'] = $this->presentAttributes($t, $attributes, '');
-
         return $t;
     }
 
@@ -304,98 +302,5 @@ class ConsentController
     public function logoutcompleted(Request $request): Template
     {
         return new Template($this->config, 'consent:logout_completed.twig');
-    }
-
-
-    /**
-     * Recursive attribute array listing function
-     *
-     * @param \SimpleSAML\XHTML\Template $t          Template object
-     * @param array                     $attributes Attributes to be presented
-     * @param string                    $nameParent Name of parent element
-     *
-     * @return string HTML representation of the attributes
-     */
-    private function presentAttributes(Template $t, array $attributes, string $nameParent): string
-    {
-        $translator = $t->getTranslator();
-
-        $alternate = ['odd', 'even'];
-        $i = 0;
-        $summary = 'summary="' . $translator->t('List the information about you that is about to be transmitted to the service you are going to login to') . '"';
-
-        if (strlen($nameParent) > 0) {
-            $parentStr = strtolower($nameParent) . '_';
-            $str = '<table class="attributes" ' . $summary . '>';
-        } else {
-            $parentStr = '';
-            $str = '<table id="table_with_attributes" class="attributes" ' . $summary . '>';
-            $str .= "\n" . '<caption>' . $translator->t('User information') . '</caption>';
-        }
-
-        foreach ($attributes as $name => $value) {
-            $nameraw = $name;
-            $name = $translator->getAttributeTranslation($parentStr . $nameraw);
-
-            if (preg_match('/^child_/', $nameraw)) {
-                // insert child table
-                $parentName = preg_replace('/^child_/', '', $nameraw);
-                foreach ($value as $child) {
-                    $str .= "\n" . '<tr class="odd"><td class="td_odd">' .
-                        $this->presentAttributes($t, $child, $parentName) . '</td></tr>';
-                }
-            } else {
-                // insert values directly
-
-                $str .= "\n" . '<tr class="' . $alternate[($i++ % 2)] .
-                    '"><td><span class="attrname">' . htmlspecialchars($name) . '</span></td>';
-
-                $isHidden = in_array($nameraw, $t->data['hiddenAttributes'], true);
-                if ($isHidden) {
-                    $hiddenId = Utils\Random::generateID();
-                    $str .= '<td><span class="attrvalue hidden" id="hidden_' . $hiddenId . '">';
-                } else {
-                    $hiddenId = '';
-                    $str .= '<td><span class="attrvalue">';
-                }
-
-                if (sizeof($value) > 1) {
-                    // we hawe several values
-                    $str .= '<ul>';
-                    foreach ($value as $listitem) {
-                        if ($nameraw === 'jpegPhoto') {
-                            $str .= '<li><img src="data:image/jpeg;base64,' .
-                                htmlspecialchars($listitem) . '" alt="User photo" /></li>';
-                        } else {
-                            $str .= '<li>' . htmlspecialchars($listitem) . '</li>';
-                        }
-                    }
-                    $str .= '</ul>';
-                } elseif (isset($value[0])) {
-                    // we hawe only one value
-                    if ($nameraw === 'jpegPhoto') {
-                        $str .= '<img src="data:image/jpeg;base64,' .
-                            htmlspecialchars($value[0]) . '" alt="User photo" />';
-                    } else {
-                        $str .= htmlspecialchars($value[0]);
-                    }
-                } // end of if multivalue
-                $str .= '</span>';
-
-                if ($isHidden) {
-                    $str .= '<div class="attrvalue consent_showattribute" id="visible_' . $hiddenId . '">';
-                    $str .= '... ';
-                    $str .= '<a class="consent_showattributelink" href="javascript:SimpleSAML_show(\'hidden_' . $hiddenId;
-                    $str .= '\'); SimpleSAML_hide(\'visible_' . $hiddenId . '\');">';
-                    $str .= $translator->t('Show attributes');
-                    $str .= '</a>';
-                    $str .= '</div>';
-                }
-
-                $str .= '</td></tr>';
-            }       // end else: not child table
-        }   // end foreach
-        $str .= '</table>';
-        return $str;
     }
 }
