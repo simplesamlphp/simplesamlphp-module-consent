@@ -53,17 +53,21 @@ class ConsentController
      * Display consent form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request The current request.
-     * @param string $id The StateId
      *
      * @return \SimpleSAML\XHTML\Template
      */
-    public function getconsent(Request $request, string $id): Template
+    public function getconsent(Request $request): Template
     {
         session_cache_limiter('nocache');
 
         Logger::info('Consent - getconsent: Accessing consent interface');
 
-        $state = Auth\State::loadState($id, 'consent:request');
+        $stateId = $request->get('StateId', false);
+        if ($stateId === false) {
+            throw new Error\BadRequest('Missing required StateId query parameter.');
+        }
+
+        $state = Auth\State::loadState($stateId, 'consent:request');
 
         if (is_null($state)) {
             throw new Error\NoState();
@@ -155,12 +159,12 @@ class ConsentController
         $t->data['srcMetadata'] = $state['Source'];
         $t->data['dstMetadata'] = $state['Destination'];
         $t->data['yesTarget'] = Module::getModuleURL('consent/getconsent');
-        $t->data['yesData'] = ['StateId' => $id];
+        $t->data['yesData'] = ['StateId' => $stateId];
         $t->data['noTarget'] = Module::getModuleURL('consent/noconsent');
-        $t->data['noData'] = ['StateId' => $id];
+        $t->data['noData'] = ['StateId' => $stateId];
         $t->data['attributes'] = $attributes;
         $t->data['checked'] = $state['consent:checked'];
-        $t->data['stateId'] = $id;
+        $t->data['stateId'] = $stateId;
 
         $t->data['srcName'] = htmlspecialchars(is_array($srcName) ? $translator->getPreferredTranslation($srcName) : $srcName);
         $t->data['dstName'] = htmlspecialchars(is_array($dstName) ? $translator->getPreferredTranslation($dstName) : $dstName);
@@ -226,23 +230,27 @@ class ConsentController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request The current request.
-     * @param string $id The StateId
      *
      * @return \SimpleSAML\XHTML\Template
      */
-    public function noconsent(Request $request, string $id): Template
+    public function noconsent(Request $request): Template
     {
+        $stateId = $request->get('StateId', false);
+        if ($stateId === false) {
+            throw new Error\BadRequest('Missing required StateId query parameter.');
+        }
+
         /** @psalm-var array $state */
-        $state = Auth\State::loadState($id, 'consent:request');
+        $state = Auth\State::loadState($stateId, 'consent:request');
 
         $resumeFrom = Module::getModuleURL(
             'consent/getconsent',
-            ['StateId' => $id]
+            ['StateId' => $stateId]
         );
 
         $logoutLink = Module::getModuleURL(
             'consent/logout',
-            ['StateId' => $id]
+            ['StateId' => $stateId]
         );
 
         $aboutService = null;
@@ -279,13 +287,17 @@ class ConsentController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request The current request.
-     * @param string $id The StateId
      *
      * @return \SimpleSAML\HTTP\RunnableResponse
      */
-    public function logout(Request $request, string $id): RunnableResponse
+    public function logout(Request $request): RunnableResponse
     {
-        $state = Auth\State::loadState($id, 'consent:request');
+        $stateId = $request->get('StateId', false);
+        if ($stateId === false) {
+            throw new Error\BadRequest('Missing required StateId query parameter.');
+        }
+
+        $state = Auth\State::loadState($stateId, 'consent:request');
 
         $state['Responder'] = ['\SimpleSAML\Module\consent\Logout', 'postLogout'];
 
