@@ -283,9 +283,9 @@ class ConsentController
      * @param \Symfony\Component\HttpFoundation\Request $request The current request.
      * @param string $id The StateId
      *
-     * @return \SimpleSAML\XHTML\Template
+     * @return \SimpleSAML\HTTP\RunnableResponse
      */
-    public function logout(Request $request, string $id): Template
+    public function logout(Request $request, string $id): RunnableResponse
     {
         $state = Auth\State::loadState($id, 'consent:request');
 
