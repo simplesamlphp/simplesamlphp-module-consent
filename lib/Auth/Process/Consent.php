@@ -367,7 +367,7 @@ class Consent extends Auth\ProcessingFilter
 
         // Save state and redirect
         $id = Auth\State::saveState($state, 'consent:request');
-        $url = Module::getModuleURL('consent/getconsent.php');
+        $url = Module::getModuleURL('consent/getconsent');
         Utils\HTTP::redirectTrustedURL($url, ['StateId' => $id]);
     }
 
