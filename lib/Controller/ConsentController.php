@@ -220,7 +220,7 @@ class ConsentController
             $t->data['hiddenAttributes'] = [];
         }
 
-        $t->data['attributes_html'] = presentAttributes($t, $attributes, '');
+        $t->data['attributes_html'] = $this->presentAttributes($t, $attributes, '');
 
         return $t;
     }
@@ -342,7 +342,7 @@ class ConsentController
                 $parentName = preg_replace('/^child_/', '', $nameraw);
                 foreach ($value as $child) {
                     $str .= "\n" . '<tr class="odd"><td class="td_odd">' .
-                        presentAttributes($t, $child, $parentName) . '</td></tr>';
+                        $this->presentAttributes($t, $child, $parentName) . '</td></tr>';
                 }
             } else {
                 // insert values directly
