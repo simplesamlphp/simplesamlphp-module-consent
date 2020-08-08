@@ -59,6 +59,8 @@ class ConsentController
      */
     public function getconsent(Request $request, string $id): Template
     {
+        session_cache_limiter('nocache');
+
         Logger::info('Consent - getconsent: Accessing consent interface');
 
         $state = Auth\State::loadState($id, 'consent:request');
