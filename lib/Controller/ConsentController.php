@@ -62,7 +62,7 @@ class ConsentController
 
         Logger::info('Consent - getconsent: Accessing consent interface');
 
-        $stateId = $request->get('StateId', false);
+        $stateId = $request->query->get('StateId', false);
         if ($stateId === false) {
             throw new Error\BadRequest('Missing required StateId query parameter.');
         }
@@ -80,15 +80,15 @@ class ConsentController
         }
 
         // The user has pressed the yes-button
-        if (array_key_exists('yes', $_REQUEST)) {
-            if (array_key_exists('saveconsent', $_REQUEST)) {
+        if ($request->request->get('yes', false)) {
+            if ($request->request->get('saveconsent', false)) {
                 Logger::stats('consentResponse remember');
             } else {
                 Logger::stats('consentResponse rememberNot');
             }
 
             $statsInfo = [
-                'remember' => array_key_exists('saveconsent', $_REQUEST),
+                'remember' => $request->request->get('saveconsent', false),
             ];
             if (isset($state['Destination']['entityid'])) {
                 $statsInfo['spEntityID'] = $state['Destination']['entityid'];
@@ -96,9 +96,8 @@ class ConsentController
             Stats::log('consent:accept', $statsInfo);
 
             if (
-                array_key_exists('consent:store', $state)
-                && array_key_exists('saveconsent', $_REQUEST)
-                && $_REQUEST['saveconsent'] === '1'
+                $request->request->get('consent:store', false)
+                && $request->request->get('saveconsent', false) === '1'
             ) {
                 // Save consent
                 $store = $state['consent:store'];
@@ -235,7 +234,7 @@ class ConsentController
      */
     public function noconsent(Request $request): Template
     {
-        $stateId = $request->get('StateId', false);
+        $stateId = $request->query->get('StateId', false);
         if ($stateId === false) {
             throw new Error\BadRequest('Missing required StateId query parameter.');
         }
@@ -292,7 +291,7 @@ class ConsentController
      */
     public function logout(Request $request): RunnableResponse
     {
-        $stateId = $request->get('StateId', false);
+        $stateId = $request->query->get('StateId', false);
         if ($stateId === false) {
             throw new Error\BadRequest('Missing required StateId query parameter.');
         }
