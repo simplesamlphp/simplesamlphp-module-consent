@@ -305,7 +305,7 @@ class ConsentController
         $state['Responder'] = ['\SimpleSAML\Module\consent\Logout', 'postLogout'];
 
         $idp = IdP::getByState($state);
-        return new RunnableResponse([$idp, 'handleLogoutRequest'], [&$state, null]);
+        return new RunnableResponse([$idp, 'handleLogoutRequest'], [&$state, $stateId]);
     }
 
 
