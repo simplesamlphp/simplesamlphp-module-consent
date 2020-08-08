@@ -239,8 +239,10 @@ class ConsentController
             throw new Error\BadRequest('Missing required StateId query parameter.');
         }
 
-        /** @psalm-var array $state */
         $state = Auth\State::loadState($stateId, 'consent:request');
+        if (is_null($state)) {
+            throw new Error\NoState();
+        }
 
         $resumeFrom = Module::getModuleURL(
             'consent/getconsent',
@@ -297,20 +299,20 @@ class ConsentController
         }
 
         $state = Auth\State::loadState($stateId, 'consent:request');
-
+        if (is_null($state)) {
+            throw new Error\NoState();
+        }
         $state['Responder'] = ['\SimpleSAML\Module\consent\Logout', 'postLogout'];
 
         $idp = IdP::getByState($state);
-        return new RunnableResponse([$idp, 'handleLogoutRequest'], [$state, null]);
+        return new RunnableResponse([$idp, 'handleLogoutRequest'], [&$state, null]);
     }
 
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request The current request.
-     *
      * @return \SimpleSAML\XHTML\Template
      */
-    public function logoutcompleted(Request $request): Template
+    public function logoutcompleted(): Template
     {
         return new Template($this->config, 'consent:logout_completed.twig');
     }
