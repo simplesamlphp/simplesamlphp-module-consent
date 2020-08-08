@@ -154,9 +154,9 @@ class ConsentController
         $translator = $t->getTranslator();
         $t->data['srcMetadata'] = $state['Source'];
         $t->data['dstMetadata'] = $state['Destination'];
-        $t->data['yesTarget'] = Module::getModuleURL('consent/getconsent.php');
+        $t->data['yesTarget'] = Module::getModuleURL('consent/getconsent');
         $t->data['yesData'] = ['StateId' => $id];
-        $t->data['noTarget'] = Module::getModuleURL('consent/noconsent.php');
+        $t->data['noTarget'] = Module::getModuleURL('consent/noconsent');
         $t->data['noData'] = ['StateId' => $id];
         $t->data['attributes'] = $attributes;
         $t->data['checked'] = $state['consent:checked'];
@@ -238,12 +238,12 @@ class ConsentController
         $state = Auth\State::loadState($id, 'consent:request');
 
         $resumeFrom = Module::getModuleURL(
-            'consent/getconsent.php',
+            'consent/getconsent',
             ['StateId' => $id]
         );
 
         $logoutLink = Module::getModuleURL(
-            'consent/logout.php',
+            'consent/logout',
             ['StateId' => $id]
         );
 
