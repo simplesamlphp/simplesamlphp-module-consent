@@ -96,7 +96,7 @@ class ConsentController
             Stats::log('consent:accept', $statsInfo);
 
             if (
-                $request->query->get('consent:store') !== null
+                array_key_exists('consent:store', $state)
                 && $request->query->get('saveconsent') === '1'
             ) {
                 // Save consent
