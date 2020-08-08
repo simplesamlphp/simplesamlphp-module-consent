@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block content %}
-<p>{{ consent_accept}}</p>
+<p>{{ '%SPNAME% requires that the information below is transferred.'|trans({'%SPNAME%': dstName}) }}</p>
 
 {% if consent_purpose is defined %}
-    <p>{{ consent_purpose }}</p>
+    <p>{{ 'The purpose of %SPNAME% is %SPDESC%'|trans({'%SPNAME%': dstName, '%SPDESC%': dstDesc}) }}</p>
 {% endif %}
 
 <form id="consent_yes" action="{{ yesTarget }}">
@@ -19,7 +19,7 @@
     {% endif %}
 
     <input type="hidden" name="StateId" value="{{ stateId }}" />
-    <button type="submit" name="yes" class="btn" id="yesbutton"{%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}>{{ 'Yes, continue}'|trans }}</button>
+    <button type="submit" name="yes" class="btn" id="yesbutton"{%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}>{{ 'Yes, continue'|trans }}</button>
 </form>
 
 <form id="consent_no" action="{{ noTarget }}">
@@ -33,7 +33,7 @@
 </p>
 {% endif %}
 
-<h3 id="attributeheader">{{ 'Information that will be sent to %SPNAME%'|trans }}</h3>
+<h3 id="attributeheader">{{ 'Information that will be sent to %SPNAME%'|trans({'%SPNAME%': dstName}) }}</h3>
 
 {% set items = attributes %}
 
@@ -53,41 +53,5 @@
 
 {%- endembed %}
 
-
-{% if nameid %}
-    <h2>{{ 'SAML Subject'|trans }}</h2>
-
-    {%  set items = {'NameId' : nameid.value} %}
-
-    {% if not nameid.value %}
-        {%  set items = items|merge({'NameID' : 'not set'|trans}) %}
-    {% endif %}
-
-    {% if nameid.Format %}
-        {% set items = items|merge({('Format'|trans) : nameid.Format}) %}
-    {% endif %}
-
-    {% if nameid.NameQualifier %}
-        {% set items = items|merge({'NameQualifier' : nameid.NameQualifier}) %}
-    {% endif %}
-
-    {% if nameid.SPNameQualifier %}
-        {% set items = items|merge({'SPNameQualifier' : nameid.SPNameQualifier}) %}
-    {% endif %}
-
-    {% if nameid.SPProvidedID %}
-        {% set items = items|merge({'SPProvidedID' : nameid.SPProvidedID}) %}
-    {% endif %}
-
-    <table id="table_with_attributes"  class="attributes pure-table pure-table-striped pure-table-attributes" summary="attribute overview">
-        {% for name, value in items %}
-            <tr class="{{ cycle(['odd', 'even'], loop.index0) }}">
-                <td class="attrname">{{ name }}</td>
-                <td class="attrvalue">{{ value }}</td>
-            </tr>
-        {% endfor %}
-    </table><br>
-
-{% endif %}
 
 {% endblock %}
