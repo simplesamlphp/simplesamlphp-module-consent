@@ -220,7 +220,7 @@ class ConsentController
             $t->data['hiddenAttributes'] = [];
         }
 
-        $t->data['attributes_html'] = present_attributes($t, $attributes, '');
+        $t->data['attributes_html'] = presentAttributes($t, $attributes, '');
 
         return $t;
     }
@@ -316,7 +316,7 @@ class ConsentController
      *
      * @return string HTML representation of the attributes
      */
-    private function present_attributes(Template $t, array $attributes, string $nameParent): string
+    private function presentAttributes(Template $t, array $attributes, string $nameParent): string
     {
         $translator = $t->getTranslator();
 
@@ -342,7 +342,7 @@ class ConsentController
                 $parentName = preg_replace('/^child_/', '', $nameraw);
                 foreach ($value as $child) {
                     $str .= "\n" . '<tr class="odd"><td class="td_odd">' .
-                        present_attributes($t, $child, $parentName) . '</td></tr>';
+                        presentAttributes($t, $child, $parentName) . '</td></tr>';
                 }
             } else {
                 // insert values directly
