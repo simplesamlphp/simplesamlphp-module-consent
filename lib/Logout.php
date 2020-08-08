@@ -20,7 +20,7 @@ class Logout
      */
     public static function postLogout(\SimpleSAML\IdP $idp, array $state): void
     {
-        $url = Module::getModuleURL('consent/logout_completed.php');
+        $url = Module::getModuleURL('consent/logoutcompleted');
         Utils\HTTP::redirectTrustedURL($url);
     }
 }
