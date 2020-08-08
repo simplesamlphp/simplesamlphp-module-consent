@@ -33,6 +33,61 @@
 </p>
 {% endif %}
 
-<h3 id="attributeheader">{{ consent_attributes_header }}</h3>
-{{ attributes_html|raw }}
+<h3 id="attributeheader">{{ 'Information that will be sent to %SPNAME%'|trans }}</h3>
+
+{% set items = attributes %}
+
+{% embed '_table.twig' -%}
+
+    {% block namecol -%}
+    {% set translated = name|trans %}
+    <td class="attrname">{% if translated != name %} {{ translated }} <br>{% endif %} <samp>{{ name }}</samp></td>
+    {% endblock %}
+
+
+    {% block value -%}
+    {% if name =='jpegPhoto'-%}
+        <img src="data:image/jpeg;base64,{{ value }}" />
+    {% else %}{{ value }}{% endif -%}
+    {% endblock %}
+
+{%- endembed %}
+
+
+{% if nameid %}
+    <h2>{{ 'SAML Subject'|trans }}</h2>
+
+    {%  set items = {'NameId' : nameid.value} %}
+
+    {% if not nameid.value %}
+        {%  set items = items|merge({'NameID' : 'not set'|trans}) %}
+    {% endif %}
+
+    {% if nameid.Format %}
+        {% set items = items|merge({('Format'|trans) : nameid.Format}) %}
+    {% endif %}
+
+    {% if nameid.NameQualifier %}
+        {% set items = items|merge({'NameQualifier' : nameid.NameQualifier}) %}
+    {% endif %}
+
+    {% if nameid.SPNameQualifier %}
+        {% set items = items|merge({'SPNameQualifier' : nameid.SPNameQualifier}) %}
+    {% endif %}
+
+    {% if nameid.SPProvidedID %}
+        {% set items = items|merge({'SPProvidedID' : nameid.SPProvidedID}) %}
+    {% endif %}
+
+    <table id="table_with_attributes"  class="attributes pure-table pure-table-striped pure-table-attributes" summary="attribute overview">
+        {% for name, value in items %}
+            <tr class="{{ cycle(['odd', 'even'], loop.index0) }}">
+                <td class="attrname">{{ name }}</td>
+                <td class="attrvalue">{{ value }}</td>
+            </tr>
+        {% endfor %}
+    </table><br>
+
+{% endif %}
+
 {% endblock %}
