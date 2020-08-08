@@ -306,6 +306,7 @@ class Consent extends Auth\ProcessingFilter
             $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
 
+            Assert::keyExists($attributes, $this->identifyingAttribute, "No attribute '%s' was found in the user's attributes.");
             $userId = $attributes[$this->identifyingAttribute][0];
             Assert::stringNotEmpty($userId);
 
