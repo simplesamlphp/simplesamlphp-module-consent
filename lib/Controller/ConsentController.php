@@ -162,8 +162,8 @@ class ConsentController
         $t->data['checked'] = $state['consent:checked'];
         $t->data['stateId'] = $id;
 
-        $t->data['srcName'] = htmlspecialchars(is_array($srcName) ? $translator->t($srcName) : $srcName);
-        $t->data['dstName'] = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dstName);
+        $t->data['srcName'] = htmlspecialchars(is_array($srcName) ? $translator->getPreferredTranslation($srcName) : $srcName);
+        $t->data['dstName'] = htmlspecialchars(is_array($dstName) ? $translator->getPreferredTranslation($dstName) : $dstName);
 
         if (array_key_exists('descr_purpose', $state['Destination'])) {
             $t->data['dstDesc'] = $translator->getPreferredTranslation(
@@ -274,7 +274,7 @@ class ConsentController
         $t->data['resumeFrom'] = $resumeFrom;
         $t->data['aboutService'] = $aboutService;
         $t->data['logoutLink'] = $logoutLink;
-        $t->data['dstName'] = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dstName);
+        $t->data['dstName'] = htmlspecialchars(is_array($dstName) ? $translator->getPreferredTranslation($dstName) : $dstName);
         return $t;
     }
 
