@@ -87,9 +87,9 @@ class ConsentController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request The current request.
      *
-     * @return \SimpleSAML\XHTML\Template
+     * @return \SimpleSAML\XHTML\Template|\SimpleSAML\HTTP\RunnableResponse
      */
-    public function getconsent(Request $request): Template
+    public function getconsent(Request $request)
     {
 //        session_cache_limiter('nocache');
 
@@ -148,7 +148,7 @@ class ConsentController
                 }
             }
 
-            Auth\ProcessingChain::resumeProcessing($state);
+            return new RunnableResponse([Auth\ProcessingChain::class, 'resumeProcessing'], [$state]);
         }
 
         // Prepare attributes for presentation
