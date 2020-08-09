@@ -34,6 +34,18 @@ class ConsentController
     /** @var \SimpleSAML\Session */
     protected $session;
 
+    /**
+     * @var \SimpleSAML\Auth\State|string
+     * @psalm-var \SimpleSAML\Auth\State|class-string
+     */
+    protected $authState = Auth\State::class;
+
+    /**
+     * @var \SimpleSAML\Logger|string
+     * @psalm-var \SimpleSAML\Logger|class-string
+     */
+    protected $logger = Logger::class;
+
 
     /**
      * ConsentController constructor.
@@ -48,6 +60,27 @@ class ConsentController
     }
 
 
+    /**
+     * Inject the \SimpleSAML\Auth\State dependency.
+     *
+     * @param \SimpleSAML\Auth\State $authState
+     */
+    public function setAuthState(Auth\State $authState): void
+    {
+        $this->authState = $authState;
+    }
+
+
+    /**
+     * Inject the \SimpleSAML\Logger dependency.
+     *
+     * @param \SimpleSAML\Logger $logger
+     */
+    public function setLogger(Logger $logger): void
+    {
+        $this->logger = $logger;
+    }
+
 
     /**
      * Display consent form.
@@ -58,16 +91,16 @@ class ConsentController
      */
     public function getconsent(Request $request): Template
     {
-        session_cache_limiter('nocache');
+//        session_cache_limiter('nocache');
 
-        Logger::info('Consent - getconsent: Accessing consent interface');
+        $this->logger::info('Consent - getconsent: Accessing consent interface');
 
         $stateId = $request->query->get('StateId');
         if ($stateId === null) {
             throw new Error\BadRequest('Missing required StateId query parameter.');
         }
 
-        $state = Auth\State::loadState($stateId, 'consent:request');
+        $state = $this->authState::loadState($stateId, 'consent:request');
 
         if (is_null($state)) {
             throw new Error\NoState();
@@ -82,9 +115,9 @@ class ConsentController
         // The user has pressed the yes-button
         if ($request->query->get('yes') !== null) {
             if ($request->query->get('saveconsent') !== null) {
-                Logger::stats('consentResponse remember');
+                $this->logger::stats('consentResponse remember');
             } else {
-                Logger::stats('consentResponse rememberNot');
+                $this->logger::stats('consentResponse rememberNot');
             }
 
             $statsInfo = [
@@ -105,13 +138,13 @@ class ConsentController
                 $targetedId = $state['consent:store.destination'];
                 $attributeSet = $state['consent:store.attributeSet'];
 
-                Logger::debug(
+                $this->logger::debug(
                     'Consent - saveConsent() : [' . $userId . '|' . $targetedId . '|' . $attributeSet . ']'
                 );
                 try {
                     $store->saveConsent($userId, $targetedId, $attributeSet);
                 } catch (Exception $e) {
-                    Logger::error('Consent: Error writing to storage: ' . $e->getMessage());
+                    $this->logger::error('Consent: Error writing to storage: ' . $e->getMessage());
                 }
             }
 
@@ -239,7 +272,7 @@ class ConsentController
             throw new Error\BadRequest('Missing required StateId query parameter.');
         }
 
-        $state = Auth\State::loadState($stateId, 'consent:request');
+        $state = $this->authState::loadState($stateId, 'consent:request');
         if (is_null($state)) {
             throw new Error\NoState();
         }
@@ -298,7 +331,7 @@ class ConsentController
             throw new Error\BadRequest('Missing required StateId query parameter.');
         }
 
-        $state = Auth\State::loadState($stateId, 'consent:request');
+        $state = $this->authState::loadState($stateId, 'consent:request');
         if (is_null($state)) {
             throw new Error\NoState();
         }
