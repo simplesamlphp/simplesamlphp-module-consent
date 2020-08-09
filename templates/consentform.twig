@@ -13,7 +13,7 @@
 {% endif %}
 
 <form id="consent_yes" action="{{ yesTarget }}" method="GET">
-    {% if usestorage is defined %}
+    {% if usestorage == true %}
     <input type="checkbox" name="saveconsent"{% if checked %} checked="checked"{% endif %} value="1" />
     {{ 'Remember'|trans }}
     {% endif %}
