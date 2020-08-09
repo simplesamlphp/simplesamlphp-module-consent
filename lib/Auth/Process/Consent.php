@@ -171,8 +171,15 @@ class Consent extends Auth\ProcessingFilter
             $this->showNoConsentAboutService = $config['showNoConsentAboutService'];
         }
 
-        Assert::keyExists($config, 'identifyingAttribute', "Consent: Missing mandatory 'identifyingAttribute' config setting.");
-        Assert::stringNotEmpty($config['identifyingAttribute'], "Consent: 'identifyingAttribute' must be a non-empty string.");
+        Assert::keyExists(
+            $config,
+            'identifyingAttribute',
+            "Consent: Missing mandatory 'identifyingAttribute' config setting."
+        );
+        Assert::stringNotEmpty(
+            $config['identifyingAttribute'],
+            "Consent: 'identifyingAttribute' must be a non-empty string."
+        );
         $this->identifyingAttribute = $config['identifyingAttribute'];
     }
 
@@ -303,7 +310,11 @@ class Consent extends Auth\ProcessingFilter
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
             $attributes = $state['Attributes'];
 
-            Assert::keyExists($attributes, $this->identifyingAttribute, "No attribute '%s' was found in the user's attributes.");
+            Assert::keyExists(
+                $attributes,
+                $this->identifyingAttribute,
+                "Consent: No attribute '%s' was found in the user's attributes."
+            );
             $userId = $attributes[$this->identifyingAttribute][0];
             Assert::stringNotEmpty($userId);
 
