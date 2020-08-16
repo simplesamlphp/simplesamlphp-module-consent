@@ -263,12 +263,6 @@ class ConsentTest extends TestCase
         );
 
         $c = new Controller\ConsentController($this->config, $this->session);
-        $c->setAuthState(new class () extends State {
-            public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
-            {
-                return null;
-            }
-        });
         $c->setLogger($this->logger);
 
         $this->expectException(Error\NoState::class);
