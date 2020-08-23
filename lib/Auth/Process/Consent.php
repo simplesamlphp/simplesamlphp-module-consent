@@ -301,8 +301,6 @@ class Consent extends Auth\ProcessingFilter
         }
 
         if ($this->store !== null) {
-            Assert::keyExists($state, 'Attributes');
-
             $attributes = $state['Attributes'];
             Assert::keyExists(
                 $attributes,
@@ -313,11 +311,15 @@ class Consent extends Auth\ProcessingFilter
             $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
 
+            $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
+            $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
+
             Assert::keyExists(
                 $attributes,
                 $this->identifyingAttribute,
-                "Consent: No attribute '%s' was found in the user's attributes."
+                sprintf("Consent: No attribute '%s' was found in the user's attributes.", $this->identifyingAttribute)
             );
+
             $userId = $attributes[$this->identifyingAttribute][0];
             Assert::stringNotEmpty($userId);
 
