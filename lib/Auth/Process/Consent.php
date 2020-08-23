@@ -292,16 +292,19 @@ class Consent extends Auth\ProcessingFilter
         }
 
         if ($this->store !== null) {
-            $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
-            $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
-            $attributes = $state['Attributes'];
-
+            Assert::keyExists($state, 'Attributes');
             Assert::keyExists(
                 $attributes,
                 $this->identifyingAttribute,
                 "Consent: Missing '" . $attributes[$this->identifyingAttribute] . "' in user's attributes."
             );
+
+            $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
+            $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
+            $attributes = $state['Attributes'];
+
             $userId = $attributes[$this->identifyingAttribute][0];
+            Assert::stringNotEmpty($userId);
 
             // Remove attributes that do not require consent
             foreach ($attributes as $attrkey => $attrval) {
