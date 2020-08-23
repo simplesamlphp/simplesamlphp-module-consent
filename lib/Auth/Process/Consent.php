@@ -304,9 +304,6 @@ class Consent extends Auth\ProcessingFilter
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
             $attributes = $state['Attributes'];
 
-            $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
-            $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
-
             Assert::keyExists(
                 $attributes,
                 $this->identifyingAttribute,
