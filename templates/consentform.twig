@@ -12,7 +12,7 @@
     <p>{{ 'The purpose of %SPNAME% is %SPDESC%'|trans({'%SPNAME%': dstName, '%SPDESC%': dstDesc}) }}</p>
 {% endif %}
 
-<form id="consent_yes" action="{{ yesTarget }}" method="GET">
+<form id="consent_yes" action="{{ moduleURL('consent/getconsent') }}" method="GET">
     {% if usestorage == true %}
     <input type="checkbox" name="saveconsent"{% if checked %} checked="checked"{% endif %} value="1" />
     {{ 'Remember'|trans }}
@@ -22,7 +22,7 @@
     <button type="submit" name="yes" class="btn" id="yesbutton"{%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}>{{ 'Yes, continue'|trans }}</button>
 </form>
 
-<form id="consent_no" action="{{ noTarget }}" method="GET">
+<form id="consent_no" action="{{ moduleURL('consent/noconsent') }}" method="GET">
     <input type="hidden" name="StateId" value="{{ stateId }}" />
     <button type="submit" class="btn" name="no" id="nobutton"{%- if autofocus is defined and autofocus == 'nobutton' %} autofocus{% endif -%}>{{ 'No, cancel'|trans }}</button>
 </form>
@@ -52,6 +52,5 @@
     {% endblock %}
 
 {%- endembed %}
-
 
 {% endblock %}
