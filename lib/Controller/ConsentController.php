@@ -91,8 +91,6 @@ class ConsentController
      */
     public function getconsent(Request $request)
     {
-//        session_cache_limiter('nocache');
-
         $this->logger::info('Consent - getconsent: Accessing consent interface');
 
         $stateId = $request->query->get('StateId');
@@ -188,22 +186,12 @@ class ConsentController
         // Make, populate and layout consent form
         $t = new Template($this->config, 'consent:consentform.twig');
         $translator = $t->getTranslator();
-        $t->data['srcMetadata'] = $state['Source'];
-        $t->data['dstMetadata'] = $state['Destination'];
-        $t->data['yesTarget'] = Module::getModuleURL('consent/getconsent');
-        $t->data['yesData'] = ['StateId' => $stateId];
-        $t->data['noTarget'] = Module::getModuleURL('consent/noconsent');
-        $t->data['noData'] = ['StateId' => $stateId];
         $t->data['attributes'] = $attributes;
         $t->data['checked'] = $state['consent:checked'];
         $t->data['stateId'] = $stateId;
 
-        $t->data['srcName'] = htmlspecialchars(
-            is_array($srcName) ? $translator->getPreferredTranslation($srcName) : $srcName
-        );
-        $t->data['dstName'] = htmlspecialchars(
-            is_array($dstName) ? $translator->getPreferredTranslation($dstName) : $dstName
-        );
+        $t->data['srcName'] = is_array($srcName) ? $translator->getPreferredTranslation($srcName) : $srcName;
+        $t->data['dstName'] = is_array($dstName) ? $translator->getPreferredTranslation($dstName) : $dstName;
 
         if (array_key_exists('descr_purpose', $state['Destination'])) {
             $t->data['dstDesc'] = $translator->getPreferredTranslation(
@@ -214,7 +202,7 @@ class ConsentController
             );
         }
 
-        // Fetch privacypolicy
+        // Fetch privacy policy
         if (
             array_key_exists('UIInfo', $state['Destination']) &&
             array_key_exists('PrivacyStatementURL', $state['Destination']['UIInfo']) &&
@@ -253,12 +241,6 @@ class ConsentController
         }
 
         $t->data['usestorage'] = array_key_exists('consent:store', $state);
-
-        if (array_key_exists('consent:hiddenAttributes', $state)) {
-            $t->data['hiddenAttributes'] = $state['consent:hiddenAttributes'];
-        } else {
-            $t->data['hiddenAttributes'] = [];
-        }
 
         return $t;
     }
