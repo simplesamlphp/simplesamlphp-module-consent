@@ -166,6 +166,15 @@ class ConsentController
         // Reorder attributes according to attributepresentation hooks
         Module::callHooks('attributepresentation', $para);
 
+        // Unset the values for attributes that need to be hidden
+        if (array_key_exists('consent:hiddenAttributes', $state)) {
+            foreach ($state['consent:hiddenAttributes'] as $hidden) {
+                if (array_key_exists($hidden, $attributes)) {
+                    $attributes[$hidden] = null;
+                }
+            }
+        }
+
         // Parse parameters
         if (array_key_exists('name', $state['Source'])) {
             $srcName = $state['Source']['name'];
