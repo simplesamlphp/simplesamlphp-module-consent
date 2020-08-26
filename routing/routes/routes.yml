@@ -1,0 +1,12 @@
+consent-getconsent:
+    path:       /getconsent
+    defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::getconsent' }
+consent-noconsent:
+    path:       /noconsent
+    defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::noconsent' }
+consent-logout:
+    path:       /logout
+    defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::logout' }
+consent-logoutcompleted:
+    path:       /logoutcompleted
+    defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::logoutcompleted' }

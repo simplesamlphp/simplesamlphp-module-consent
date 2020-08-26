@@ -245,7 +245,13 @@ class ConsentTest extends TestCase
             $config['showNoConsentAboutService']
         );
 
-        $deprecated = $reflection->newInstance(['noconsentattributes' => $config['attributes.exclude'], 'identifyingAttribute' => $config['identifyingAttribute']], null);
+        $deprecated = $reflection->newInstance(
+            [
+                'noconsentattributes' => $config['attributes.exclude'],
+                'identifyingAttribute' => $config['identifyingAttribute']
+            ],
+            null
+        );
         $this->assertEquals($instanceVars['noconsentattributes']->getValue($deprecated), $config['attributes.exclude']);
     }
 }
