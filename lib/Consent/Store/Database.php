@@ -20,7 +20,6 @@ use SimpleSAML\Logger;
  * - password: The password used for database connection.
  * - table: The name of the table used. Optional, defaults to 'consent'.
  *
- * @author Olav Morken <olav.morken@uninett.no>
  * @package SimpleSAMLphp
  */
 

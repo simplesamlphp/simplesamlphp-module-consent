@@ -9,7 +9,6 @@ use SimpleSAML\Module\consent\Auth\Process\Consent;
 /**
  * Test for the consent:Consent authproc filter.
  *
- * @author Vincent Rioux <vrioux@ctech.ca>
  * @package SimpleSAMLphp
  */
 class ConsentTest extends TestCase

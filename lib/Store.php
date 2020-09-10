@@ -6,8 +6,6 @@ namespace SimpleSAML\Module\consent;
  * Base class for consent storage handlers.
  *
  * @package SimpleSAMLphp
- * @author Olav Morken <olav.morken@uninett.no>
- * @author JAcob Christiansen <jach@wayf.dk>
  */
 
 abstract class Store

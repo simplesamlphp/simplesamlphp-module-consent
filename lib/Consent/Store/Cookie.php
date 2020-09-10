@@ -24,7 +24,6 @@ use SimpleSAML\Utils;
  *   ),
  * </code>
  *
- * @author  Olav Morken <olav.morken@uninett.no>
  * @package SimpleSAMLphp
  */
 
