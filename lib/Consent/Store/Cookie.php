@@ -112,7 +112,6 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      * @param string $userId        The hash identifying the user at an IdP.
      * @param string $destinationId A string which identifies the destination.
      *
-     * @return void
      */
     public function deleteConsent(string $userId, string $destinationId): void
     {
@@ -126,7 +125,6 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @param string $userId The hash identifying the user at an IdP.
      *
-     * @return void This method does not return.
      *
      * @throws \Exception This method always throws an exception indicating that it is not possible to delete all given
      * consents with this handler.

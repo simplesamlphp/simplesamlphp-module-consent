@@ -242,7 +242,6 @@ class Consent extends Auth\ProcessingFilter
      *
      * @param array &$state The state of the response.
      *
-     * @return void
      *
      * @throws \SimpleSAML\Module\saml\Error\NoPassive if the request was passive and consent is needed.
      */

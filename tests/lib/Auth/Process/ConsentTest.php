@@ -14,7 +14,6 @@ use SimpleSAML\Module\consent\Auth\Process\Consent;
 class ConsentTest extends TestCase
 {
     /**
-     * @return void
      */
     public function setUp(): void
     {
@@ -41,7 +40,6 @@ class ConsentTest extends TestCase
     /**
      * Test for the private checkDisable() method.
      *
-     * @return void
      */
     public function testCheckDisable(): void
     {
@@ -128,7 +126,6 @@ class ConsentTest extends TestCase
 
 
     /**
-     * @return void
      */
     public function testAttributeHashIsConsistentWhenOrderOfValuesChange(): void
     {
@@ -149,7 +146,6 @@ class ConsentTest extends TestCase
 
 
     /**
-     * @return void
      */
     public function testAttributeHashIsConsistentWhenOrderOfAttributesChange(): void
     {
@@ -174,7 +170,6 @@ class ConsentTest extends TestCase
 
 
     /**
-     * @return void
      */
     public function testAttributeHashIsConsistentWithoutValuesWhenOrderOfAttributesChange(): void
     {
@@ -199,7 +194,6 @@ class ConsentTest extends TestCase
 
 
     /**
-     * @return void
      */
     public function testConstructorSetsInstancePrivateVars(): void
     {
