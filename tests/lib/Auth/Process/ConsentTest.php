@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Test\Module\consent\Auth\Process;
 
 use PHPUnit\Framework\TestCase;
