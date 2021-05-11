@@ -371,7 +371,9 @@ class Consent extends Auth\ProcessingFilter
         // Save state and redirect
         $id = Auth\State::saveState($state, 'consent:request');
         $url = Module::getModuleURL('consent/getconsent.php');
-        Utils\HTTP::redirectTrustedURL($url, ['StateId' => $id]);
+
+        $httpUtils = new Utils\HTTP();
+        $httpUtils->redirectTrustedURL($url, ['StateId' => $id]);
     }
 
 
@@ -385,7 +387,8 @@ class Consent extends Auth\ProcessingFilter
      */
     public static function getHashedUserID(string $userid, string $source): string
     {
-        return hash('sha1', $userid . '|' . Utils\Config::getSecretSalt() . '|' . $source);
+        $configUtils = new Utils\Config();
+        return hash('sha1', $userid . '|' . $configUtils->getSecretSalt() . '|' . $source);
     }
 
 
@@ -400,7 +403,8 @@ class Consent extends Auth\ProcessingFilter
      */
     public static function getTargetedID(string $userid, string $source, string $destination): string
     {
-        return hash('sha1', $userid . '|' . Utils\Config::getSecretSalt() . '|' . $source . '|' . $destination);
+        $configUtils = new Utils\Config();
+        return hash('sha1', $userid . '|' . $configUtils->getSecretSalt() . '|' . $source . '|' . $destination);
     }
 
 

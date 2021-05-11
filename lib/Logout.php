@@ -23,6 +23,8 @@ class Logout
     public static function postLogout(IdP $idp, array $state): void
     {
         $url = Module::getModuleURL('consent/logout_completed.php');
-        Utils\HTTP::redirectTrustedURL($url);
+
+        $httpUtils = new Utils\HTTP();
+        $httpUtils->redirectTrustedURL($url);
     }
 }

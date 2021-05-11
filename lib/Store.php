@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\consent;
 
+use Exception;
+use SimpleSAML\Module;
+
 /**
  * Base class for consent storage handlers.
  *
@@ -81,7 +84,7 @@ abstract class Store
      */
     public function deleteAllConsents(string $userId)
     {
-        throw new \Exception('Not implemented: deleteAllConsents()');
+        throw new Exception('Not implemented: deleteAllConsents()');
     }
 
 
@@ -94,7 +97,7 @@ abstract class Store
      */
     public function getStatistics()
     {
-        throw new \Exception('Not implemented: getStatistics()');
+        throw new Exception('Not implemented: getStatistics()');
     }
 
 
@@ -129,14 +132,14 @@ abstract class Store
         }
 
         if (!is_array($config)) {
-            throw new \Exception('Invalid configuration for consent store option: ' . var_export($config, true));
+            throw new Exception('Invalid configuration for consent store option: ' . var_export($config, true));
         }
 
         if (!array_key_exists(0, $config)) {
-            throw new \Exception('Consent store without name given.');
+            throw new Exception('Consent store without name given.');
         }
 
-        $className = \SimpleSAML\Module::resolveClass(
+        $className = Module::resolveClass(
             $config[0],
             'Consent\Store',
             '\SimpleSAML\Module\consent\Store'
