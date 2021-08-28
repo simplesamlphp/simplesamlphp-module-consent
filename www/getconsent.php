@@ -134,15 +134,6 @@ $t->data['stateId'] = $id;
 $t->data['srcName'] = htmlspecialchars(is_array($srcName) ? $translator->t($srcName) : $srcName);
 $t->data['dstName'] = htmlspecialchars(is_array($dstName) ? $translator->t($dstName) : $dstName);
 
-if (array_key_exists('descr_purpose', $state['Destination'])) {
-    $t->data['dstDesc'] = $translator->getPreferredTranslation(
-        \SimpleSAML\Utils\Arrays::arrayize(
-            $state['Destination']['descr_purpose'],
-            'en'
-        )
-    );
-}
-
 // Fetch privacypolicy
 if (
     array_key_exists('UIInfo', $state['Destination']) &&
