@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\consent\Consent\Store;
 
 use PDO;
@@ -28,46 +30,46 @@ class Database extends \SimpleSAML\Module\consent\Store
     /**
      * DSN for the database.
      */
-    private $dsn;
+    private string $dsn;
 
     /**
      * The DATETIME SQL function to use
      */
-    private $dateTime;
+    private string $dateTime;
 
     /**
      * Username for the database.
      */
-    private $username;
+    private ?string $username = null;
 
     /**
      * Password for the database;
      */
-    private $password;
+    private ?string $password = null;
 
     /**
      * Options for the database;
      */
-    private $options;
+    private array $options = [];
 
     /**
      * Table with consent.
      */
-    private $table;
+    private string $table;
 
     /**
      * The timeout of the database connection.
      *
      * @var int|null
      */
-    private $timeout = null;
+    private ?int $timeout = null;
 
     /**
      * Database handle.
      *
      * This variable can't be serialized.
      */
-    private $db;
+    private ?PDO $db = null;
 
 
     /**
@@ -98,8 +100,6 @@ class Database extends \SimpleSAML\Module\consent\Store
                 throw new Exception('consent:Database - \'username\' is supposed to be a string.');
             }
             $this->username = $config['username'];
-        } else {
-            $this->username = null;
         }
 
         if (array_key_exists('password', $config)) {
@@ -107,8 +107,6 @@ class Database extends \SimpleSAML\Module\consent\Store
                 throw new Exception('consent:Database - \'password\' is supposed to be a string.');
             }
             $this->password = $config['password'];
-        } else {
-            $this->password = null;
         }
 
         if (array_key_exists('options', $config)) {
@@ -117,8 +115,9 @@ class Database extends \SimpleSAML\Module\consent\Store
             }
             $this->options = $config['options'];
         } else {
-            $this->options = null;
+            $this->options = [];
         }
+
         if (array_key_exists('table', $config)) {
             if (!is_string($config['table'])) {
                 throw new Exception('consent:Database - \'table\' is supposed to be a string.');
@@ -440,7 +439,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         if (isset($this->timeout)) {
             $driver_options[PDO::ATTR_TIMEOUT] = $this->timeout;
         }
-        if (isset($this->options)) {
+        if (!empty($this->options)) {
             $this->options = array_merge($driver_options, $this->options);
         } else {
             $this->options = $driver_options;

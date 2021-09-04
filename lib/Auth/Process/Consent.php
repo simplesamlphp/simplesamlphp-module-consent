@@ -9,6 +9,8 @@
  * @package SimpleSAMLphp
  */
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\consent\Auth\Process;
 
 use Exception;
@@ -18,6 +20,7 @@ use SimpleSAML\Auth;
 use SimpleSAML\Error;
 use SimpleSAML\Logger;
 use SimpleSAML\Module;
+use SimpleSAML\Module\consent\Store;
 use SimpleSAML\Stats;
 use SimpleSAML\Utils;
 
@@ -28,56 +31,56 @@ class Consent extends Auth\ProcessingFilter
      *
      * @var string|null
      */
-    private $focus = null;
+    private ?string $focus = null;
 
     /**
      * Include attribute values
      *
      * @var bool
      */
-    private $includeValues = false;
+    private bool $includeValues = false;
 
     /**
      * Check remember consent
      *
      * @var bool
      */
-    private $checked = false;
+    private bool $checked = false;
 
     /**
      * Consent backend storage configuration
      *
      * @var \SimpleSAML\Module\consent\Store|null
      */
-    private $store = null;
+    private ?Store $store = null;
 
     /**
      * Attributes where the value should be hidden
      *
      * @var array
      */
-    private $hiddenAttributes = [];
+    private array $hiddenAttributes = [];
 
     /**
      * Attributes which should not require consent
      *
      * @var array
      */
-    private $noconsentattributes = [];
+    private array $noconsentattributes = [];
 
     /**
      * Whether we should show the "about service"-link on the no consent page.
      *
      * @var bool
      */
-    private $showNoConsentAboutService = true;
+    private bool $showNoConsentAboutService = true;
 
     /**
      * The name of the attribute that holds a unique identifier for the user
      *
      * @var string
      */
-    private $identifyingAttribute;
+    private string $identifyingAttribute;
 
 
     /**
@@ -292,6 +295,8 @@ class Consent extends Auth\ProcessingFilter
 
         if ($this->store !== null) {
             Assert::keyExists($state, 'Attributes');
+
+            $attributes = $state['Attributes'];
             Assert::keyExists(
                 $attributes,
                 $this->identifyingAttribute,
@@ -300,7 +305,6 @@ class Consent extends Auth\ProcessingFilter
 
             $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
-            $attributes = $state['Attributes'];
 
             $userId = $attributes[$this->identifyingAttribute][0];
             Assert::stringNotEmpty($userId);
@@ -367,7 +371,9 @@ class Consent extends Auth\ProcessingFilter
         // Save state and redirect
         $id = Auth\State::saveState($state, 'consent:request');
         $url = Module::getModuleURL('consent/getconsent.php');
-        Utils\HTTP::redirectTrustedURL($url, ['StateId' => $id]);
+
+        $httpUtils = new Utils\HTTP();
+        $httpUtils->redirectTrustedURL($url, ['StateId' => $id]);
     }
 
 
@@ -381,7 +387,8 @@ class Consent extends Auth\ProcessingFilter
      */
     public static function getHashedUserID(string $userid, string $source): string
     {
-        return hash('sha1', $userid . '|' . Utils\Config::getSecretSalt() . '|' . $source);
+        $configUtils = new Utils\Config();
+        return hash('sha1', $userid . '|' . $configUtils->getSecretSalt() . '|' . $source);
     }
 
 
@@ -396,7 +403,8 @@ class Consent extends Auth\ProcessingFilter
      */
     public static function getTargetedID(string $userid, string $source, string $destination): string
     {
-        return hash('sha1', $userid . '|' . Utils\Config::getSecretSalt() . '|' . $source . '|' . $destination);
+        $configUtils = new Utils\Config();
+        return hash('sha1', $userid . '|' . $configUtils->getSecretSalt() . '|' . $source . '|' . $destination);
     }
 
 

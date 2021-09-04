@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\consent\Consent\Store;
 
 use Exception;
@@ -271,7 +273,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      */
     private static function sign(string $data): string
     {
-        $secretSalt = Utils\Config::getSecretSalt();
+        $configUtils = new Utils\Config();
+        $secretSalt = $configUtils->getSecretSalt();
 
         return sha1($secretSalt . $data . $secretSalt) . ':' . $data;
     }
@@ -331,17 +334,20 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      */
     private function setConsentCookie(string $name, ?string $value): bool
     {
+        $globalConfig = Configuration::getInstance();
+        $httpUtils = new Utils\HTTP();
+
         $params = [
             'lifetime' => $this->lifetime,
             'path' => $this->path,
             'domain' => $this->domain,
             'httponly' => true,
-            'secure' => $this->secure,
+            'secure' => $httpUtils->isHTTPS(),
             'samesite' => $this->samesite,
         ];
 
         try {
-            Utils\HTTP::setCookie($name, $value, $params, false);
+            $httpUtils->setCookie($name, $value, $params, false);
             return true;
         } catch (Error\CannotSetCookie $e) {
             return false;
