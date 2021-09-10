@@ -145,15 +145,6 @@ class Consent extends Auth\ProcessingFilter
                 );
             }
             $this->noconsentattributes = $config['attributes.exclude'];
-        } elseif (array_key_exists('noconsentattributes', $config)) {
-            Logger::warning("The 'noconsentattributes' option has been deprecated in favour of 'attributes.exclude'.");
-            if (!is_array($config['noconsentattributes'])) {
-                throw new Error\Exception(
-                    'Consent: noconsentattributes must be an array. ' .
-                    var_export($config['noconsentattributes'], true) . ' given.'
-                );
-            }
-            $this->noconsentattributes = $config['noconsentattributes'];
         }
 
         if (array_key_exists('store', $config)) {
@@ -174,8 +165,15 @@ class Consent extends Auth\ProcessingFilter
             $this->showNoConsentAboutService = $config['showNoConsentAboutService'];
         }
 
-        Assert::keyExists($config, 'identifyingAttribute', "Consent: Missing mandatory 'identifyingAttribute' config setting.");
-        Assert::stringNotEmpty($config['identifyingAttribute'], "Consent: 'identifyingAttribute' must be a non-empty string.");
+        Assert::keyExists(
+            $config,
+            'identifyingAttribute',
+            "Consent: Missing mandatory 'identifyingAttribute' config setting."
+        );
+        Assert::stringNotEmpty(
+            $config['identifyingAttribute'],
+            "Consent: 'identifyingAttribute' must be a non-empty string."
+        );
         $this->identifyingAttribute = $config['identifyingAttribute'];
     }
 
@@ -294,8 +292,6 @@ class Consent extends Auth\ProcessingFilter
         }
 
         if ($this->store !== null) {
-            Assert::keyExists($state, 'Attributes');
-
             $attributes = $state['Attributes'];
             Assert::keyExists(
                 $attributes,
@@ -305,6 +301,12 @@ class Consent extends Auth\ProcessingFilter
 
             $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
             $destination = $state['Destination']['metadata-set'] . '|' . $spEntityId;
+
+            Assert::keyExists(
+                $attributes,
+                $this->identifyingAttribute,
+                sprintf("Consent: No attribute '%s' was found in the user's attributes.", $this->identifyingAttribute)
+            );
 
             $userId = $attributes[$this->identifyingAttribute][0];
             Assert::stringNotEmpty($userId);
@@ -370,7 +372,7 @@ class Consent extends Auth\ProcessingFilter
 
         // Save state and redirect
         $id = Auth\State::saveState($state, 'consent:request');
-        $url = Module::getModuleURL('consent/getconsent.php');
+        $url = Module::getModuleURL('consent/getconsent');
 
         $httpUtils = new Utils\HTTP();
         $httpUtils->redirectTrustedURL($url, ['StateId' => $id]);

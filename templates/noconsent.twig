@@ -2,7 +2,7 @@
 {% extends "base.twig" %}
 {% block content %}
     <h2>{{ header }}</h2>
-    <p>{{ 'You did not give consent for transfering your attributes to %SPNAME%.'|trans({'%SPNAME%': dstName}) }}</p>
+    <p>{{ 'You did not give consent for transfering your attributes to %SPNAME%.'|trans({'%SPNAME%': destination|getEntityDisplayName() }) }}</p>
 
     {% if resumeFrom %}
     <p><a href="{{ resumeFrom }}">{{ 'Return to consent page'|trans }}</a></p>
@@ -12,5 +12,5 @@
     <p><a href="{{ aboutService }}">{{ 'Go to information page for the service'|trans }}</a></p>
     {% endif %}
 
-    <p><a href="{{ logoutLink }}">{{ 'Abort login to %SPNAME%'|trans({'%SPNAME%': dstName}) }}</a></p>
+    <p><a href="{{ logoutLink }}">{{ 'Abort login to %SPNAME%'|trans({'%SPNAME%': destination|getEntityDisplayName() }) }}</a></p>
 {% endblock %}
