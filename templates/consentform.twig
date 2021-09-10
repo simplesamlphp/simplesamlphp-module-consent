@@ -8,8 +8,8 @@
 {% block content %}
 <p>{{ '%SPNAME% requires that the information below is transferred.'|trans({'%SPNAME%': destination|entityDisplayName() }) }}</p>
 
-{% if destination.descr_purpose is defined %}
-    <p>{{ 'The purpose of %SPNAME% is %SPDESC%'|trans({'%SPNAME%': destination|entityDisplayName(), '%SPDESC%': destination.descr_purpose|translateFromArray }) }}</p>
+{% if descr_purpose is defined %}
+    <p>{{ 'The purpose of %SPNAME% is %SPDESC%'|trans({'%SPNAME%': destination|entityDisplayName(), '%SPDESC%': descr_purpose }) }}</p>
 {% endif %}
 
 <form id="consent_yes" action="{{ moduleURL('consent/getconsent') }}" method="GET">

@@ -183,6 +183,7 @@ class ConsentController
         $t->data['stateId'] = $stateId;
         $t->data['source'] = $state['Source'];
         $t->data['destination'] = $state['Destination'];
+        $t->data['descr_purpose'] = $t->getEntityPropertyTranslation('descr_purpose', $state['Destination']);
 
         // Fetch privacy policy
         if (
