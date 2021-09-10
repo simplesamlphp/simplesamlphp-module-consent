@@ -175,41 +175,14 @@ class ConsentController
             }
         }
 
-        // Parse parameters
-        if (array_key_exists('name', $state['Source'])) {
-            $srcName = $state['Source']['name'];
-        } elseif (array_key_exists('OrganizationDisplayName', $state['Source'])) {
-            $srcName = $state['Source']['OrganizationDisplayName'];
-        } else {
-            $srcName = $state['Source']['entityid'];
-        }
-
-        if (array_key_exists('name', $state['Destination'])) {
-            $dstName = $state['Destination']['name'];
-        } elseif (array_key_exists('OrganizationDisplayName', $state['Destination'])) {
-            $dstName = $state['Destination']['OrganizationDisplayName'];
-        } else {
-            $dstName = $state['Destination']['entityid'];
-        }
-
         // Make, populate and layout consent form
         $t = new Template($this->config, 'consent:consentform.twig');
         $translator = $t->getTranslator();
         $t->data['attributes'] = $attributes;
         $t->data['checked'] = $state['consent:checked'];
         $t->data['stateId'] = $stateId;
-
-        $t->data['srcName'] = is_array($srcName) ? $translator->getPreferredTranslation($srcName) : $srcName;
-        $t->data['dstName'] = is_array($dstName) ? $translator->getPreferredTranslation($dstName) : $dstName;
-
-        if (array_key_exists('descr_purpose', $state['Destination'])) {
-            $t->data['dstDesc'] = $translator->getPreferredTranslation(
-                Utils\Arrays::arrayize(
-                    $state['Destination']['descr_purpose'],
-                    'en'
-                )
-            );
-        }
+        $t->data['source'] = $state['Source'];
+        $t->data['destination'] = $state['Destination'];
 
         // Fetch privacy policy
         if (
