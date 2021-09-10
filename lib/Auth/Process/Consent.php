@@ -145,15 +145,6 @@ class Consent extends Auth\ProcessingFilter
                 );
             }
             $this->noconsentattributes = $config['attributes.exclude'];
-        } elseif (array_key_exists('noconsentattributes', $config)) {
-            Logger::warning("The 'noconsentattributes' option has been deprecated in favour of 'attributes.exclude'.");
-            if (!is_array($config['noconsentattributes'])) {
-                throw new Error\Exception(
-                    'Consent: noconsentattributes must be an array. ' .
-                    var_export($config['noconsentattributes'], true) . ' given.'
-                );
-            }
-            $this->noconsentattributes = $config['noconsentattributes'];
         }
 
         if (array_key_exists('store', $config)) {
