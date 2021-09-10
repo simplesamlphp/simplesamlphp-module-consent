@@ -41,9 +41,9 @@ the user logs in.
 
 Example:
 
-    90 => array(
+    90 => [
         'class' => 'consent:Consent',
-    ),
+    ],
 
 Using storage
 -------------
@@ -58,18 +58,18 @@ cookies as storage you need to set the `store` option to `consent:Cookie`.
 
 Example: 
 
-	90 => array(
+	90 => [
             'class'                => 'consent:Consent',
             'identifyingAttribute' => 'uid',
             'store'                => 'consent:Cookie', 
-	),
+	],
 
 If necessary, you can set the cookie parameters in the config array using the same sematics as other cookies (default values shown):
 
-	90 => array(
+	90 => [
             'class'                => 'consent:Consent',
             'identifyingAttribute' => 'uid',
-            'store'                => array(
+            'store'                => [
                 'consent:Cookie',
                 'name' => '\SimpleSAML\Module\consent', # prefix for name
                 'lifetime' => 7776000,
@@ -77,8 +77,8 @@ If necessary, you can set the cookie parameters in the config array using the sa
                 'domain' => '',
                 'secure' => true,
                 'samesite' => null,
-            ),
-	),
+            ],
+	],
 
 ### Using a database as storage ###
 
@@ -119,29 +119,29 @@ and defaults to `consent`.
 
 Example config using PostgreSQL database:
 
-    90 => array(
+    90 => [
         'class'	=> 'consent:Consent', 
         'identifyingAttribute' => 'uid',
-        'store'	=> array(
+        'store'	=> [
             'consent:Database', 
             'dsn' => 'pgsql:host=sql.example.org;dbname=consent',
             'username' => 'simplesaml',
             'password' => 'sdfsdf',
-        ),
-    ),
+        ],
+    ],
 
 Example config using MySQL database:
 
-    90 => array(
+    90 => [
         'class'	=> 'consent:Consent', 
         'identifyingAttribute' => 'uid',
-        'store'	=> array(
+        'store'	=> [
             'consent:Database', 
             'dsn' => 'mysql:host=db.example.org;dbname=simplesaml',
             'username' => 'simplesaml',
             'password' => 'sdfsdf',
-        ),
-    ),
+        ],
+    ],
 
 
 Options
@@ -222,38 +222,38 @@ more IdPs for a given SP, add the `consent.disable`-option to the SP metadata.
 
 Disable consent for a given IdP:
 
-    $metadata['https://idp.example.org/'] = array(
+    $metadata['https://idp.example.org/'] = [
         [...],
-        'consent.disable' => TRUE,
-    );
+        'consent.disable' => true,
+    ];
 
 Disable consent for some SPs connected to a given IdP:
 
-    $metadata['https://idp.example.org/'] = array(
+    $metadata['https://idp.example.org/'] = [
         [...],
-        'consent.disable' => array(
+        'consent.disable' => [
             'https://sp1.example.org/',
             'https://sp2.example.org/',
-        ),
-    );
+        ],
+    ];
 
 
 Disable consent for a given SP:
 
-    $metadata['https://sp.example.org'] = array(
+    $metadata['https://sp.example.org'] = [
         [...]
-        'consent.disable' => TRUE,
-    ),
+        'consent.disable' => true,
+    ],
 
 Disable consent for some IdPs for a given SP:
 
-    $metadata['https://sp.example.org'] = array(
+    $metadata['https://sp.example.org'] = [
         [...]
-        'consent.disable' => array(
+        'consent.disable' => [
             'https://idp1.example.org/',
             'https://idp2.example.org/',
-        ),
-    ),
+        ],
+    ],
 
 ### Regular expression support ###
 
@@ -263,13 +263,13 @@ for a range of specific entityIds.  Just use an array instead of a flat string
 with the following format (note that flat string and array entries are allowed
 at the same time) :
 
-    $metadata['https://sp.example.org'] = array(
+    $metadata['https://sp.example.org'] = [
         [...]
-        'consent.disable' => array(
+        'consent.disable' => [
             'https://idp1.example.org/',
-            array('type'=>'regex', 'pattern'=>'/.*\.mycompany\.com.*/i'),
-        ),
-    ),
+            ['type' => 'regex', 'pattern' => '/.*\.mycompany\.com.*/i'],
+        ],
+    ],
 
 Attribute presentation
 ----------------------
