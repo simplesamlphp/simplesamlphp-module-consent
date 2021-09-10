@@ -43,6 +43,7 @@ Example:
 
     90 => [
         'class' => 'consent:Consent',
+	'identifyingAttribute' => 'uid',
     ],
 
 Using storage
