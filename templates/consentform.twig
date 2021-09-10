@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block content %}
-<p>{{ '%SPNAME% requires that the information below is transferred.'|trans({'%SPNAME%': destination|getEntityDisplayName() }) }}</p>
+<p>{{ '%SPNAME% requires that the information below is transferred.'|trans({'%SPNAME%': destination|entityDisplayName() }) }}</p>
 
 {% if destination.descr_purpose is defined %}
-    <p>{{ 'The purpose of %SPNAME% is %SPDESC%'|trans({'%SPNAME%': destination|getEntityDisplayName(), '%SPDESC%': destination.descr_purpose|translateFromArray }) }}</p>
+    <p>{{ 'The purpose of %SPNAME% is %SPDESC%'|trans({'%SPNAME%': destination|entityDisplayName(), '%SPDESC%': destination.descr_purpose|translateFromArray }) }}</p>
 {% endif %}
 
 <form id="consent_yes" action="{{ moduleURL('consent/getconsent') }}" method="GET">
@@ -29,11 +29,11 @@
 
 {% if sppp != false %}
 <p>{{ 'Privacy policy for the service'|trans }}
-    <a target='_blank' href='{{ sppp|escape('html') }} '>{{ destination|getEntityDisplayName() }}</a>
+    <a target='_blank' href='{{ sppp|escape('html') }} '>{{ destination|entityDisplayName() }}</a>
 </p>
 {% endif %}
 
-<h3 id="attributeheader">{{ 'Information that will be sent to %SPNAME%'|trans({'%SPNAME%': destination|getEntityDisplayName() }) }}</h3>
+<h3 id="attributeheader">{{ 'Information that will be sent to %SPNAME%'|trans({'%SPNAME%': destination|entityDisplayName() }) }}</h3>
 
 {% set items = attributes %}
 
