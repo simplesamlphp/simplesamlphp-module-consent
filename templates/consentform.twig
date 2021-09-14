@@ -8,23 +8,24 @@
 {% block content %}
 <p>{{ '%SPNAME% requires that the information below is transferred.'|trans({'%SPNAME%': destination|entityDisplayName() }) }}</p>
 
-{% if descr_purpose is defined %}
+{% if descr_purpose is defined and descr_purpose != "" %}
     <p>{{ 'The purpose of %SPNAME% is %SPDESC%'|trans({'%SPNAME%': destination|entityDisplayName(), '%SPDESC%': descr_purpose }) }}</p>
 {% endif %}
 
 <form id="consent_yes" action="{{ moduleURL('consent/getconsent') }}" method="GET">
     {% if usestorage == true %}
-    <input type="checkbox" name="saveconsent"{% if checked %} checked="checked"{% endif %} value="1" />
-    {{ 'Remember'|trans }}
+    <label for="saveconsent" class="pure-checkbox">
+    <input type="checkbox" id="saveconsent" name="saveconsent"{% if checked %} checked="checked"{% endif %} value="1">
+    {{ 'Remember'|trans }}</label>
     {% endif %}
 
-    <input type="hidden" name="StateId" value="{{ stateId }}" />
-    <button type="submit" name="yes" class="btn" id="yesbutton"{%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}>{{ 'Yes, continue'|trans }}</button>
+    <input type="hidden" name="StateId" value="{{ stateId }}">
+    <button type="submit" name="yes" class="btn pure-button" id="yesbutton"{%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}>{{ 'Yes, continue'|trans }}</button>
 </form>
 
 <form id="consent_no" action="{{ moduleURL('consent/noconsent') }}" method="GET">
-    <input type="hidden" name="StateId" value="{{ stateId }}" />
-    <button type="submit" class="btn" name="no" id="nobutton"{%- if autofocus is defined and autofocus == 'nobutton' %} autofocus{% endif -%}>{{ 'No, cancel'|trans }}</button>
+    <input type="hidden" name="StateId" value="{{ stateId }}">
+    <button type="submit" class="btn pure-button" name="no" id="nobutton"{%- if autofocus is defined and autofocus == 'nobutton' %} autofocus{% endif -%}>{{ 'No, cancel'|trans }}</button>
 </form>
 
 {% if sppp != false %}
@@ -47,7 +48,7 @@
 
     {% block value -%}
     {% if name =='jpegPhoto'-%}
-        <img src="data:image/jpeg;base64,{{ value }}" />
+        <img src="data:image/jpeg;base64,{{ value }}" alt="Content of jpegPhoto attribute">
     {% else %}{{ value }}{% endif -%}
     {% endblock %}
 
