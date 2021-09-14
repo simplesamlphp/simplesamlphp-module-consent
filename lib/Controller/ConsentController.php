@@ -177,6 +177,8 @@ class ConsentController
 
         // Make, populate and layout consent form
         $t = new Template($this->config, 'consent:consentform.twig');
+        $l = $t->getLocalization();
+        $l->addAttributeDomains();
         $translator = $t->getTranslator();
         $t->data['attributes'] = $attributes;
         $t->data['checked'] = $state['consent:checked'];
