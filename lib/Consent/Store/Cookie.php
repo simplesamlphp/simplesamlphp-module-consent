@@ -100,7 +100,8 @@ class Cookie extends \SimpleSAML\Module\consent\Store
         if (array_key_exists('secure', $config)) {
             $this->secure = (bool) $config['secure'];
         } else {
-            $this->secure = Utils\HTTP::isHTTPS();
+            $httpUtils = new Utils\HTTP();
+            $this->secure = $httpUtils->isHTTPS();
         }
 
         if (array_key_exists('samesite', $config)) {
