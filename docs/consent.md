@@ -18,33 +18,34 @@ user the exact same attributes that are sent to the SP.
 How to setup the consent module
 -------------------------------
 
-In order to generate the privacy preserving hashes in the consent module, you 
-need to name one attribute that is always available and that is unique to all 
-users. An example of such an attribute is eduPersonPrincipalName.
+First you need to enable the consent module; in `config.php`, search for the
+`module.enable` key and add `consent` with value `true`:
 
-In your authproc-configuration add the name of the user ID attribute:
+```
+    'module.enable' => [
+         'consent' => true,
+         …
+    ],
+```
 
-	'identifyingAttribute' => 'uid', 
+In order to generate the privacy preserving hashes in the consent module, you
+need to pick one attribute that is always available and that is unique to all
+users. An example of such an attribute is uid or eduPersonPrincipalName.
 
 If the attribute defined above is not available for a user, an error message 
 will be shown, and the user will not be allowed through the filter. So make 
 sure that you select an attribute that is available to all users.
 
-Next you need to enable the consent module; touch an `enable` file, in the
-consent module:
-	
-    touch modules/consent/enable
-
-The simplest way to setup the consent module is to not use any storage at 
-all. This means that the user will always be asked to give consent each time 
-the user logs in.
-
-Example:
+Add the filter to your Identity Provider hosted metadata authproc filters
+list, specifying the attribute you've selected.
 
     90 => [
         'class' => 'consent:Consent',
         'identifyingAttribute' => 'uid',
     ],
+
+This setup uses no persistent storage at all. This means that the user will
+always be asked to give consent each time she logs in.
 
 Using storage
 -------------
@@ -187,7 +188,7 @@ The following options can be used when configuring the Consent module:
 
 `showNoConsentAboutService`
 :   Whether we will show a link to more information about the service from the
-    no consent page. Defaults to `true`.
+    no consent page (configured in the SP metadata as `url.about`). Defaults to `true`.
 
 External options
 ----------------
