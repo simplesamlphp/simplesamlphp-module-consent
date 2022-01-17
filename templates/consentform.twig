@@ -20,17 +20,21 @@
     {% endif %}
 
     <input type="hidden" name="StateId" value="{{ stateId }}">
-    <button type="submit" name="yes" class="btn pure-button" id="yesbutton"{%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}>{{ 'Yes, continue'|trans }}</button>
+    <button type="submit" name="yes" class="btn pure-button" id="yesbutton"
+    {%- if autofocus is defined and autofocus == 'yesbutton' %} autofocus{% endif -%}
+    >{{ 'Yes, continue'|trans }}</button>
 </form>
 
 <form id="consent_no" action="{{ moduleURL('consent/noconsent') }}" method="GET">
     <input type="hidden" name="StateId" value="{{ stateId }}">
-    <button type="submit" class="btn pure-button" name="no" id="nobutton"{%- if autofocus is defined and autofocus == 'nobutton' %} autofocus{% endif -%}>{{ 'No, cancel'|trans }}</button>
+    <button type="submit" name="no" class="btn pure-button" id="nobutton"
+    {%- if autofocus is defined and autofocus == 'nobutton' %} autofocus{% endif -%}
+    >{{ 'No, cancel'|trans }}</button>
 </form>
 
 {% if sppp != false %}
-<p>{{ 'Privacy policy for the service'|trans }}
-    <a target='_blank' href='{{ sppp|escape('html') }} '>{{ destination|entityDisplayName() }}</a>
+<p><a target="_blank" href='{{ sppp }}'>{{ 'Privacy policy for the service'|trans }}
+    {{ destination|entityDisplayName() }}</a>
 </p>
 {% endif %}
 
@@ -48,7 +52,7 @@
 
     {% block value -%}
     {% if name =='jpegPhoto'-%}
-        <img src="data:image/jpeg;base64,{{ value }}" alt="Content of jpegPhoto attribute">
+        <img src="data:image/jpeg;base64,{{ value }}" alt="{{ 'Content of jpegPhoto attribute'|trans }}">
     {% else %}{{ value }}{% endif -%}
     {% endblock %}
 
