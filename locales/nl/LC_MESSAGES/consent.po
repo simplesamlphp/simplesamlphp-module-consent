@@ -45,8 +45,8 @@ msgstr "Geen toestemming gegeven"
 
 msgid "You did not give consent for transfering your attributes to %SPNAME%."
 msgstr ""
-"U heeft geen toestemming gegeven om uw attributen naar de Service "
-"Provider te versturen"
+"U heeft geen toestemming gegeven om uw attributen naar %SPNAME% "
+"te versturen."
 
 msgid "Remember"
 msgstr "Bewaar toestemming"
