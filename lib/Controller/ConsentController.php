@@ -271,23 +271,12 @@ class ConsentController
         }
         Stats::log('consent:reject', $statsInfo);
 
-        if (array_key_exists('name', $state['Destination'])) {
-            $dstName = $state['Destination']['name'];
-        } elseif (array_key_exists('OrganizationDisplayName', $state['Destination'])) {
-            $dstName = $state['Destination']['OrganizationDisplayName'];
-        } else {
-            $dstName = $state['Destination']['entityid'];
-        }
-
         $t = new Template($this->config, 'consent:noconsent.twig');
         $translator = $t->getTranslator();
         $t->data['dstMetadata'] = $state['Destination'];
         $t->data['resumeFrom'] = $resumeFrom;
         $t->data['aboutService'] = $aboutService;
         $t->data['logoutLink'] = $logoutLink;
-        $t->data['dstName'] = htmlspecialchars(
-            is_array($dstName) ? $translator->getPreferredTranslation($dstName) : $dstName
-        );
         return $t;
     }
 
