@@ -43,7 +43,7 @@ msgstr "Consenso al rilascio delle informazioni personali"
 msgid "No consent given"
 msgstr "Nessun consenso dato"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr ""
 "Non hai dato il consenso per trasferire i tuoi attributi al service "
 "provider."

@@ -38,7 +38,7 @@ msgstr "Kişisel bilgilerin verilmesi hakkında onay"
 msgid "No consent given"
 msgstr "Onay verilmemiş"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Bilgilerinizin servis sağlayıcıya gönderilmesi için onay vermediniz."
 
 msgid "Remember"

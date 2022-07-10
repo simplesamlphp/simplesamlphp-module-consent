@@ -44,7 +44,7 @@ msgstr "Dozvola za isporuku osobnih podataka"
 msgid "No consent given"
 msgstr "Isporuka podataka nije odobrena"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Niste dali pristanak da se vaši podaci isporuče davatelju usluge."
 
 msgid "Remember"

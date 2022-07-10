@@ -44,7 +44,7 @@ msgstr "Obsah odesílaných osobních informací"
 msgid "No consent given"
 msgstr "Souhlas nebyl vydán"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Nedal jste souhlas pro zaslání svých atributů poskytovateli služeb."
 
 msgid "Remember"

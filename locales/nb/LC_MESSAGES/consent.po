@@ -43,7 +43,7 @@ msgstr "Samtykke om overføring av personinformasjon"
 msgid "No consent given"
 msgstr "Ikke akseptert overføring av informasjon"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Du har ikke akseptert å overlevere opplysninger til %SPNAME%."
 
 msgid "Remember"

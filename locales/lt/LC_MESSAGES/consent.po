@@ -45,7 +45,7 @@ msgstr "Leidimas perduoti asmeninę informaciją"
 msgid "No consent given"
 msgstr "Leidimas neduotas"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Jūs nedavėte sutikimo persiųsti Jūsų atributus %SPNAME% paslaugos teikėjui."
 
 msgid "Remember"

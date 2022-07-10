@@ -40,7 +40,7 @@ msgstr "Hozzájárulás személyes adatok kiadásához"
 msgid "No consent given"
 msgstr "Nincs hozzájárulás"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Nem adta hozzájárulását, hogy adatait továbbadjuk a szolgáltatónak."
 
 msgid "Remember"

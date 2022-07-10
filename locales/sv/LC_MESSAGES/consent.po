@@ -40,7 +40,7 @@ msgstr "Samtycke gällande överföring av personinformation"
 msgid "No consent given"
 msgstr "Inget samtycket givet"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr ""
 "Du gav inte samtycke för att överföra dina attribut till "
 "tjänsteleverantören."

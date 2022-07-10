@@ -46,8 +46,8 @@ msgstr "Consent about releasing personal information"
 msgid "No consent given"
 msgstr "No consent given"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
-msgstr "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
+msgstr "You did not give consent for transferring your attributes to %SPNAME%."
 
 msgid "Remember"
 msgstr "Remember"

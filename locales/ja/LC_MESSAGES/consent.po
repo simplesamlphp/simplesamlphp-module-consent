@@ -38,7 +38,7 @@ msgstr "個人情報の承認を解除"
 msgid "No consent given"
 msgstr "承認はありません"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "あなたはサービスプロバイダに属性を転送する事を承認していません。"
 
 msgid "Remember"

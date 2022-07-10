@@ -41,7 +41,7 @@ msgstr "同意有關於個人關係資訊"
 msgid "No consent given"
 msgstr "尚未同意"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "您不同意傳輸您的屬性至服務提供者。"
 
 msgid "Remember"

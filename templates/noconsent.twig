@@ -2,7 +2,7 @@
 {% extends "base.twig" %}
 {% block content %}
     <h2>{{ header }}</h2>
-    <p>{{ 'You did not give consent for transfering your attributes to %SPNAME%.'|trans({'%SPNAME%': dstMetadata|entityDisplayName }) }}</p>
+    <p>{{ 'You did not give consent for transferring your attributes to %SPNAME%.'|trans({'%SPNAME%': dstMetadata|entityDisplayName }) }}</p>
 
     <p>
     {% if resumeFrom %}

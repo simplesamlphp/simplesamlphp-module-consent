@@ -20,7 +20,7 @@ msgstr "E, tswela pele"
 msgid "The purpose of %SPNAME% is %SPDESC%"
 msgstr "Sepheo sa %SPNAME% ke %SPDESC%"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Ha o a fana ka tumello bakeng sa ho fetisetsa makgabane a hao ho %SPNAME%."
 
 msgid ""

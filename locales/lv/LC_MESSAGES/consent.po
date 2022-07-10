@@ -39,7 +39,7 @@ msgstr "Noteikumi par personīgās informācijas nodošanu"
 msgid "No consent given"
 msgstr "Nav noteikumu"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Jūs neesat devis atļauju pārraidīt informāciju servisa piegādātājam."
 
 msgid "Remember"

@@ -41,7 +41,7 @@ msgstr "Samtykke til at frigive personlige oplysninger"
 msgid "No consent given"
 msgstr "Manglende samtykke"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Du har ikke givet samtykke til overleveringen af oplysninger til tjenesten"
 
 msgid "Remember"

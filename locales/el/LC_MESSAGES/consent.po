@@ -43,7 +43,7 @@ msgstr "Δήλωση συγκατάθεσης για τον διαμοιρασμ
 msgid "No consent given"
 msgstr "Μη αποδοχή συγκατάθεσης"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr ""
 "Δεν έχετε δώσει συγκατάθεση για τον διαμοιρασμό προσωπικών δεδομένων με "
 "την υπηρεσία %SPNAME%"

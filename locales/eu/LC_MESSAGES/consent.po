@@ -43,7 +43,7 @@ msgstr "Informazio pertsonala askatzeko onespena "
 msgid "No consent given"
 msgstr "Ez da onespena eman"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Ez duzu onespena eman zure atributuak zerbitzuari transferitzeko."
 
 msgid "Remember"

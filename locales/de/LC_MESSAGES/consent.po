@@ -43,7 +43,7 @@ msgstr "Zustimmung zur Weitergabe persönlicher Daten"
 msgid "No consent given"
 msgstr "Zustimmung verweigert"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr ""
 "Sie haben der Weitergabe ihrer Daten an den Service Provider nicht "
 "zugestimmt."

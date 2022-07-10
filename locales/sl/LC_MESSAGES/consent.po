@@ -41,7 +41,7 @@ msgstr "Odločitev o privolitvi posredovanja vaših osebnih podatkov"
 msgid "No consent given"
 msgstr "Privolitev ni bila dana."
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Niste podali privolitve za posredovanje atributov SP-ju."
 
 msgid "Remember"

@@ -44,7 +44,7 @@ msgstr "Acordul pentru a furniza informații personale"
 msgid "No consent given"
 msgstr "Nu a fost dat acordul (consimțământul)"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Nu ați fost de acord să trimiteți atributele către %SPNAME%."
 
 msgid "Remember"

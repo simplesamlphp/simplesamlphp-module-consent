@@ -64,6 +64,6 @@ msgid ""
 "service you are going to login to"
 msgstr "Dwelisa inkcazelo engawe eza kudluliselwa kwinkonzo oza kungena kuyo"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Awuyinikelanga imvume yokudluliselwa iimpawu zakho kwi-%SPNAME%."
 

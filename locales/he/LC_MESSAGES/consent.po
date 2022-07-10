@@ -38,7 +38,7 @@ msgstr "הסכמה להעברת מידע אישי"
 msgid "No consent given"
 msgstr "לא ניתנה הסכמה"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "לא נתנת הסכמה להעברת המאפיינים לספק השירות."
 
 msgid "Remember"

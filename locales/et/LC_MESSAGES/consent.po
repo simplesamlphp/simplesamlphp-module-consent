@@ -41,7 +41,7 @@ msgstr "Nõusolek isikuandmete edastamiseks"
 msgid "No consent given"
 msgstr "Nõusolekut pole antud"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Sa ei andnud nõusolekut sinu atribuutide teenusepakkujale edastamiseks."
 
 msgid "Remember"

@@ -43,7 +43,7 @@ msgstr "Toestemming voor het vrijgeven van persoonsgegevens"
 msgid "No consent given"
 msgstr "Geen toestemming gegeven"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr ""
 "U heeft geen toestemming gegeven om uw attributen naar %SPNAME% "
 "te versturen."

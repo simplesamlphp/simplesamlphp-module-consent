@@ -40,7 +40,7 @@ msgstr "Persetujuan tentang melepas informasi personal"
 msgid "No consent given"
 msgstr "Tidan ada persetujuan yang diberikan"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr ""
 "Anda tidak memberikan persetujuan untuk mentransfer atribut-atribute Anda"
 " ke service provider."

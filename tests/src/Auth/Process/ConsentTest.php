@@ -166,7 +166,7 @@ class ConsentTest extends TestCase
         $this->assertEquals(
             $attributeHash1,
             $attributeHash2,
-            "Hash is not the same when the order of the attributs changes"
+            "Hash is not the same when the order of the attributes changes"
         );
     }
 
@@ -190,7 +190,7 @@ class ConsentTest extends TestCase
         $this->assertEquals(
             $attributeHash1,
             $attributeHash2,
-            "Hash is not the same when the order of the attributs changes and the values are not included"
+            "Hash is not the same when the order of the attributes changes and the values are not included"
         );
     }
 

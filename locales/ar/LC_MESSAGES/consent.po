@@ -42,7 +42,7 @@ msgstr "اوافق علي نشر سماتي الشخصية"
 msgid "No consent given"
 msgstr "لم تعطي الموافقة"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "لم توافق علي تحويل سماتك لمقدم الخدمة"
 
 msgid "Remember"

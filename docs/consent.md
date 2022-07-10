@@ -65,7 +65,7 @@ Example:
 ```
 
 If necessary, you can set the cookie parameters in the config array using the
-same sematics as other cookies (default values shown):
+same semantics as other cookies (default values shown):
 
 ```php
 90 => [

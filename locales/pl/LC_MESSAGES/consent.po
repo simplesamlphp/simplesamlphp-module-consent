@@ -34,7 +34,7 @@ msgstr "Zgoda na wysłanie danych osobistych"
 msgid "No consent given"
 msgstr "Nie wyrażono zgody"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Nie wyraziłeś zgody na przesłanie Twoich atrybutów do Dostawcy Serwisu."
 
 msgid "Remember"

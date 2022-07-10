@@ -44,7 +44,7 @@ msgstr "Согласие на передачу некоторых персона
 msgid "No consent given"
 msgstr "Нет данного согласия"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Вы не дали согласия на передачу ваших атрибутов к поставщику услуг."
 
 msgid "Remember"

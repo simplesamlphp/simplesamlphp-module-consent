@@ -66,6 +66,6 @@ msgstr ""
 "Enza uhlu olumayelana nolwazi lwakho oluzodluliselwa kusevisi ozongena "
 "kuyo"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Awuzange uyinikeze imvume yokudlulisa izici zakho ku-%SPNAME%."
 

@@ -38,7 +38,7 @@ msgstr "Henkilötietojen luovutuksen hyväksyntä"
 msgid "No consent given"
 msgstr "Lupaa ei annettu"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr "Et antanut lupaa siirtää henkilötietojasi palveluntarjoajalle"
 
 msgid "Remember"

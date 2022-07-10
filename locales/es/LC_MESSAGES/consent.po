@@ -43,7 +43,7 @@ msgstr "Consentimiento para la liberación de información personal"
 msgid "No consent given"
 msgstr "No se dió el consentimiento"
 
-msgid "You did not give consent for transfering your attributes to %SPNAME%."
+msgid "You did not give consent for transferring your attributes to %SPNAME%."
 msgstr ""
 "No ha dado su consentimiento para tranferir sus atributos al proveedor de"
 " servicio."
