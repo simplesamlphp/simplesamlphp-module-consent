@@ -27,6 +27,9 @@ class ConsentTest extends TestCase
     /** @var \SimpleSAML\Configuration */
     protected $config;
 
+    /** @var \SimpleSAML\Logger */
+    protected $logger;
+
     /** @var \SimpleSAML\Session */
     protected $session;
 

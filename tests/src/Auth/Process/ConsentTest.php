@@ -15,6 +15,10 @@ use SimpleSAML\Module\consent\Auth\Process\Consent;
  */
 class ConsentTest extends TestCase
 {
+    /** @var \SimpleSAML\Configuration */
+    protected $config;
+
+
     /**
      */
     public function setUp(): void
