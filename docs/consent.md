@@ -194,7 +194,8 @@ The following options can be used when configuring the Consent module:
 
 `showNoConsentAboutService`
 :   Whether we will show a link to more information about the service from the
-    no consent page (configured in the SP metadata as `url.about`). Defaults to `true`.
+    no consent page (configured in the SP metadata as the MDUI `InformationURL`).
+    Defaults to `true`.
 
 ### External options
 
