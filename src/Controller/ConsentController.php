@@ -185,7 +185,14 @@ class ConsentController
         $t->data['stateId'] = $stateId;
         $t->data['source'] = $state['Source'];
         $t->data['destination'] = $state['Destination'];
-        $t->data['descr_purpose'] = $t->getEntityPropertyTranslation('descr_purpose', $state['Destination']);
+
+        if (isset($state['Destination']['descr_purpose'])) {
+            $t->data['descr_purpose'] = $state['Destination']['descr_purpose'];
+        } elseif (isset($state['Destination']['description'])) {
+            $t->data['descr_purpose'] = $state['Destination']['description'];
+        } elseif (isset($state['Destination']['UIInfo']['Description'])) {
+            $t->data['descr_purpose'] = $state['Destination']['UIInfo']['Description'];
+        }
 
         // Fetch privacy policy
         if (
@@ -262,6 +269,8 @@ class ConsentController
         if (!isset($state['consent:showNoConsentAboutService']) || $state['consent:showNoConsentAboutService']) {
             if (isset($state['Destination']['url.about'])) {
                 $aboutService = $state['Destination']['url.about'];
+            } elseif (isset($state['Destination']['UIInfo']['InformationURL'])) {
+                $aboutService = reset($state['Destination']['UIInfo']['InformationURL']);
             }
         }
 
