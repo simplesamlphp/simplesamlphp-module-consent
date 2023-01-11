@@ -172,7 +172,7 @@ class ConsentTest extends TestCase
                     'Destination' => [
                         'entityid' => 'urn:some:sp',
                         'name' => 'Some destination',
-                        'UIInfo' =>[
+                        'UIInfo' => [
                             'InformationURL' => ['https://example.org/about' ],
                         ],
                     ],
