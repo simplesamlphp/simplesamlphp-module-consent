@@ -296,7 +296,7 @@ class Consent extends Auth\ProcessingFilter
             Assert::keyExists(
                 $attributes,
                 $this->identifyingAttribute,
-                "Consent: Missing '" . $attributes[$this->identifyingAttribute] . "' in user's attributes."
+                "Consent: Missing '" . $this->identifyingAttribute . "' in user's attributes."
             );
 
             $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
