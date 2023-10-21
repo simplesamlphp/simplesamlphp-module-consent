@@ -212,10 +212,6 @@ The following options can be set in other places in SimpleSAMLphp:
 `consent.disable`
 :   Disable consent for a set of services. See section `Disabling consent`.
 
-`userid.attribute`
-:   Unique identifier that is released for all users. See section `Configure
-    the user ID`.
-
 ### Disabling consent
 
 Consent can be disabled either in the IdP metadata or in the SP metadata.
