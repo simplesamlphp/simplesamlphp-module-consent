@@ -127,7 +127,7 @@ Example config using PostgreSQL database:
 
 ```php
 90 => [
-    'class' => 'consent:Consent', 
+    'class' => 'consent:Consent',
     'identifyingAttribute' => 'uid',
     'store' => [
         'consent:Database', 
@@ -142,7 +142,7 @@ Example config using MySQL database:
 
 ```php
 90 => [
-    'class' => 'consent:Consent', 
+    'class' => 'consent:Consent',
     'identifyingAttribute' => 'uid',
     'store' => [
         'consent:Database', 
