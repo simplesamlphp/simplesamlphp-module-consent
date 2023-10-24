@@ -38,9 +38,9 @@ class ConsentTest extends TestCase
      * Set up for each test.
      * @return void
      */
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        parent::setUp();
+        parent::setUpBeforeClass();
 
         $this->config = Configuration::loadFromArray(
             [
