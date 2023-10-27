@@ -16,15 +16,15 @@ use SimpleSAML\Module\consent\Auth\Process\Consent;
 class ConsentTest extends TestCase
 {
     /** @var \SimpleSAML\Configuration */
-    protected $config;
+    protected static Configuration $config;
 
 
     /**
      */
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->config = Configuration::loadFromArray(['module.enable' => ['consent' => true]], '[ARRAY]', 'simplesaml');
-        Configuration::setPreLoadedConfig($this->config, 'config.php');
+        self::$config = Configuration::loadFromArray(['module.enable' => ['consent' => true]], '[ARRAY]', 'simplesaml');
+        Configuration::setPreLoadedConfig(self::$config, 'config.php');
     }
 
 

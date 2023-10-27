@@ -25,24 +25,24 @@ use Symfony\Component\HttpFoundation\Request;
 class ConsentTest extends TestCase
 {
     /** @var \SimpleSAML\Configuration */
-    protected $config;
+    protected static Configuration $config;
 
     /** @var \SimpleSAML\Logger */
-    protected $logger;
+    protected static Logger $logger;
 
     /** @var \SimpleSAML\Session */
-    protected $session;
+    protected static Session $session;
 
 
     /**
      * Set up for each test.
      * @return void
      */
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        parent::setUp();
+        parent::setUpBeforeClass();
 
-        $this->config = Configuration::loadFromArray(
+        self::$config = Configuration::loadFromArray(
             [
                 'module.enable' => ['consent' => true],
                 'secretsalt' => 'abc123',
@@ -52,10 +52,10 @@ class ConsentTest extends TestCase
             'simplesaml'
         );
 
-        $this->session = Session::getSessionFromRequest();
+        self::$session = Session::getSessionFromRequest();
 
-        $this->logger = new class () extends Logger {
-            public static function info(string $str): void
+        self::$logger = new class () extends Logger {
+            public static function info(string $string): void
             {
                 // do nothing
             }
@@ -75,7 +75,7 @@ class ConsentTest extends TestCase
             ['yes' => '', 'saveconsent' => '1', 'StateId' => 'someStateId']
         );
 
-        $c = new Controller\ConsentController($this->config, $this->session);
+        $c = new Controller\ConsentController(self::$config, self::$session);
         $c->setAuthState(new class () extends State {
             public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
             {
@@ -122,7 +122,7 @@ class ConsentTest extends TestCase
             ['no' => '', 'StateId' => 'someStateId']
         );
 
-        $c = new Controller\ConsentController($this->config, $this->session);
+        $c = new Controller\ConsentController(self::$config, self::$session);
         $c->setAuthState(new class () extends State {
             public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
             {
@@ -163,7 +163,7 @@ class ConsentTest extends TestCase
             ['StateId' => 'someStateId']
         );
 
-        $c = new Controller\ConsentController($this->config, $this->session);
+        $c = new Controller\ConsentController(self::$config, self::$session);
         $c->setAuthState(new class () extends State {
             public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
             {
@@ -196,7 +196,7 @@ class ConsentTest extends TestCase
             ['StateId' => 'someStateId']
         );
 
-        $c = new Controller\ConsentController($this->config, $this->session);
+        $c = new Controller\ConsentController(self::$config, self::$session);
         $c->setAuthState(new class () extends State {
             public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
             {
@@ -218,13 +218,9 @@ class ConsentTest extends TestCase
     public function testLogoutcompleted(): void
     {
         $_SERVER['REQUEST_URI'] = '/module.php/consent/logoutcompleted';
-        $request = Request::create(
-            '/logoutcompleted',
-            'GET'
-        );
 
-        $c = new Controller\ConsentController($this->config, $this->session);
-        $response = $c->logoutcompleted($request);
+        $c = new Controller\ConsentController(self::$config, self::$session);
+        $response = $c->logoutcompleted();
 
         $this->assertTrue($response->isSuccessful());
     }
@@ -243,8 +239,8 @@ class ConsentTest extends TestCase
             'GET'
         );
 
-        $c = new Controller\ConsentController($this->config, $this->session);
-        $c->setLogger($this->logger);
+        $c = new Controller\ConsentController(self::$config, self::$session);
+        $c->setLogger(self::$logger);
 
         $this->expectException(Error\BadRequest::class);
         $this->expectExceptionMessage('Missing required StateId query parameter.');
@@ -267,8 +263,8 @@ class ConsentTest extends TestCase
             ['StateId' => 'someStateId']
         );
 
-        $c = new Controller\ConsentController($this->config, $this->session);
-        $c->setLogger($this->logger);
+        $c = new Controller\ConsentController(self::$config, self::$session);
+        $c->setLogger(self::$logger);
 
         $this->expectException(Error\NoState::class);
         $this->expectExceptionMessage('NOSTATE');
@@ -280,7 +276,7 @@ class ConsentTest extends TestCase
     /**
      * @return array
      */
-    public function stateTestsProvider(): array
+    public static function stateTestsProvider(): array
     {
         return [
             ['getconsent'],
