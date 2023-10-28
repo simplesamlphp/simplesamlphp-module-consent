@@ -179,7 +179,6 @@ class ConsentController
         $t = new Template($this->config, 'consent:consentform.twig');
         $l = $t->getLocalization();
         $l->addAttributeDomains();
-        $translator = $t->getTranslator();
         $t->data['attributes'] = $attributes;
         $t->data['checked'] = $state['consent:checked'];
         $t->data['stateId'] = $stateId;
@@ -277,7 +276,6 @@ class ConsentController
         Stats::log('consent:reject', $statsInfo);
 
         $t = new Template($this->config, 'consent:noconsent.twig');
-        $translator = $t->getTranslator();
         $t->data['dstMetadata'] = $state['Destination'];
         $t->data['resumeFrom'] = $resumeFrom;
         $t->data['aboutService'] = $aboutService;
