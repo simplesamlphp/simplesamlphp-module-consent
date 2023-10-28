@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @package SimpleSAML\Test
  */
-class ConsentTest extends TestCase
+class ConsentControllerTest extends TestCase
 {
     /** @var \SimpleSAML\Configuration */
     protected static Configuration $config;
