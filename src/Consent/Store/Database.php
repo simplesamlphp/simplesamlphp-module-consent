@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\consent\Consent\Store;
 
-use PDO;
 use Exception;
+use PDO;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Logger;
 

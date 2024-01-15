@@ -10,10 +10,9 @@ use SimpleSAML\Configuration;
 use SimpleSAML\Error;
 use SimpleSAML\HTTP\RunnableResponse;
 use SimpleSAML\Logger;
-use SimpleSAML\Module\consent\Controller;
 use SimpleSAML\Module\consent\Consent\Store\Cookie;
+use SimpleSAML\Module\consent\Controller;
 use SimpleSAML\Session;
-use SimpleSAML\Utils;
 use SimpleSAML\XHTML\Template;
 use Symfony\Component\HttpFoundation\Request;
 
