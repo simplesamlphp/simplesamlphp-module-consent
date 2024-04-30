@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Module\consent\Controller;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Auth\State;
 use SimpleSAML\Configuration;
@@ -224,10 +225,9 @@ class ConsentControllerTest extends TestCase
 
 
     /**
-     * @dataProvider stateTestsProvider
-     *
      * @param string $controller The name of the controller to test
      */
+    #[DataProvider('stateTestsProvider')]
     public function testMissingStateId(string $controller): void
     {
         $_SERVER['REQUEST_URI'] = '/module.php/consent/' . $controller;
@@ -247,10 +247,9 @@ class ConsentControllerTest extends TestCase
 
 
     /**
-     * @dataProvider stateTestsProvider
-     *
      * @param string $controller The name of the controller to test
      */
+    #[DataProvider('stateTestsProvider')]
     public function testNoState(string $controller): void
     {
         $_SERVER['REQUEST_URI'] = '/module.php/consent/' . $controller;
