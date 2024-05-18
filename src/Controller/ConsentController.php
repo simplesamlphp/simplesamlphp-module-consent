@@ -158,7 +158,7 @@ class ConsentController
             }
         }
         $para = [
-            'attributes' => &$attributes
+            'attributes' => &$attributes,
         ];
 
         // Reorder attributes according to attributepresentation hooks

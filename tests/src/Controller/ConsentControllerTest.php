@@ -84,7 +84,7 @@ class ConsentControllerTest extends TestCase
                         'entityid' => 'urn:some:sp',
                     ],
                     'Source' => [
-                        'entityid' => 'urn:some:idp'
+                        'entityid' => 'urn:some:idp',
                     ],
                     'Attributes' => ['uid' => 'jdoe'],
                     'consent:store.userId' => 'jdoe@example.org',
@@ -119,7 +119,7 @@ class ConsentControllerTest extends TestCase
         $request = Request::create(
             '/getconsent',
             'GET',
-            ['no' => '', 'StateId' => 'someStateId']
+            ['no' => '', 'StateId' => 'someStateId'],
         );
 
         $c = new Controller\ConsentController(self::$config, self::$session);
@@ -135,8 +135,8 @@ class ConsentControllerTest extends TestCase
                     'Source' => [
                         'entityid' => 'urn:some:idp',
                         'UIInfo' => [
-                            'PrivacyStatementURL' => ['https://example.org/privacy']
-                        ]
+                            'PrivacyStatementURL' => ['https://example.org/privacy'],
+                        ],
                     ],
                     'Attributes' => ['uid' => 'jdoe', 'filteredAttribute' => 'this attribute should be filtered'],
                     'consent:noconsentattributes' => ['filteredAttribute'],
@@ -160,7 +160,7 @@ class ConsentControllerTest extends TestCase
         $request = Request::create(
             '/noconsent',
             'GET',
-            ['StateId' => 'someStateId']
+            ['StateId' => 'someStateId'],
         );
 
         $c = new Controller\ConsentController(self::$config, self::$session);
@@ -193,7 +193,7 @@ class ConsentControllerTest extends TestCase
         $request = Request::create(
             '/logout',
             'GET',
-            ['StateId' => 'someStateId']
+            ['StateId' => 'someStateId'],
         );
 
         $c = new Controller\ConsentController(self::$config, self::$session);
@@ -201,7 +201,7 @@ class ConsentControllerTest extends TestCase
             public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
             {
                 return [
-                    'core:IdP' => 'saml2:something'
+                    'core:IdP' => 'saml2:something',
                 ];
             }
         });
@@ -233,7 +233,7 @@ class ConsentControllerTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/module.php/consent/' . $controller;
         $request = Request::create(
             '/' . $controller,
-            'GET'
+            'GET',
         );
 
         $c = new Controller\ConsentController(self::$config, self::$session);
@@ -256,7 +256,7 @@ class ConsentControllerTest extends TestCase
         $request = Request::create(
             '/' . $controller,
             'GET',
-            ['StateId' => 'someStateId']
+            ['StateId' => 'someStateId'],
         );
 
         $c = new Controller\ConsentController(self::$config, self::$session);

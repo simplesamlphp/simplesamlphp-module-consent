@@ -137,13 +137,13 @@ class ConsentTest extends TestCase
     {
         $attributes1 = [
             'attribute1' => ['val1', 'val2'],
-            'attribute2' => ['val1', 'val2']
+            'attribute2' => ['val1', 'val2'],
         ];
         $attributeHash1 = Consent::getAttributeHash($attributes1, true);
 
         $attributes2 = [
             'attribute1' => ['val1', 'val2'],
-            'attribute2' => ['val2', 'val1']
+            'attribute2' => ['val2', 'val1'],
         ];
         $attributeHash2 = Consent::getAttributeHash($attributes2, true);
 
@@ -157,20 +157,20 @@ class ConsentTest extends TestCase
     {
         $attributes1 = [
             'attribute2' => ['val1', 'val2'],
-            'attribute1' => ['val1', 'val2']
+            'attribute1' => ['val1', 'val2'],
         ];
         $attributeHash1 = Consent::getAttributeHash($attributes1, true);
 
         $attributes2 = [
             'attribute1' => ['val1', 'val2'],
-            'attribute2' => ['val1', 'val2']
+            'attribute2' => ['val1', 'val2'],
         ];
         $attributeHash2 = Consent::getAttributeHash($attributes2, true);
 
         $this->assertEquals(
             $attributeHash1,
             $attributeHash2,
-            "Hash is not the same when the order of the attributes changes"
+            "Hash is not the same when the order of the attributes changes",
         );
     }
 
@@ -181,20 +181,20 @@ class ConsentTest extends TestCase
     {
         $attributes1 = [
             'attribute2' => ['val1', 'val2'],
-            'attribute1' => ['val1', 'val2']
+            'attribute1' => ['val1', 'val2'],
         ];
         $attributeHash1 = Consent::getAttributeHash($attributes1);
 
         $attributes2 = [
             'attribute1' => ['val1', 'val2'],
-            'attribute2' => ['val1', 'val2']
+            'attribute2' => ['val1', 'val2'],
         ];
         $attributeHash2 = Consent::getAttributeHash($attributes2);
 
         $this->assertEquals(
             $attributeHash1,
             $attributeHash2,
-            "Hash is not the same when the order of the attributes changes and the values are not included"
+            "Hash is not the same when the order of the attributes changes and the values are not included",
         );
     }
 
@@ -241,7 +241,7 @@ class ConsentTest extends TestCase
         $this->assertEquals($instanceVars['noconsentattributes']->getValue($testcase), $config['attributes.exclude']);
         $this->assertEquals(
             $instanceVars['showNoConsentAboutService']->getValue($testcase),
-            $config['showNoConsentAboutService']
+            $config['showNoConsentAboutService'],
         );
     }
 }
