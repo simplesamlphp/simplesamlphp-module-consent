@@ -131,14 +131,14 @@ class Cookie extends \SimpleSAML\Module\consent\Store
 
         if (!array_key_exists($cookieName, $_COOKIE)) {
             Logger::debug(
-                'Consent cookie - no cookie with name \'' . $cookieName . '\'.'
+                'Consent cookie - no cookie with name \'' . $cookieName . '\'.',
             );
             return false;
         }
         if (!is_string($_COOKIE[$cookieName])) {
             Logger::warning(
                 'Value of consent cookie wasn\'t a string. Was: ' .
-                var_export($_COOKIE[$cookieName], true)
+                var_export($_COOKIE[$cookieName], true),
             );
             return false;
         }
@@ -147,13 +147,13 @@ class Cookie extends \SimpleSAML\Module\consent\Store
 
         if ($_COOKIE[$cookieName] !== $data) {
             Logger::info(
-                'Attribute set changed from the last time consent was given.'
+                'Attribute set changed from the last time consent was given.',
             );
             return false;
         }
 
         Logger::debug(
-            'Consent cookie - found cookie with correct name and value.'
+            'Consent cookie - found cookie with correct name and value.',
         );
 
         return true;
@@ -212,7 +212,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
     public function deleteAllConsents(string $userId): void
     {
         throw new Exception(
-            'The cookie consent handler does not support delete of all consents...'
+            'The cookie consent handler does not support delete of all consents...',
         );
     }
 
@@ -245,7 +245,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
             $tmp = explode(':', $value, 3);
             if (count($tmp) !== 3) {
                 Logger::warning(
-                    'Consent cookie with invalid value: ' . $value
+                    'Consent cookie with invalid value: ' . $value,
                 );
                 continue;
             }

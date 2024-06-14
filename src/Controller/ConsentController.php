@@ -135,7 +135,7 @@ class ConsentController
                 $attributeSet = $state['consent:store.attributeSet'];
 
                 $this->logger::debug(
-                    'Consent - saveConsent() : [' . $userId . '|' . $targetedId . '|' . $attributeSet . ']'
+                    'Consent - saveConsent() : [' . $userId . '|' . $targetedId . '|' . $attributeSet . ']',
                 );
                 try {
                     $store->saveConsent($userId, $targetedId, $attributeSet);
@@ -209,7 +209,7 @@ class ConsentController
             $privacypolicy = str_replace(
                 '%SPENTITYID%',
                 urlencode($spentityid),
-                $privacypolicy
+                $privacypolicy,
             );
         }
         $t->data['sppp'] = $privacypolicy;
@@ -252,12 +252,12 @@ class ConsentController
 
         $resumeFrom = Module::getModuleURL(
             'consent/getconsent',
-            ['StateId' => $stateId]
+            ['StateId' => $stateId],
         );
 
         $logoutLink = Module::getModuleURL(
             'consent/logout',
-            ['StateId' => $stateId]
+            ['StateId' => $stateId],
         );
 
         $aboutService = null;

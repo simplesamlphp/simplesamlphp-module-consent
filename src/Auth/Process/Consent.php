@@ -101,7 +101,7 @@ class Consent extends Auth\ProcessingFilter
             if (!is_bool($config['includeValues'])) {
                 throw new Error\Exception(
                     'Consent: includeValues must be boolean. ' .
-                    var_export($config['includeValues'], true) . ' given.'
+                    var_export($config['includeValues'], true) . ' given.',
                 );
             }
             $this->includeValues = $config['includeValues'];
@@ -111,7 +111,7 @@ class Consent extends Auth\ProcessingFilter
             if (!is_bool($config['checked'])) {
                 throw new Error\Exception(
                     'Consent: checked must be boolean. ' .
-                    var_export($config['checked'], true) . ' given.'
+                    var_export($config['checked'], true) . ' given.',
                 );
             }
             $this->checked = $config['checked'];
@@ -121,7 +121,7 @@ class Consent extends Auth\ProcessingFilter
             if (!in_array($config['focus'], ['yes', 'no'], true)) {
                 throw new Error\Exception(
                     'Consent: focus must be a string with values `yes` or `no`. ' .
-                    var_export($config['focus'], true) . ' given.'
+                    var_export($config['focus'], true) . ' given.',
                 );
             }
             $this->focus = $config['focus'];
@@ -131,7 +131,7 @@ class Consent extends Auth\ProcessingFilter
             if (!is_array($config['hiddenAttributes'])) {
                 throw new Error\Exception(
                     'Consent: hiddenAttributes must be an array. ' .
-                    var_export($config['hiddenAttributes'], true) . ' given.'
+                    var_export($config['hiddenAttributes'], true) . ' given.',
                 );
             }
             $this->hiddenAttributes = $config['hiddenAttributes'];
@@ -141,7 +141,7 @@ class Consent extends Auth\ProcessingFilter
             if (!is_array($config['attributes.exclude'])) {
                 throw new Error\Exception(
                     'Consent: attributes.exclude must be an array. ' .
-                    var_export($config['attributes.exclude'], true) . ' given.'
+                    var_export($config['attributes.exclude'], true) . ' given.',
                 );
             }
             $this->noconsentattributes = $config['attributes.exclude'];
@@ -153,7 +153,7 @@ class Consent extends Auth\ProcessingFilter
             } catch (Exception $e) {
                 Logger::error(
                     'Consent: Could not create consent storage: ' .
-                    $e->getMessage()
+                    $e->getMessage(),
                 );
             }
         }
@@ -168,11 +168,11 @@ class Consent extends Auth\ProcessingFilter
         Assert::keyExists(
             $config,
             'identifyingAttribute',
-            "Consent: Missing mandatory 'identifyingAttribute' config setting."
+            "Consent: Missing mandatory 'identifyingAttribute' config setting.",
         );
         Assert::stringNotEmpty(
             $config['identifyingAttribute'],
-            "Consent: 'identifyingAttribute' must be a non-empty string."
+            "Consent: 'identifyingAttribute' must be a non-empty string.",
         );
         $this->identifyingAttribute = $config['identifyingAttribute'];
     }
@@ -296,7 +296,7 @@ class Consent extends Auth\ProcessingFilter
             Assert::keyExists(
                 $attributes,
                 $this->identifyingAttribute,
-                "Consent: Missing '" . $this->identifyingAttribute . "' in user's attributes."
+                "Consent: Missing '" . $this->identifyingAttribute . "' in user's attributes.",
             );
 
             $source = $state['Source']['metadata-set'] . '|' . $idpEntityId;
@@ -305,7 +305,7 @@ class Consent extends Auth\ProcessingFilter
             Assert::keyExists(
                 $attributes,
                 $this->identifyingAttribute,
-                sprintf("Consent: No attribute '%s' was found in the user's attributes.", $this->identifyingAttribute)
+                sprintf("Consent: No attribute '%s' was found in the user's attributes.", $this->identifyingAttribute),
             );
 
             $userId = $attributes[$this->identifyingAttribute][0];
@@ -327,7 +327,7 @@ class Consent extends Auth\ProcessingFilter
             $attributeSet = self::getAttributeHash($attributes, $this->includeValues);
 
             Logger::debug(
-                'Consent: hasConsent() [' . $hashedUserId . '|' . $targetedId . '|' . $attributeSet . ']'
+                'Consent: hasConsent() [' . $hashedUserId . '|' . $targetedId . '|' . $attributeSet . ']',
             );
 
             try {
@@ -366,7 +366,7 @@ class Consent extends Auth\ProcessingFilter
             Stats::log('consent:nopassive', $statsData);
             throw new Module\saml\Error\NoPassive(
                 Constants::STATUS_REQUESTER,
-                'Unable to give consent on passive request.'
+                'Unable to give consent on passive request.',
             );
         }
 

@@ -142,7 +142,7 @@ abstract class Store
         $className = Module::resolveClass(
             $config[0],
             'Consent\Store',
-            '\SimpleSAML\Module\consent\Store'
+            '\SimpleSAML\Module\consent\Store',
         );
 
         unset($config[0]);

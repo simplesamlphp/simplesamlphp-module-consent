@@ -49,7 +49,7 @@ class ConsentControllerTest extends TestCase
                 'enable.saml20-idp' => true,
             ],
             '[ARRAY]',
-            'simplesaml'
+            'simplesaml',
         );
 
         self::$session = Session::getSessionFromRequest();
@@ -72,7 +72,7 @@ class ConsentControllerTest extends TestCase
         $request = Request::create(
             '/getconsent',
             'GET',
-            ['yes' => '', 'saveconsent' => '1', 'StateId' => 'someStateId']
+            ['yes' => '', 'saveconsent' => '1', 'StateId' => 'someStateId'],
         );
 
         $c = new Controller\ConsentController(self::$config, self::$session);
