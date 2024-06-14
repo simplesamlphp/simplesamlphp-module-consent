@@ -173,7 +173,7 @@ class Database extends \SimpleSAML\Module\consent\Store
             'UPDATE ' . $this->table . ' ' .
             'SET usage_date = ' . $this->dateTime . ' ' .
             'WHERE hashed_user_id = ? AND service_id = ? AND attribute = ?',
-            [$userId, $destinationId, $attributeSet]
+            [$userId, $destinationId, $attributeSet],
         );
 
         if ($st === false) {
@@ -210,7 +210,7 @@ class Database extends \SimpleSAML\Module\consent\Store
             'UPDATE ' . $this->table . ' ' .
             'SET consent_date = ' . $this->dateTime . ', usage_date = ' . $this->dateTime . ', attribute = ? ' .
             'WHERE hashed_user_id = ? AND service_id = ?',
-            [$attributeSet, $userId, $destinationId]
+            [$attributeSet, $userId, $destinationId],
         );
 
         if ($st === false) {
@@ -227,7 +227,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         $st = $this->execute(
             'INSERT INTO ' . $this->table . ' (' . 'consent_date, usage_date, hashed_user_id, service_id, attribute' .
             ') ' . 'VALUES (' . $this->dateTime . ', ' . $this->dateTime . ', ?, ?, ?)',
-            [$userId, $destinationId, $attributeSet]
+            [$userId, $destinationId, $attributeSet],
         );
 
         if ($st !== false) {
@@ -251,7 +251,7 @@ class Database extends \SimpleSAML\Module\consent\Store
     {
         $st = $this->execute(
             'DELETE FROM ' . $this->table . ' WHERE hashed_user_id = ? AND service_id = ?;',
-            [$userId, $destinationId]
+            [$userId, $destinationId],
         );
 
         if ($st === false) {
@@ -279,7 +279,7 @@ class Database extends \SimpleSAML\Module\consent\Store
     {
         $st = $this->execute(
             'DELETE FROM ' . $this->table . ' WHERE hashed_user_id = ?',
-            [$userId]
+            [$userId],
         );
 
         if ($st === false) {
@@ -312,7 +312,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         $st = $this->execute(
             'SELECT service_id, attribute, consent_date, usage_date FROM ' . $this->table .
             ' WHERE hashed_user_id = ?',
-            [$userId]
+            [$userId],
         );
 
         if ($st === false) {
@@ -349,7 +349,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         if ($st === false) {
             Logger::error(
                 'consent:Database - Error preparing statement \'' .
-                $statement . '\': ' . self::formatError($db->errorInfo())
+                $statement . '\': ' . self::formatError($db->errorInfo()),
             );
             return false;
         }
@@ -357,7 +357,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         if ($st->execute($parameters) !== true) {
             Logger::error(
                 'consent:Database - Error executing statement \'' .
-                $statement . '\': ' . self::formatError($st->errorInfo())
+                $statement . '\': ' . self::formatError($st->errorInfo()),
             );
             return false;
         }
@@ -395,7 +395,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         $st = $this->execute(
             'SELECT COUNT(*) AS no ' .
             'FROM (SELECT DISTINCT hashed_user_id FROM ' . $this->table . ' ) AS foo',
-            []
+            [],
         );
 
         if ($st === false) {
@@ -409,7 +409,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         // Get total number of services that has been given consent to
         $st = $this->execute(
             'SELECT COUNT(*) AS no FROM (SELECT DISTINCT service_id FROM ' . $this->table . ') AS foo',
-            []
+            [],
         );
 
         if ($st === false) {
@@ -477,7 +477,7 @@ class Database extends \SimpleSAML\Module\consent\Store
     {
         $st = $this->execute(
             'SELECT * FROM ' . $this->table . ' WHERE hashed_user_id = ? AND service_id = ? AND attribute = ?',
-            ['test', 'test', 'test']
+            ['test', 'test', 'test'],
         );
 
         if ($st === false) {
