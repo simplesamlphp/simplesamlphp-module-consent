@@ -23,10 +23,9 @@ msgstr "Zoustëmmung verhalen"
 
 msgid "%SPNAME% requires that the information below is transferred."
 msgstr ""
-"Daer sid dobai aerch um service unzemellen %SPNAME%. Waerend dem Login "
+"Dir sidd dobäi Iech um Service unzemellen %SPNAME%. Wärend dem Login "
 "Prozess schéckt den Identity Provider Attributer, déi Informatiounen "
-"iwert aer Identitéit enthaalen. Akzeptéier daer daat?"
+"iwwert Är Identitéit enthalen. Akzeptéier Dir dat?"
 
 msgid "No, cancel"
-msgstr "Nee"
-
+msgstr "Nee, ofbriechen"
