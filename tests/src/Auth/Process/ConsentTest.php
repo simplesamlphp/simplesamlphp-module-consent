@@ -13,7 +13,7 @@ use SimpleSAML\Module\consent\Auth\Process\Consent;
  *
  * @package SimpleSAMLphp
  */
-class ConsentTest extends TestCase
+final class ConsentTest extends TestCase
 {
     /** @var \SimpleSAML\Configuration */
     protected $config;

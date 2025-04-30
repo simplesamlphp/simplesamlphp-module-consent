@@ -1,16 +1,29 @@
+---
+
 consent-getconsent:
-    path:       /getconsent
-    defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::getconsent' }
-    methods: [GET]
+  path: /getconsent
+  defaults: {
+    _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::getconsent'
+  }
+  methods: [GET]
+
 consent-noconsent:
-    path:       /noconsent
-    defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::noconsent' }
-    methods: [GET]
+  path: /noconsent
+  defaults: {
+    _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::noconsent'
+  }
+  methods: [GET]
+
 consent-logout:
-    path:       /logout
-    defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::logout' }
-    methods: [GET]
+  path: /logout
+  defaults: {
+    _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::logout'
+  }
+  methods: [GET]
+
 consent-logoutcompleted:
-    path:       /logoutcompleted
-    defaults:   { _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::logoutcompleted' }
-    methods: [GET]
+  path: /logoutcompleted
+  defaults: {
+    _controller: 'SimpleSAML\Module\consent\Controller\ConsentController::logoutcompleted'
+  }
+  methods: [GET]
