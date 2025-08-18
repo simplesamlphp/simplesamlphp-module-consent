@@ -49,6 +49,8 @@ class Database extends \SimpleSAML\Module\consent\Store
 
     /**
      * Options for the database;
+     *
+     * @var array<mixed>
      */
     private array $options = [];
 
@@ -77,7 +79,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * This constructor parses the configuration.
      *
-     * @param array $config Configuration for database consent store.
+     * @param array<mixed> $config Configuration for database consent store.
      *
      * @throws \Exception in case of a configuration error.
      */
@@ -139,7 +141,7 @@ class Database extends \SimpleSAML\Module\consent\Store
     /**
      * Called before serialization.
      *
-     * @return array The variables which should be serialized.
+     * @return string[] The variables which should be serialized.
      */
     public function __sleep(): array
     {
@@ -303,7 +305,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * @param string $userId The hash identifying the user at an IdP.
      *
-     * @return array Array of all destination ids the user has given consent for.
+     * @return string[] Array of all destination ids the user has given consent for.
      */
     public function getConsents(string $userId): array
     {
@@ -334,16 +336,13 @@ class Database extends \SimpleSAML\Module\consent\Store
      * returned.
      *
      * @param string $statement  The statement which should be executed.
-     * @param array  $parameters Parameters for the statement.
+     * @param array<mixed>  $parameters Parameters for the statement.
      *
      * @return \PDOStatement|false  The statement, or false if execution failed.
      */
     private function execute(string $statement, array $parameters)
     {
         $db = $this->getDB();
-        if ($db === false) {
-            return false;
-        }
 
         $st = $db->prepare($statement);
         if ($st === false) {
@@ -374,7 +373,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      * - users: Total number of uses that have given consent
      * ' services: Total number of services that has been given consent to
      *
-     * @return array Array containing the statistics
+     * @return array<mixed> Array containing the statistics
      */
     public function getStatistics(): array
     {
@@ -427,9 +426,9 @@ class Database extends \SimpleSAML\Module\consent\Store
     /**
      * Get database handle.
      *
-     * @return \PDO|false Database handle, or false if we fail to connect.
+     * @return \PDO Database handle, or false if we fail to connect.
      */
-    private function getDB()
+    private function getDB(): PDO
     {
         if ($this->db !== null) {
             return $this->db;
@@ -439,6 +438,7 @@ class Database extends \SimpleSAML\Module\consent\Store
         if (isset($this->timeout)) {
             $driver_options[PDO::ATTR_TIMEOUT] = $this->timeout;
         }
+
         if (!empty($this->options)) {
             $this->options = array_merge($driver_options, $this->options);
         } else {
@@ -456,7 +456,7 @@ class Database extends \SimpleSAML\Module\consent\Store
      *
      * This function formats a PDO error, as returned from errorInfo.
      *
-     * @param array $error The error information.
+     * @param string[] $error The error information.
      *
      * @return string Error text.
      */

@@ -57,14 +57,14 @@ class Consent extends Auth\ProcessingFilter
     /**
      * Attributes where the value should be hidden
      *
-     * @var array
+     * @var array<mixed>
      */
     private array $hiddenAttributes = [];
 
     /**
      * Attributes which should not require consent
      *
-     * @var array
+     * @var array<mixed>
      */
     private array $noconsentattributes = [];
 
@@ -88,12 +88,12 @@ class Consent extends Auth\ProcessingFilter
      *
      * Validates and parses the configuration.
      *
-     * @param array $config Configuration information.
+     * @param array<mixed> $config Configuration information.
      * @param mixed $reserved For future use.
      *
      * @throws \SimpleSAML\Error\Exception if the configuration is not valid.
      */
-    public function __construct(array $config, $reserved)
+    public function __construct($config, $reserved)
     {
         parent::__construct($config, $reserved);
 
@@ -181,7 +181,7 @@ class Consent extends Auth\ProcessingFilter
     /**
      * Helper function to check whether consent is disabled.
      *
-     * @param mixed  $option The consent.disable option. Either an array of array, an array or a boolean.
+     * @param mixed $option The consent.disable option. Either an array of array, an array or a boolean.
      * @param string $entityId The entityID of the SP/IdP.
      *
      * @return boolean True if disabled, false if not.
@@ -241,8 +241,7 @@ class Consent extends Auth\ProcessingFilter
      * This function saves the state, and redirects the user to the page where the user can authorize the release of
      * the attributes. If storage is used and the consent has already been given the user is passed on.
      *
-     * @param array &$state The state of the response.
-     *
+     * @param array<mixed> &$state The state of the response.
      *
      * @throws \SimpleSAML\Module\saml\Error\NoPassive if the request was passive and consent is needed.
      */
@@ -282,6 +281,7 @@ class Consent extends Auth\ProcessingFilter
             Stats::log('consent:disabled', $statsData);
             return;
         }
+
         if (
             isset($state['Destination']['consent.disable']) &&
             self::checkDisable($state['Destination']['consent.disable'], $idpEntityId)
@@ -416,7 +416,7 @@ class Consent extends Auth\ProcessingFilter
      * Create a hash value for the attributes that changes when attributes are added or removed. If the attribute
      * values are included in the hash, the hash will change if the values change.
      *
-     * @param array  $attributes The attributes.
+     * @param array<mixed>  $attributes The attributes.
      * @param bool   $includeValues Whether or not to include the attribute value in the generation of the hash.
      *
      * @return string SHA1 of the user id, source id, destination id and salt.

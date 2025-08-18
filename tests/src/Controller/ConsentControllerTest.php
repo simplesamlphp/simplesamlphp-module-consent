@@ -91,7 +91,7 @@ final class ConsentControllerTest extends TestCase
                     'consent:store.destination' => 'urn:some:sp',
                     'consent:store.attributeSet' => 'some hash',
                     'consent:store' => new class () extends Cookie {
-                        public function __construct(array &$config = [])
+                        public function __construct()
                         {
                         }
 
