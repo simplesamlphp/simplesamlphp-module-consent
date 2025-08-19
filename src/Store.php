@@ -20,10 +20,11 @@ abstract class Store
      *
      * This constructor should always be called first in any class which implements this class.
      *
-     * @param array &$config The configuration for this storage handler.
+     * @param array<mixed> &$config The configuration for this storage handler.
      */
-    protected function __construct(array &$config)
-    {
+    protected function __construct(
+        protected array &$config,
+    ) {
     }
 
 
@@ -108,7 +109,7 @@ abstract class Store
      *
      * @param string $userId The hash identifying the user at an IdP.
      *
-     * @return array Array of all destination ids the user has given consent for.
+     * @return array<mixed> Array of all destination ids the user has given consent for.
      */
     abstract public function getConsents(string $userId): array;
 

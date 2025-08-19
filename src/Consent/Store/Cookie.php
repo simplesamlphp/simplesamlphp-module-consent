@@ -34,39 +34,40 @@ class Cookie extends \SimpleSAML\Module\consent\Store
     /**
      * @var string Cookie name prefix
      */
-    private $name;
+    private string $name;
 
     /**
      * @var int Cookie lifetime
      */
-    private $lifetime;
+    private int $lifetime;
 
     /**
      * @var string Cookie path
      */
-    private $path;
+    private string $path;
 
     /**
      * @var string Cookie domain
      */
-    private $domain = '';
+    private string $domain = '';
 
     /**
      * @var bool Cookie secure flag
      */
-    private $secure;
+    private bool $secure;
 
     /**
      * @var string|null Cookie samesite flag
      */
-    private $samesite = null;
+    private ?string $samesite = null;
+
 
     /**
      * Parse configuration.
      *
      * This constructor parses the configuration.
      *
-     * @param array $config Configuration for database consent store.
+     * @param array<mixed> $config Configuration for database consent store.
      *
      * @throws \Exception in case of a configuration error.
      */
@@ -108,6 +109,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
             $this->samesite = $config['samesite'];
         }
     }
+
 
     /**
      * Check for consent.
@@ -224,7 +226,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
      *
      * @param string $userId The hash identifying the user at an IdP.
      *
-     * @return array Array of all destination ids the user has given consent for.
+     * @return array<mixed> Array of all destination ids the user has given consent for.
      */
     public function getConsents(string $userId): array
     {
@@ -343,7 +345,7 @@ class Cookie extends \SimpleSAML\Module\consent\Store
             'path' => $this->path,
             'domain' => $this->domain,
             'httponly' => true,
-            'secure' => $httpUtils->isHTTPS(),
+            'secure' => $this->secure,
             'samesite' => $this->samesite,
         ];
 

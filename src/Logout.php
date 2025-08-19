@@ -18,7 +18,7 @@ class Logout
 {
     /**
      * @param \SimpleSAML\IdP $idp
-     * @param array $state
+     * @param array<mixed> $state
      */
     public static function postLogout(IdP $idp, array $state): void
     {
