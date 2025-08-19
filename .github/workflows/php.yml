@@ -268,7 +268,6 @@ jobs:
     name: Code coverage
     runs-on: [ubuntu-latest]
     needs: [unit-tests-linux]
-
     steps:
       - uses: actions/checkout@v5
 
