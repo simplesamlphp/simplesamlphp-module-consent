@@ -53,7 +53,7 @@ jobs:
           php-version: '8.3'
           tools: composer, composer-require-checker, composer-unused, phpcs, psalm
           # optional performance gain for psalm: opcache
-          extensions: ctype, date, dom, fileinfo, filter, hash, intl, mbstring, opcache, openssl, pcre, posix, spl, xml, zip
+          extensions: ctype, date, dom, fileinfo, filter, hash, intl, mbstring, opcache, openssl, pcre, posix, spl, xml
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
