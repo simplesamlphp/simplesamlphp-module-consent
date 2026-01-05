@@ -77,7 +77,7 @@ final class ConsentControllerTest extends TestCase
 
         $c = new Controller\ConsentController(self::$config, self::$session);
         $c->setAuthState(new class () extends State {
-            public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
+            public static function loadState(string $id, string $stage, bool $allowMissing = false): array
             {
                 return [
                     'Destination' => [
@@ -94,6 +94,7 @@ final class ConsentControllerTest extends TestCase
                         public function __construct()
                         {
                         }
+
 
                         public function saveConsent(string $userId, string $destinationId, string $attributeSet): bool
                         {
@@ -124,7 +125,7 @@ final class ConsentControllerTest extends TestCase
 
         $c = new Controller\ConsentController(self::$config, self::$session);
         $c->setAuthState(new class () extends State {
-            public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
+            public static function loadState(string $id, string $stage, bool $allowMissing = false): array
             {
                 return [
                     'StateId' => 'someStateId',
@@ -165,7 +166,7 @@ final class ConsentControllerTest extends TestCase
 
         $c = new Controller\ConsentController(self::$config, self::$session);
         $c->setAuthState(new class () extends State {
-            public static function loadState(string $id, string $stage, bool $allowMissing = false): ?array
+            public static function loadState(string $id, string $stage, bool $allowMissing = false): array
             {
                 return [
                     'consent:showNoConsentAboutService' => 'something that evals to true',
@@ -270,7 +271,7 @@ final class ConsentControllerTest extends TestCase
 
 
     /**
-     * @return array
+     * @return array<array<string>>
      */
     public static function stateTestsProvider(): array
     {
