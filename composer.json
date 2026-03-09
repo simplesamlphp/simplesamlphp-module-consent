@@ -37,7 +37,7 @@
         "php": "^8.3",
         "ext-pdo": "*",
 
-        "simplesamlphp/assert": "^1.9",
+        "simplesamlphp/assert": "^2.0",
         "simplesamlphp/composer-module-installer": "^1.5",
         "simplesamlphp/saml2": "^6.0",
 
