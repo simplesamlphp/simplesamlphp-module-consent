@@ -455,7 +455,7 @@ class Redis extends \SimpleSAML\Module\consent\Store
      */
     private function getUserKey(string $userId): string
     {
-        return $this->prefix . 'consent:' . $userId;
+        return 'consent:' . $userId;
     }
 
 
@@ -466,6 +466,6 @@ class Redis extends \SimpleSAML\Module\consent\Store
      */
     private function getKeyPattern(): string
     {
-        return $this->prefix . 'consent:*';
+        return 'consent:*';
     }
 }
